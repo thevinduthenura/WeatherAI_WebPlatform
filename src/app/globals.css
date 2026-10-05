@@ -167,6 +167,70 @@ body {
 }
 
 /* ==========================================================================
+   Plot Selector & Modern Layout Containers (Desktop Base)
+   ========================================================================== */
+.plot-selector-bar {
+  padding: 10px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.plot-selector-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.plot-pills-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.scroll-section {
+  scroll-margin-top: 85px;
+}
+
+.mobile-swipe-indicator {
+  display: none;
+}
+
+.water-savings-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.mobile-forecast-dock-card {
+  display: none;
+}
+
+.solo-header-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.solo-avatar-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.solo-pill-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* ==========================================================================
    Mission Control Layout (Command Center Container)
    ========================================================================== */
 .command-viewport {
@@ -923,27 +987,6 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 /* ==========================================================================
-   Responsive Adaptations
-   ========================================================================== */
-@media (max-width: 1200px) {
-  .mission-cockpit-grid {
-    grid-template-columns: 280px 1fr 280px;
-  }
-}
-
-@media (max-width: 980px) {
-  .mission-cockpit-grid {
-    grid-template-columns: 1fr;
-  }
-  .cockpit-nav-tabs {
-    display: none;
-  }
-  .cockpit-bottom-dual-bar {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ==========================================================================
    Holographic Agricultural HUD Overlays (Matching Concept Image 1)
    ========================================================================== */
 .hologram-hud-container {
@@ -1461,82 +1504,162 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 /* ==========================================================================
-   Mobile-First & iOS Experience Optimization (iPhone / Tablet Form Factors)
+   Mobile-First & iOS Experience Optimization
    ========================================================================== */
 
-/* Mobile Bottom Navigation Dock (Visible on Mobile / Tablet <= 900px) */
+/* Mobile Bottom Navigation Dock (hidden on desktop) */
 .mobile-bottom-dock {
   display: none;
 }
 
+/* Touch-safe hit areas */
+.hud-field-plot,
+.glass-pill,
+.cockpit-tab,
+.hist-bar,
+.mobile-dock-btn {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* ── TABLET (≤ 1024px) ─────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .mission-cockpit-grid {
+    grid-template-columns: 260px 1fr 260px;
+  }
+}
+
+/* ── MOBILE LANDSCAPE / SMALL TABLET (≤ 900px) ────────────────── */
 @media (max-width: 900px) {
-  /* Adjust command viewport padding for mobile bottom bar */
+
+  /* Viewport with generous bottom padding for iOS dock & home indicator */
   .command-viewport {
-    padding: 12px 14px 100px 14px;
+    padding: 10px 12px calc(96px + env(safe-area-inset-bottom, 20px)) 12px !important;
+    gap: 12px;
   }
 
-  /* Header adjustments */
+  .scroll-section {
+    scroll-margin-top: 66px;
+  }
+
+  /* ── Header ── */
   .cockpit-header {
-    padding: 10px 14px;
-    border-radius: var(--radius-md);
+    height: 52px;
+    padding: 0 12px;
+    top: 8px;
+    border-radius: var(--radius-pill);
+    gap: 8px;
+  }
+
+  .brand-glyph {
+    width: 32px;
+    height: 32px;
+  }
+
+  .brand-glyph svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .brand-title {
+    font-size: 0.92rem;
+    white-space: nowrap;
+  }
+
+  .brand-meta {
+    font-size: 0.58rem;
+    /* truncate long text */
+    max-width: 220px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .cockpit-nav-tabs {
-    display: none; /* Hidden from header on mobile, displayed in bottom dock */
+    display: none; /* moved to bottom dock */
   }
 
+  /* Playground button: icon only on mobile */
   .cockpit-actions .glass-pill span {
-    display: none; /* Icon only on mobile */
+    display: none;
   }
 
-  /* Tri-column cockpit collapses into single column */
+  .cockpit-actions .glass-pill {
+    padding: 7px 10px;
+  }
+
+  /* ── Cockpit Grid → single column ── */
   .mission-cockpit-grid {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 12px;
   }
 
-  /* Order: Center Map Radar First for immediate engagement */
-  .center-cockpit-panel {
-    order: 1;
-  }
+  /* Reorder: Map first, left panel second, right panel third */
+  .center-cockpit-panel { order: 1; }
+  .telemetry-left-panel { order: 2; }
+  .warning-right-panel  { order: 3; }
 
-  .telemetry-left-panel {
-    order: 2;
-  }
-
-  .telemetry-right-panel {
-    order: 3;
-  }
-
-  /* Satellite Map Mobile Optimization */
-  .satellite-map-card {
-    min-height: 480px;
-    padding: 16px;
-    border-radius: var(--radius-lg);
-  }
-
-  /* Floating Telemetry Beacon as iOS Bottom Sheet Drawer */
-  .floating-telemetry-beacon-card {
-    position: relative;
-    top: auto;
-    left: auto;
-    transform: none;
-    margin-top: 120px;
+  /* ── Plot Selector Bar ── */
+  .plot-selector-bar {
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 10px !important;
     width: 100%;
-    min-width: unset;
-    padding: 14px 18px;
-    border-radius: var(--radius-md);
-    background: rgba(10, 16, 13, 0.92);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    box-sizing: border-box;
   }
 
-  /* Map Header Bar */
+  .plot-selector-label {
+    width: 100%;
+    font-size: 0.78rem;
+  }
+
+  /* Plot pill buttons: smooth horizontal scroll row with zero stacking */
+  .plot-pills-row {
+    display: flex;
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    width: 100%;
+    gap: 8px !important;
+    padding-bottom: 6px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .plot-pills-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .plot-pills-row .glass-pill {
+    flex-shrink: 0 !important;
+    scroll-snap-align: start;
+    white-space: nowrap !important;
+    padding: 7px 14px;
+    font-size: 0.75rem;
+  }
+
+  /* ── Satellite GIS Agro Radar Card ── */
+  .satellite-map-card {
+    min-height: 330px;
+    height: 350px;
+    padding: 12px;
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+  }
+
+  /* Map header: stack vertically */
   .map-header-bar {
     flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
+    gap: 6px;
+  }
+
+  .map-title-block h1 {
+    font-size: 1.25rem;
   }
 
   .map-controls-row {
@@ -1544,21 +1667,261 @@ input[type="range"]::-webkit-slider-thumb {
     justify-content: space-between;
   }
 
-  /* Mobile Bottom Dock (iOS Bar) */
+  /* HUD circles: slightly smaller on mobile */
+  .hud-circle-node {
+    width: 58px;
+    height: 58px;
+  }
+
+  .hud-stat-val {
+    font-size: 0.9rem;
+  }
+
+  .hud-data-tag {
+    font-size: 0.58rem;
+    padding: 3px 6px;
+  }
+
+  /* Hide desktop 3D floating stage on mobile — avoids obscuring radar */
+  .desktop-only-floating {
+    display: none !important;
+  }
+
+  /* Dedicated Mobile Forecast Glass Card below the radar map */
+  .mobile-forecast-dock-card {
+    display: block;
+    position: relative;
+    width: 100%;
+    padding: 18px 16px;
+    border-radius: var(--radius-md);
+    background: rgba(12, 20, 16, 0.94);
+    backdrop-filter: blur(28px) saturate(190%);
+    -webkit-backdrop-filter: blur(28px) saturate(190%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), inset 0 1px 1.5px rgba(255, 255, 255, 0.35);
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  .mobile-bubble {
+    top: -10px;
+    right: -10px;
+    width: 28px;
+    height: 28px;
+  }
+
+  /* ── iOS Quick Stat Tiles ── */
+  .mobile-stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  .mobile-stat-tile {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    padding: 10px 6px;
+    text-align: center;
+  }
+
+  .mobile-stat-tile .num {
+    font-size: 1.05rem;
+    font-weight: 800;
+    font-family: var(--font-mono);
+    color: #FFFFFF;
+    line-height: 1.1;
+  }
+
+  .mobile-stat-tile .lbl {
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-top: 2px;
+  }
+
+  /* ── Bottom dual bar → single column ── */
+  .cockpit-bottom-dual-bar {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  /* ── Left Panel: fleet model cards ── */
+  .model-schematic-card {
+    padding: 12px 14px;
+  }
+
+  .schematic-name {
+    font-size: 0.82rem;
+  }
+
+  .fleet-pills-row {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+  }
+
+  /* ── Right Panel: actuators ── */
+  .actuation-controls-card {
+    padding: 14px;
+  }
+
+  /* Range sliders — touch-friendly */
+  input[type="range"] {
+    height: 10px;
+    margin: 10px 0;
+    cursor: pointer;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    width: 28px;
+    height: 28px;
+  }
+
+  /* Actuate button — iOS pill style */
+  .btn-actuate-full {
+    padding: 15px;
+    font-size: 0.9rem;
+    border-radius: 9999px;
+    margin-top: 12px;
+    min-height: 48px;
+  }
+
+  /* ── Section cards ── */
+  .section-hero-card {
+    padding: 18px 16px;
+  }
+
+  .section-title-large {
+    font-size: 1.2rem;
+    line-height: 1.3;
+  }
+
+  .section-desc-text {
+    font-size: 0.82rem;
+  }
+
+  /* ── Benchmark Table with smooth horizontal scroll & touch hint ── */
+  .mobile-swipe-indicator {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.72rem;
+    color: var(--accent-lime);
+    font-family: var(--font-mono);
+    margin-bottom: 8px;
+  }
+
+  .benchmark-table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--glass-border);
+    margin: 0 -4px;
+    width: calc(100% + 8px);
+  }
+
+  .benchmark-table {
+    min-width: 780px;
+    font-size: 0.78rem;
+  }
+
+  .benchmark-table th,
+  .benchmark-table td {
+    padding: 10px 14px;
+    white-space: nowrap;
+  }
+
+  .benchmark-table td:nth-child(2) {
+    white-space: normal;
+    min-width: 190px;
+  }
+
+  .benchmark-table td:nth-child(6),
+  .benchmark-table td:nth-child(7) {
+    white-space: normal;
+    min-width: 180px;
+  }
+
+  /* ── Water savings grid ── */
+  .water-savings-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  /* ── Solo architect card ── */
+  .solo-architect-card {
+    padding: 18px 16px;
+  }
+
+  .solo-header-flex {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .solo-pill-tags {
+    width: 100%;
+    gap: 6px;
+  }
+
+  /* ── Peer contributors: 2 columns on tablet ── */
+  .peer-contributors-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* ── Team member grid: 1 column ── */
+  .team-member-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* ── Hazard matrix: 2 columns ── */
+  .hazard-matrix-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* ── Playground modal ── */
+  .playground-window {
+    padding: 20px 18px;
+    border-radius: var(--radius-lg);
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .playground-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  /* ── Footer ── */
+  .cockpit-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 20px 16px;
+    font-size: 0.72rem;
+    margin-bottom: 30px !important;
+  }
+
+  /* ── iOS Floating Bottom Dock ── */
   .mobile-bottom-dock {
     display: flex;
     position: fixed;
-    bottom: 16px;
-    left: 16px;
-    right: 16px;
+    bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+    left: 14px;
+    right: 14px;
     z-index: 999;
-    padding: 8px 12px;
-    background: rgba(12, 20, 16, 0.92);
-    backdrop-filter: blur(30px) saturate(180%);
-    -webkit-backdrop-filter: blur(30px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    padding: 6px 10px;
+    background: rgba(10, 17, 14, 0.94);
+    backdrop-filter: blur(32px) saturate(200%);
+    -webkit-backdrop-filter: blur(32px) saturate(200%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 9999px;
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75), inset 0 1px 1.5px rgba(255, 255, 255, 0.3);
+    box-shadow:
+      0 20px 50px rgba(0, 0, 0, 0.8),
+      inset 0 1px 1.5px rgba(255, 255, 255, 0.35),
+      inset 0 -1px 1px rgba(0, 0, 0, 0.5);
     justify-content: space-around;
     align-items: center;
   }
@@ -1567,28 +1930,21 @@ input[type="range"]::-webkit-slider-thumb {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 3px;
+    gap: 2px;
     background: none;
     border: none;
     color: var(--text-secondary);
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     font-family: var(--font-main);
     font-weight: 600;
+    letter-spacing: 0.02em;
     cursor: pointer;
-    padding: 6px 12px;
+    padding: 6px 10px;
     border-radius: 9999px;
-    transition: all 0.2s ease;
-  }
-
-  .mobile-dock-btn.active {
-    color: #FFFFFF;
-    background: rgba(210, 248, 46, 0.18);
-    border: 1px solid rgba(210, 248, 46, 0.4);
-    box-shadow: 0 0 12px rgba(210, 248, 46, 0.25);
-  }
-
-  .mobile-dock-btn.active svg {
-    stroke: var(--accent-lime);
+    transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+    min-width: 44px;
+    min-height: 44px;
+    justify-content: center;
   }
 
   .mobile-dock-btn svg {
@@ -1597,98 +1953,161 @@ input[type="range"]::-webkit-slider-thumb {
     stroke: currentColor;
     stroke-width: 2;
     fill: none;
+    flex-shrink: 0;
+    transition: stroke 0.18s ease;
   }
 
-  /* Stat Tiles on Mobile (Matching Reference Screen 3) */
-  .mobile-stats-row {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    margin-top: 10px;
-  }
-
-  .mobile-stat-tile {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid var(--glass-border);
-    border-radius: var(--radius-sm);
-    padding: 10px 8px;
-    text-align: center;
-  }
-
-  .mobile-stat-tile .num {
-    font-size: 1.1rem;
-    font-weight: 800;
-    font-family: var(--font-mono);
+  .mobile-dock-btn.active {
     color: #FFFFFF;
+    background: rgba(210, 248, 46, 0.2);
+    border: 1px solid rgba(210, 248, 46, 0.45);
+    box-shadow: 0 0 16px rgba(210, 248, 46, 0.3);
   }
 
-  .mobile-stat-tile .lbl {
-    font-size: 0.62rem;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    margin-top: 2px;
-  }
-
-  /* Sliders touch accessibility */
-  input[type="range"] {
-    height: 10px;
-    margin: 8px 0;
-  }
-
-  input[type="range"]::-webkit-slider-thumb {
-    width: 26px;
-    height: 26px;
-  }
-
-  .btn-actuate-full {
-    padding: 14px;
-    font-size: 0.88rem;
-    border-radius: 9999px; /* Pill button like iOS */
-  }
-
-  /* Benchmark table responsive scrolling indicator */
-  .benchmark-table-container {
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--glass-border);
-    padding-bottom: 8px;
-  }
-
-  .section-title-large {
-    font-size: 1.25rem;
+  .mobile-dock-btn.active svg {
+    stroke: var(--accent-lime);
+    filter: drop-shadow(0 0 4px var(--accent-lime));
   }
 }
 
+/* ── PHONE PORTRAIT (≤ 480px) ──────────────────────────────────── */
 @media (max-width: 480px) {
+
   .command-viewport {
-    padding: 8px 10px 100px 10px;
+    padding: 8px 10px calc(88px + env(safe-area-inset-bottom, 0px)) 10px;
+    gap: 10px;
+  }
+
+  /* Header: tighter */
+  .cockpit-header {
+    height: 50px;
+    padding: 0 10px;
+  }
+
+  .brand-unit {
+    gap: 8px;
+  }
+
+  .brand-glyph {
+    width: 28px;
+    height: 28px;
   }
 
   .brand-title {
-    font-size: 0.95rem;
+    font-size: 0.88rem;
   }
 
   .brand-meta {
-    font-size: 0.62rem;
+    max-width: 160px;
+    font-size: 0.55rem;
   }
 
+  /* Map card */
   .satellite-map-card {
-    min-height: 440px;
+    min-height: 380px;
+    padding: 12px;
   }
 
-  .floating-telemetry-beacon-card {
-    margin-top: 90px;
-    padding: 12px 14px;
+  .map-title-block h1 {
+    font-size: 1.15rem;
   }
 
-  .beacon-big-stat .big-num {
-    font-size: 2.2rem;
+  /* HUD circles smaller */
+  .hud-circle-node {
+    width: 54px;
+    height: 54px;
   }
 
+  .hud-stat-val {
+    font-size: 0.85rem;
+  }
+
+  .hud-ring-outer {
+    inset: -4px;
+  }
+
+  /* Floating glass card */
+  .floating-3d-glass-card {
+    padding: 14px 14px;
+  }
+
+  /* Big temperature number */
+  .beacon-big-stat {
+    font-size: 2.4rem !important;
+  }
+
+  /* Quick tiles: 2 columns on small phone */
   .mobile-stats-row {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  /* Fleet pills: 2 per row */
+  .fleet-pills-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Section titles */
+  .section-title-large {
+    font-size: 1.1rem;
+  }
+
+  .section-hero-card {
+    padding: 14px 12px;
+  }
+
+  /* Solo architect card pillars: 1 col */
+  .solo-grid-pillars {
+    grid-template-columns: 1fr;
+  }
+
+  /* Peer cards: 1 col */
+  .peer-contributors-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Hazard: 1 col */
+  .hazard-matrix-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Bottom dock tighter */
+  .mobile-bottom-dock {
+    bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+    left: 10px;
+    right: 10px;
+    padding: 4px 6px;
+  }
+
+  .mobile-dock-btn {
+    padding: 5px 7px;
+    font-size: 0.55rem;
+    min-width: 40px;
+    min-height: 40px;
+  }
+
+  .mobile-dock-btn svg {
+    width: 16px;
+    height: 16px;
+  }
 }
 
+/* ── VERY SMALL PHONE (≤ 360px — e.g. Galaxy S) ────────────────── */
+@media (max-width: 360px) {
+  .brand-meta {
+    display: none; /* hide subtitle on very small screens */
+  }
 
+  .mobile-dock-btn span {
+    display: none; /* icon only */
+  }
 
+  .mobile-dock-btn {
+    padding: 8px;
+    min-width: 36px;
+    min-height: 36px;
+  }
 
+  .satellite-map-card {
+    min-height: 340px;
+  }
+}

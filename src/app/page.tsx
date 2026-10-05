@@ -389,18 +389,8 @@ export default function MissionControlPage() {
           ====================================================================== */}
       <section id="radar-section" className="scroll-section">
         {/* Plot Selector Bar */}
-        <div
-          className="liquid-glass"
-          style={{
-            padding: "10px 18px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            flexWrap: "wrap",
-            gap: "12px",
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+        <div className="liquid-glass plot-selector-bar">
+          <div className="plot-selector-label">
             <svg className="ui-icon sm" viewBox="0 0 24 24" style={{ stroke: "var(--accent-lime)" }}>
               <circle cx="12" cy="12" r="10"></circle>
               <polygon points="12 2 15 8 22 9 17 14 18 21 12 17 6 21 7 14 2 9 9 8 12 2"></polygon>
@@ -410,7 +400,7 @@ export default function MissionControlPage() {
             </span>
           </div>
 
-          <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+          <div className="plot-pills-row">
             {AGRO_PLOTS.map((plot) => (
               <button
                 key={plot.id}
@@ -624,8 +614,8 @@ export default function MissionControlPage() {
                 </div>
               </div>
 
-              {/* 3D Tilted Levitating Glass Card (Image 3/5 style) */}
-              <div className="card-3d-perspective-stage">
+              {/* 3D Tilted Levitating Glass Card (Desktop only, hidden on mobile to avoid obscuring radar) */}
+              <div className="card-3d-perspective-stage desktop-only-floating">
                 <div
                   className="floating-3d-glass-card"
                   ref={floatingCardRef}
@@ -677,6 +667,45 @@ export default function MissionControlPage() {
               <div className="map-bottom-strip">
                 <div style={{ fontSize: "0.74rem", color: "var(--text-secondary)", fontFamily: "var(--font-mono)", background: "rgba(0,0,0,0.5)", padding: "5px 14px", borderRadius: "var(--radius-pill)", border: "1px solid var(--glass-border)" }}>
                   Inference Model: {selectedModel.toUpperCase()} | Ambient: {temp.toFixed(1)}°C | RH: {humidity}% | Pres: {pressure} mbar
+                </div>
+              </div>
+            </div>
+
+            {/* Dedicated Mobile Forecast Glass Card (Shown below map on mobile devices) */}
+            <div className="mobile-forecast-dock-card liquid-glass">
+              <div className="waypoint-pin-bubble mobile-bubble">
+                <svg className="ui-icon sm" viewBox="0 0 24 24" style={{ stroke: "#050807", width: 16, height: 16 }}>
+                  <polygon points="12 2 19 21 12 17 5 21 12 2"></polygon>
+                </svg>
+              </div>
+              <div className="beacon-tag">
+                <svg className="ui-icon sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                <span>{selectedPlot.name} Forecast</span>
+              </div>
+              <div className="beacon-big-stat" id="mobile-pred-temp">
+                {displayPredictedTemp.toFixed(1)}<span>°C</span>
+              </div>
+              <div className="beacon-delta" id="mobile-pred-delta">
+                Delta: {delta >= 0 ? "+" : ""}{delta.toFixed(2)}°C | {isNight ? "Nocturnal Cooling" : "Solar Warming"}
+              </div>
+              <div style={{ display: "flex", justifyContent: "space-between", marginTop: 12, paddingTop: 10, borderTop: "1px solid rgba(255,255,255,0.12)", fontSize: "0.74rem", color: "var(--text-secondary)", fontFamily: "var(--font-mono)" }}>
+                <span>VPD: <strong style={{ color: "var(--accent-lime)" }}>{vpd.toFixed(2)} kPa</strong></span>
+                <span>Model: <strong style={{ color: "#FFFFFF" }}>{selectedModel.toUpperCase()}</strong></span>
+              </div>
+
+              {/* iOS Quick Stat Tiles */}
+              <div className="mobile-stats-row">
+                <div className="mobile-stat-tile">
+                  <div className="num">{temp.toFixed(1)}°</div>
+                  <div className="lbl">Ambient</div>
+                </div>
+                <div className="mobile-stat-tile">
+                  <div className="num">{humidity}%</div>
+                  <div className="lbl">Humidity</div>
+                </div>
+                <div className="mobile-stat-tile">
+                  <div className="num">{vpd.toFixed(2)}</div>
+                  <div className="lbl">VPD kPa</div>
                 </div>
               </div>
             </div>
@@ -817,6 +846,13 @@ export default function MissionControlPage() {
             All 6 models were systematically trained and cross-validated on 11 years (2006–2016) of continuous meteorological observations from the Szeged archive (96,429 raw records, 92,029 clean samples post outlier filtering). Below is the comprehensive benchmark matrix:
           </p>
 
+          <div className="mobile-swipe-indicator">
+            <svg className="ui-icon sm" viewBox="0 0 24 24" style={{ stroke: "var(--accent-lime)", width: 14, height: 14 }}>
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+            <span>Scroll horizontally to view complete peer benchmark metrics →</span>
+          </div>
+
           <div className="benchmark-table-container">
             <table className="benchmark-table">
               <thead>
@@ -947,7 +983,7 @@ export default function MissionControlPage() {
             Traditional timer-based irrigation systems waste up to 45% of applied water through runoff and deep percolation. By coupling real-time evapotranspiration modeling (ET0) with our 1-hour ahead predicted temperature (T_t+1) and relative humidity (RH), the platform halts unnecessary irrigation cycles when natural rain or high humidity provides adequate moisture.
           </p>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 14, marginTop: 12 }}>
+          <div className="water-savings-grid">
             <div className="fleet-pill-item" style={{ textAlign: "left", padding: "16px 20px" }}>
               <div className="lbl" style={{ color: "var(--accent-lime)" }}>Water Saved Daily</div>
               <div className="val" style={{ fontSize: "1.8rem", margin: "6px 0" }}>{waterSavedLiters.toLocaleString()} Liters</div>
@@ -985,8 +1021,8 @@ export default function MissionControlPage() {
 
           {/* Featured Solo Creator Showcase Card */}
           <div className="solo-architect-card">
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 14 }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+            <div className="solo-header-flex">
+              <div className="solo-avatar-row">
                 <div className="member-avatar-badge" style={{ width: 56, height: 56, fontSize: "1.3rem", background: "rgba(210, 248, 46, 0.2)", borderColor: "var(--accent-lime)" }}>
                   TG
                 </div>
@@ -1004,7 +1040,7 @@ export default function MissionControlPage() {
                 </div>
               </div>
 
-              <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+              <div className="solo-pill-tags">
                 <span className="glass-pill active" style={{ fontSize: "0.72rem" }}>Individual Concept &amp; Code</span>
                 <span className="glass-pill active" style={{ fontSize: "0.72rem" }}>Lead Deep Learning Model</span>
                 <span className="glass-pill active" style={{ fontSize: "0.72rem" }}>visionOS Liquid Glass UI</span>
