@@ -126,8 +126,32 @@ export default function MissionControlPage() {
   const [specularTint, setSpecularTint] = useState<string>("rgba(210, 248, 46, 0.4)");
   const [cardTiltAngle, setCardTiltAngle] = useState<{ x: number; y: number }>({ x: 12, y: -10 });
 
+  // Interactive Map Popup State (Click anywhere to inspect microclimate)
+  const [mapPopup, setMapPopup] = useState<{
+    visible: boolean;
+    x: number;
+    y: number;
+    name: string;
+    zone: string;
+    elevation: number;
+    crop: string;
+    soil: string;
+    moisture: number;
+    isCustom?: boolean;
+  }>({
+    visible: true,
+    x: 32,
+    y: 38,
+    name: AGRO_PLOTS[0].name,
+    zone: AGRO_PLOTS[0].zone,
+    elevation: AGRO_PLOTS[0].elevation,
+    crop: AGRO_PLOTS[0].crop,
+    soil: AGRO_PLOTS[0].soilStatus,
+    moisture: AGRO_PLOTS[0].moisture,
+    isCustom: false,
+  });
+
   // Refs
-  const radarSweepBeamRef = useRef<SVGGElement | null>(null);
   const floatingCardRef = useRef<HTMLDivElement | null>(null);
   const mapCardRef = useRef<HTMLDivElement | null>(null);
   const actuateBtnRef = useRef<HTMLButtonElement | null>(null);
@@ -148,6 +172,26 @@ export default function MissionControlPage() {
     setHumidity(plot.baseHum);
     setPressure(plot.basePres);
 
+    const coords: Record<string, { x: number; y: number }> = {
+      "plot-a": { x: 32, y: 38 },
+      "plot-b": { x: 66, y: 32 },
+      "plot-c": { x: 44, y: 68 },
+    };
+    const c = coords[plot.id] || { x: 45, y: 45 };
+
+    setMapPopup({
+      visible: true,
+      x: c.x,
+      y: c.y,
+      name: plot.name,
+      zone: plot.zone,
+      elevation: plot.elevation,
+      crop: plot.crop,
+      soil: plot.soilStatus,
+      moisture: plot.moisture,
+      isCustom: false,
+    });
+
     if (floatingCardRef.current) {
       gsap.fromTo(
         floatingCardRef.current,
@@ -155,6 +199,63 @@ export default function MissionControlPage() {
         { scale: 1.0, opacity: 1.0, duration: 0.45, ease: "back.out(1.8)" }
       );
     }
+  };
+
+  const handleMapClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const target = e.target as HTMLElement;
+    if (
+      target.closest(".satellite-map-popup") ||
+      target.closest(".map-bottom-strip") ||
+      target.closest(".map-header-bar") ||
+      target.closest(".hud-field-plot")
+    ) {
+      return;
+    }
+
+    if (!mapCardRef.current) return;
+    const rect = mapCardRef.current.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const clickY = e.clientY - rect.top;
+    const xPct = Math.max(8, Math.min(92, Math.round((clickX / rect.width) * 100)));
+    const yPct = Math.max(10, Math.min(88, Math.round((clickY / rect.height) * 100)));
+
+    // Proximity to predefined plots
+    if (Math.hypot(xPct - 32, yPct - 38) < 9) {
+      handleSelectPlot(AGRO_PLOTS[0]);
+      return;
+    }
+    if (Math.hypot(xPct - 66, yPct - 32) < 9) {
+      handleSelectPlot(AGRO_PLOTS[1]);
+      return;
+    }
+    if (Math.hypot(xPct - 44, yPct - 68) < 9) {
+      handleSelectPlot(AGRO_PLOTS[2]);
+      return;
+    }
+
+    // Dynamic GIS Microclimate calculation for any clicked coordinate in Sri Lanka agricultural corridors
+    const distFromCentralPeak = Math.hypot(xPct - 42, yPct - 45);
+    const estimatedElevation = Math.max(50, Math.round(2250 - distFromCentralPeak * 42));
+    const diurnal = hour >= 20 || hour <= 6 ? -3.4 : 2.2;
+    const estimatedTemp = +(30.5 - (estimatedElevation / 1000) * 6.5 + diurnal).toFixed(1);
+    const estimatedHum = Math.min(96, Math.max(42, Math.round(55 + (estimatedElevation > 1200 ? 30 : -8))));
+    const estimatedSoil = Math.min(88, Math.max(25, Math.round(35 + (estimatedElevation > 1000 ? 28 : 10))));
+
+    setTemp(estimatedTemp);
+    setHumidity(estimatedHum);
+
+    setMapPopup({
+      visible: true,
+      x: xPct,
+      y: yPct,
+      name: `GIS Sensor Point [${(6.8 + yPct * 0.016).toFixed(3)}°N, ${(80.4 + xPct * 0.016).toFixed(3)}°E]`,
+      zone: estimatedElevation > 1500 ? "Central Highland Ridge" : estimatedElevation > 800 ? "Montane Hill Slopes" : "Lowland Basin",
+      elevation: estimatedElevation,
+      crop: estimatedElevation > 1400 ? "Highland Camellia Tea" : estimatedElevation > 700 ? "Vegetables & Floriculture" : "Paddy & Lowland Crops",
+      soil: estimatedElevation > 1200 ? "Acidic Humus Loam" : "Red-Brown Earth",
+      moisture: estimatedSoil,
+      isCustom: true,
+    });
   };
 
   // Thermodynamic Calculations
@@ -206,16 +307,6 @@ export default function MissionControlPage() {
           clearProps: "opacity,transform",
         }
       );
-
-      if (radarSweepBeamRef.current) {
-        gsap.to(radarSweepBeamRef.current, {
-          rotation: 360,
-          transformOrigin: "410px 240px",
-          repeat: -1,
-          duration: 7,
-          ease: "none",
-        });
-      }
 
       if (floatingCardRef.current) {
         gsap.to(floatingCardRef.current, {
@@ -725,10 +816,12 @@ export default function MissionControlPage() {
             <div
               className="satellite-map-card liquid-glass"
               ref={mapCardRef}
+              onClick={handleMapClick}
               onMouseMove={handleMapMouseMove}
               style={{
                 backdropFilter: `blur(${glassBlur}px) saturate(${glassSaturate}%)`,
                 WebkitBackdropFilter: `blur(${glassBlur}px) saturate(${glassSaturate}%)`,
+                cursor: "crosshair",
               }}
             >
               <img
@@ -739,98 +832,197 @@ export default function MissionControlPage() {
               <div className="satellite-vignette"></div>
               <div className="satellite-grid-overlay"></div>
 
+              {/* Clean SVG Canvas: Subtle range rings around active plot (No clutter lines / No sweeping beam) */}
               <svg className="satellite-svg-canvas" viewBox="0 0 800 480" preserveAspectRatio="none">
                 <defs>
                   <radialGradient id="beaconGlow" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stopColor={isFrostImminent ? "#38BDF8" : "#D2F82E"} stopOpacity="0.35" />
+                    <stop offset="0%" stopColor={isFrostImminent ? "#38BDF8" : "#D2F82E"} stopOpacity="0.25" />
                     <stop offset="100%" stopColor={isFrostImminent ? "#38BDF8" : "#D2F82E"} stopOpacity="0.0" />
                   </radialGradient>
-                  <linearGradient id="radarSweep" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stopColor={isFrostImminent ? "#38BDF8" : "#D2F82E"} stopOpacity="0.4" />
-                    <stop offset="100%" stopColor={isFrostImminent ? "#38BDF8" : "#D2F82E"} stopOpacity="0.0" />
-                  </linearGradient>
                 </defs>
-
-                <path d="M 120 400 Q 280 320 410 240 T 680 80" fill="none" stroke={isFrostImminent ? "#38BDF8" : "#D2F82E"} strokeWidth="2.2" strokeDasharray="6 4" filter="drop-shadow(0 0 8px #D2F82E)" />
-                <path d="M 180 80 Q 320 180 410 240 T 620 420" fill="none" stroke="#38BDF8" strokeWidth="1.6" strokeDasharray="4 4" />
-                <circle cx="410" cy="240" r="45" fill="url(#beaconGlow)" />
-                <circle cx="410" cy="240" r="95" fill="none" stroke={isFrostImminent ? "rgba(56, 189, 248, 0.4)" : "rgba(210, 248, 46, 0.28)"} strokeWidth="1" strokeDasharray="4 4" />
-                <g id="radar-sweep-beam" ref={radarSweepBeamRef}>
-                  <path d="M 410 240 L 410 90 A 150 150 0 0 1 540 165 Z" fill="url(#radarSweep)" />
-                </g>
-                <line x1="256" y1="182" x2="528" y2="153" stroke="rgba(255,255,255,0.3)" strokeWidth="1.2" strokeDasharray="3 3" />
-                <line x1="256" y1="182" x2="352" y2="326" stroke="rgba(255,255,255,0.3)" strokeWidth="1.2" strokeDasharray="3 3" />
-                <line x1="528" y1="153" x2="352" y2="326" stroke="rgba(255,255,255,0.3)" strokeWidth="1.2" strokeDasharray="3 3" />
+                <circle
+                  cx={mapPopup.x * 8}
+                  cy={mapPopup.y * 4.8}
+                  r="50"
+                  fill="url(#beaconGlow)"
+                />
+                <circle
+                  cx={mapPopup.x * 8}
+                  cy={mapPopup.y * 4.8}
+                  r="85"
+                  fill="none"
+                  stroke={isFrostImminent ? "rgba(56, 189, 248, 0.3)" : "rgba(210, 248, 46, 0.25)"}
+                  strokeWidth="1"
+                  strokeDasharray="4 4"
+                />
               </svg>
 
               <div className="map-header-bar">
                 <div className="map-title-block">
-                  <h1>{selectedPlot.name}</h1>
-                  <div style={{ fontSize: "0.74rem", color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
-                    ZONE: {selectedPlot.zone.toUpperCase()} // SOIL: {selectedPlot.soilStatus}
+                  <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: "0.64rem", color: "var(--accent-lime)", fontFamily: "var(--font-mono)", fontWeight: 700, textTransform: "uppercase", marginBottom: 3 }}>
+                    <span className="dot" style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--accent-lime)", display: "inline-block", boxShadow: "0 0 8px var(--accent-lime)" }}></span>
+                    <span>SATELLITE GIS // CLICK ANYWHERE ON MAP TO POPUP TELEMETRY</span>
+                  </div>
+                  <h1>{mapPopup.name}</h1>
+                  <div style={{ fontSize: "0.72rem", color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
+                    ZONE: {mapPopup.zone.toUpperCase()} // ELEVATION: {mapPopup.elevation}M // SOIL: {mapPopup.soil}
                   </div>
                 </div>
               </div>
 
-              {/* Floating Frosted Glass HUD Tag (Image 3 & Image 5 Replica) */}
-              <div className="satellite-floating-hud">
-                <div className="hud-hud-header">
-                  <span>{selectedPlot.name}</span>
-                  <span className="hud-hud-arrow">↗</span>
-                </div>
-                <div className="hud-hud-sub">Elevation: {selectedPlot.elevation}m • {selectedPlot.zone}</div>
-                <div className="hud-hud-big">
-                  {displayPredictedTemp.toFixed(1)}°C <span className="unit">Predicted</span>
-                </div>
-                <div className="hud-hud-delta">
-                  Delta: {delta >= 0 ? "+" : ""}{delta.toFixed(2)}°C | {isNight ? "Nocturnal Cooling" : "Solar Warming"}
-                </div>
-                <div className="hud-hud-metrics-row">
-                  <span>VPD: <strong>{vpd.toFixed(2)} kPa</strong></span>
-                  <span>RH: <strong>{humidity}%</strong></span>
-                  <span>Soil: <strong>{selectedPlot.moisture}%</strong></span>
-                </div>
-                <div className={`hud-hud-badge ${isFrostImminent ? "danger" : "normal"}`}>
-                  {isFrostImminent ? "CRITICAL GROUND FROST RISK" : "OPTIMAL THERMAL RANGE"}
-                </div>
-              </div>
+              {/* Dynamic Map Info Popup (Appears on click over inspected position) */}
+              {mapPopup.visible && (
+                <div
+                  className="satellite-map-popup liquid-glass"
+                  style={{
+                    left: `${Math.max(4, Math.min(64, mapPopup.x > 55 ? mapPopup.x - 35 : mapPopup.x + 4))}%`,
+                    top: `${Math.max(6, Math.min(46, mapPopup.y > 55 ? mapPopup.y - 38 : mapPopup.y - 8))}%`,
+                  }}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <div className="popup-header-row">
+                    <div className="popup-title-group">
+                      <div className="popup-live-indicator">
+                        <span className="dot"></span>
+                        <span>{mapPopup.isCustom ? "CUSTOM GIS TELEMETRY" : "LIVE AGRO HOTSPOT"}</span>
+                      </div>
+                      <div className="popup-main-title">{mapPopup.name}</div>
+                      <div className="popup-sub-title">Elevation: {mapPopup.elevation}m • {mapPopup.zone}</div>
+                    </div>
+                    <button
+                      className="popup-close-btn"
+                      onClick={() => setMapPopup((prev) => ({ ...prev, visible: false }))}
+                      title="Close Popup"
+                    >
+                      ✕
+                    </button>
+                  </div>
 
-              {/* Holographic Farm HUD Overlays (Image 1 style) */}
+                  <div className="popup-temp-display">
+                    <div className="popup-temp-number">
+                      {displayPredictedTemp.toFixed(1)}°C
+                      <span className="popup-temp-label">Predicted (1h)</span>
+                    </div>
+                    <div className="popup-temp-model-tag">
+                      {selectedModel.toUpperCase()} AI
+                    </div>
+                  </div>
+
+                  <div className="popup-delta-text">
+                    Ambient: <strong>{temp.toFixed(1)}°C</strong> | Delta: <strong>{delta >= 0 ? "+" : ""}{delta.toFixed(2)}°C</strong> ({isNight ? "Nocturnal Cooling" : "Solar Warming"})
+                  </div>
+
+                  <div className="popup-metrics-grid">
+                    <div className="popup-metric-item">
+                      <span className="lbl">VPD</span>
+                      <span className="val">{vpd.toFixed(2)} kPa</span>
+                    </div>
+                    <div className="popup-metric-item">
+                      <span className="lbl">RH</span>
+                      <span className="val">{humidity}%</span>
+                    </div>
+                    <div className="popup-metric-item">
+                      <span className="lbl">Soil</span>
+                      <span className="val">{mapPopup.moisture}%</span>
+                    </div>
+                    <div className="popup-metric-item">
+                      <span className="lbl">Crop</span>
+                      <span className="val" style={{ maxWidth: 80, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                        {mapPopup.crop.split(" ")[0]}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className={`popup-status-badge ${isFrostImminent ? "danger" : "normal"}`}>
+                    <span className="status-dot"></span>
+                    <span>{isFrostImminent ? "CRITICAL GROUND FROST HAZARD" : "OPTIMAL THERMAL BIOSPHERE"}</span>
+                  </div>
+                </div>
+              )}
+
+              {/* Custom Clicked Point Beacon */}
+              {mapPopup.isCustom && mapPopup.visible && (
+                <div
+                  className="custom-map-beacon"
+                  style={{ left: `${mapPopup.x}%`, top: `${mapPopup.y}%` }}
+                >
+                  <div className="beacon-ripple"></div>
+                  <div className="beacon-dot"></div>
+                </div>
+              )}
+
+              {/* Clean GIS Hotspot Pins (High-Visibility Interactive Markers) */}
               <div className="hologram-hud-container">
-                <div className="hud-field-plot" style={{ top: "38%", left: "32%" }} onClick={() => handleSelectPlot(AGRO_PLOTS[0])}>
-                  <div className="hud-circle-node" style={{ background: selectedPlot.id === "plot-a" ? "rgba(56, 189, 248, 0.25)" : "rgba(14, 23, 19, 0.65)", border: "1.5px solid #38BDF8" }}>
-                    <div className="hud-ring-outer" style={{ borderColor: "#38BDF8" }}></div>
-                    <div className="hud-ring-inner"></div>
-                    <div className="hud-stat-val" style={{ color: "#38BDF8" }}>58%</div>
-                    <div className="hud-stat-icon">
-                      <svg className="ui-icon sm" viewBox="0 0 24 24" style={{ stroke: "#38BDF8", width: 15, height: 15 }}><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
+                {/* Plot A: Pedro Tea */}
+                <div
+                  className={`hud-field-plot ${selectedPlot.id === "plot-a" && !mapPopup.isCustom ? "active" : ""}`}
+                  style={{ top: "38%", left: "32%" }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleSelectPlot(AGRO_PLOTS[0]);
+                  }}
+                  title="Click to inspect Pedro Valley Tea Estate"
+                >
+                  <div className="hud-pin-marker tea-color">
+                    <div className="pin-pulse-ring"></div>
+                    <div className="pin-core-circle">
+                      <svg className="ui-icon sm" viewBox="0 0 24 24" style={{ stroke: "#38BDF8", width: 16, height: 16 }}>
+                        <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+                      </svg>
+                    </div>
+                    <div className="pin-badge">
+                      <span className="pin-title">Pedro Tea</span>
+                      <span className="pin-metric">{selectedPlot.id === "plot-a" ? `${temp.toFixed(1)}°C` : "58% Soil"}</span>
                     </div>
                   </div>
-                  <div className="hud-data-tag">Pedro Tea // 58% Soil Moisture</div>
                 </div>
 
-                <div className="hud-field-plot" style={{ top: "32%", left: "66%" }} onClick={() => handleSelectPlot(AGRO_PLOTS[1])}>
-                  <div className="hud-circle-node" style={{ background: selectedPlot.id === "plot-b" ? "rgba(210, 248, 46, 0.25)" : "rgba(14, 23, 19, 0.65)", border: "1.5px solid #D2F82E" }}>
-                    <div className="hud-ring-outer" style={{ borderColor: "#D2F82E" }}></div>
-                    <div className="hud-ring-inner"></div>
-                    <div className="hud-stat-val" style={{ color: "#D2F82E" }}>36%</div>
-                    <div className="hud-stat-icon">
-                      <svg className="ui-icon sm" viewBox="0 0 24 24" style={{ stroke: "#D2F82E", width: 15, height: 15 }}><path d="M12 22v-8m0 0a5 5 0 0 1 5-5h2a5 5 0 0 1-5 5h-2zm0 0a5 5 0 0 0-5-5H5a5 5 0 0 0 5 5h2z"></path></svg>
+                {/* Plot B: Polyhouse Floriculture */}
+                <div
+                  className={`hud-field-plot ${selectedPlot.id === "plot-b" && !mapPopup.isCustom ? "active" : ""}`}
+                  style={{ top: "32%", left: "66%" }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleSelectPlot(AGRO_PLOTS[1]);
+                  }}
+                  title="Click to inspect Polyhouse Floriculture Tunnel"
+                >
+                  <div className="hud-pin-marker greenhouse-color">
+                    <div className="pin-pulse-ring"></div>
+                    <div className="pin-core-circle">
+                      <svg className="ui-icon sm" viewBox="0 0 24 24" style={{ stroke: "#D2F82E", width: 16, height: 16 }}>
+                        <path d="M12 22v-8m0 0a5 5 0 0 1 5-5h2a5 5 0 0 1-5 5h-2zm0 0a5 5 0 0 0-5-5H5a5 5 0 0 0 5 5h2z"></path>
+                      </svg>
+                    </div>
+                    <div className="pin-badge">
+                      <span className="pin-title">Polyhouse</span>
+                      <span className="pin-metric">{selectedPlot.id === "plot-b" ? `${temp.toFixed(1)}°C` : "36% Canopy"}</span>
                     </div>
                   </div>
-                  <div className="hud-data-tag">Greenhouse // 36% Canopy Sprout</div>
                 </div>
 
-                <div className="hud-field-plot" style={{ top: "68%", left: "44%" }} onClick={() => handleSelectPlot(AGRO_PLOTS[2])}>
-                  <div className="hud-circle-node" style={{ background: selectedPlot.id === "plot-c" ? "rgba(245, 158, 11, 0.25)" : "rgba(14, 23, 19, 0.65)", border: "1.5px solid #F59E0B" }}>
-                    <div className="hud-ring-outer" style={{ borderColor: "#F59E0B" }}></div>
-                    <div className="hud-ring-inner"></div>
-                    <div className="hud-stat-val" style={{ color: "#F59E0B" }}>73%</div>
-                    <div className="hud-stat-icon">
-                      <svg className="ui-icon sm" viewBox="0 0 24 24" style={{ stroke: "#F59E0B", width: 15, height: 15 }}><circle cx="12" cy="12" r="5"></circle></svg>
+                {/* Plot C: Mahaweli Paddy */}
+                <div
+                  className={`hud-field-plot ${selectedPlot.id === "plot-c" && !mapPopup.isCustom ? "active" : ""}`}
+                  style={{ top: "68%", left: "44%" }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleSelectPlot(AGRO_PLOTS[2]);
+                  }}
+                  title="Click to inspect Mahaweli Paddy Sector"
+                >
+                  <div className="hud-pin-marker paddy-color">
+                    <div className="pin-pulse-ring"></div>
+                    <div className="pin-core-circle">
+                      <svg className="ui-icon sm" viewBox="0 0 24 24" style={{ stroke: "#F59E0B", width: 16, height: 16 }}>
+                        <circle cx="12" cy="12" r="5"></circle>
+                      </svg>
+                    </div>
+                    <div className="pin-badge">
+                      <span className="pin-title">Mahaweli Paddy</span>
+                      <span className="pin-metric">{selectedPlot.id === "plot-c" ? `${temp.toFixed(1)}°C` : "73% Solar"}</span>
                     </div>
                   </div>
-                  <div className="hud-data-tag">Paddy Field // 73% Solar Irradiance</div>
                 </div>
               </div>
 
