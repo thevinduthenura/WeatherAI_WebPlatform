@@ -2199,158 +2199,932 @@ body {
   justify-content: space-between;
   border-radius: var(--radius-xl);
 }
-
-/* Photorealistic Satellite Map Background Image */
-.satellite-bg-image {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.65;
-  filter: contrast(110%) brightness(85%);
-  pointer-events: none;
-}
-
-/* Dark GIS Vignette Overlay */
-.satellite-vignette {
-  position: absolute;
-  inset: 0;
-  background: 
-    radial-gradient(circle at 50% 50%, rgba(9, 17, 13, 0.4) 0%, rgba(5, 8, 7, 0.88) 100%),
-    linear-gradient(180deg, rgba(6, 10, 8, 0.75) 0%, rgba(6, 10, 8, 0.2) 40%, rgba(6, 10, 8, 0.8) 100%);
-  pointer-events: none;
-}
-
-.satellite-grid-overlay {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image: 
-    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
-  background-size: 32px 32px;
-  opacity: 0.6;
-}
-
-.satellite-svg-canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
-/* Center Map Header */
-.map-header-bar {
+/* ==========================================================================
+   Tactical GIS Map Viewport (Images 1, 2 & 3 Combined Aesthetics)
+   - Image 1: Opportunities / Agro Metabolism Legend & Flow Arcs + Compass Rose
+   - Image 2: Ahramat Glowing Electric Blue Hydrology Veins & Tactical HUD Reticles
+   - Image 3: Santorini-Style Thermal Card, Heatmap Bands & Live Temp Pins
+   ========================================================================== */
+.tactical-gis-viewport {
   position: relative;
-  z-index: 10;
+  width: 100%;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  background: #060908;
+  box-sizing: border-box;
+}
+
+/* Leaflet Tile Styling: High-contrast Dark GIS (Image 1 & 2 aesthetic) */
+.tactical-leaflet-map-canvas .leaflet-tile-pane {
+  filter: contrast(125%) brightness(82%) saturate(90%);
+}
+
+/* Dark GIS Vignette */
+.tactical-map-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 400;
+  background: radial-gradient(circle at 50% 50%, transparent 60%, rgba(5, 8, 7, 0.75) 100%),
+              linear-gradient(180deg, rgba(5, 8, 7, 0.6) 0%, transparent 15%, transparent 85%, rgba(5, 8, 7, 0.8) 100%);
+}
+
+/* HUD Tech Corner Brackets (Image 2 replica) */
+.hud-corner-bracket {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  z-index: 550;
+  pointer-events: none;
+}
+
+.hud-corner-bracket.top-left {
+  top: 14px;
+  left: 14px;
+  border-top: 2px solid var(--accent-lime);
+  border-left: 2px solid var(--accent-lime);
+}
+
+.hud-corner-bracket.top-right {
+  top: 14px;
+  right: 14px;
+  border-top: 2px solid var(--accent-lime);
+  border-right: 2px solid var(--accent-lime);
+}
+
+.hud-corner-bracket.bottom-left {
+  bottom: 14px;
+  left: 14px;
+  border-bottom: 2px solid var(--accent-lime);
+  border-left: 2px solid var(--accent-lime);
+}
+
+.hud-corner-bracket.bottom-right {
+  bottom: 14px;
+  right: 14px;
+  border-bottom: 2px solid var(--accent-lime);
+  border-right: 2px solid var(--accent-lime);
+}
+
+/* Top Controls Header Bar */
+.tactical-top-controls-bar {
+  position: absolute;
+  top: 18px;
+  left: 36px;
+  right: 36px;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: none;
+  gap: 12px;
+}
+
+.tactical-brand-chip {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  background: rgba(10, 16, 13, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+}
+
+.live-dot-pulse {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent-lime);
+  box-shadow: 0 0 8px var(--accent-lime);
+  animation: beaconPulse 1.8s infinite ease-in-out;
+}
+
+.brand-txt {
+  font-size: 0.68rem;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #FFFFFF;
+}
+
+.tactical-coords-reticle {
+  pointer-events: auto;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  background: rgba(10, 16, 13, 0.75);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 0.68rem;
+  font-family: var(--font-mono);
+  color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tactical-coords-reticle .sep {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.tactical-layer-switcher {
+  pointer-events: auto;
+  display: flex;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-pill);
+  padding: 3px;
+  gap: 3px;
+}
+
+.layer-switch-btn {
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.65);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all var(--trans-fast);
+  white-space: nowrap;
+}
+
+.layer-switch-btn:hover {
+  color: #FFFFFF;
+}
+
+.layer-switch-btn.active {
+  background: rgba(255, 255, 255, 0.18);
+  color: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* ==========================================================================
+   Opportunities Left Legend (Image 1 replica: URBAN METABOLISM ALBANIA)
+   ========================================================================== */
+.tactical-opportunities-legend {
+  position: absolute;
+  top: 68px;
+  left: 20px;
+  bottom: 84px;
+  width: 270px;
+  z-index: 500;
+  background: rgba(8, 12, 10, 0.88);
+  backdrop-filter: blur(28px) saturate(190%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.tactical-opportunities-legend.collapsed {
+  width: 44px;
+  bottom: auto;
+  height: 44px;
+  border-radius: var(--radius-pill);
+}
+
+.legend-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.legend-main-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  letter-spacing: -0.02em;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.legend-sub-title {
+  font-size: 0.62rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 2px;
+  text-transform: uppercase;
+}
+
+.legend-toggle-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  cursor: pointer;
+  transition: all var(--trans-fast);
+}
+
+.legend-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.legend-content-scroller {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.legend-content-scroller::-webkit-scrollbar {
+  width: 4px;
+}
+.legend-content-scroller::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+
+.legend-category-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.legend-category-heading {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.cat-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.cat-sub {
+  font-size: 0.62rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.45);
+  margin-left: auto;
+}
+
+.legend-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-left: 10px;
+}
+
+.legend-item-btn {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 6px 8px;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  border: 1px solid transparent;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+  transition: all var(--trans-fast);
+}
+
+.legend-item-btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.legend-item-btn.active {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.22);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.node-icon-bubble {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  flex-shrink: 0;
+}
+
+.node-info-text {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.node-name {
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.node-elev {
+  font-size: 0.63rem;
+  font-family: var(--font-mono);
+  color: rgba(255, 255, 255, 0.45);
+}
+
+/* ==========================================================================
+   Santorini-Style Floating Location Card (Image 3 replica)
+   ========================================================================== */
+.tactical-santorini-card {
+  position: absolute;
+  top: 72px;
+  right: 24px;
+  width: 310px;
+  z-index: 500;
+  border-radius: 20px;
+  overflow: hidden;
+  background: rgba(11, 16, 13, 0.88);
+  backdrop-filter: blur(32px) saturate(200%);
+  -webkit-backdrop-filter: blur(32px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  animation: fadeInCard 0.25s ease-out;
+}
+
+@keyframes fadeInCard {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.santorini-card-banner {
+  position: relative;
+  height: 120px;
+  background-size: cover;
+  background-position: center;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.banner-overlay-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(11,16,13,0.92) 100%);
+}
+
+.banner-top-row {
+  position: relative;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.map-title-block h1 {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: var(--text-pure);
-  letter-spacing: -0.025em;
-}
-
-.map-controls-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-/* Central Floating Target Temperature Card */
-.floating-telemetry-beacon-card {
-  position: absolute;
-  top: 48%;
-  left: 52%;
-  transform: translate(-50%, -50%);
-  z-index: 20;
-  padding: 20px 26px;
-  min-width: 250px;
-  background: rgba(14, 23, 19, 0.88);
-  border: 1px solid rgba(210, 248, 46, 0.42);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), inset 0 1px 1.5px rgba(255, 255, 255, 0.4);
-  border-radius: var(--radius-md);
-  text-align: center;
-  cursor: grab;
-}
-
-.beacon-tag {
-  font-size: 0.72rem;
-  text-transform: uppercase;
+.banner-corridor-tag {
+  font-size: 0.62rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.08em;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 3px 8px;
+  border-radius: var(--radius-pill);
   color: var(--accent-lime);
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  margin-bottom: 2px;
+  border: 1px solid rgba(210, 248, 46, 0.3);
+}
+
+.banner-close-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #FFFFFF;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
+  cursor: pointer;
+  font-size: 0.7rem;
+  transition: all var(--trans-fast);
 }
 
-.beacon-big-stat {
-  font-size: 3.1rem;
+.banner-close-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.banner-title-text {
+  position: relative;
+  z-index: 2;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 1.15;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+}
+
+.banner-coords-sub {
+  position: relative;
+  z-index: 2;
+  font-size: 0.63rem;
+  font-family: var(--font-mono);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.santorini-card-body {
+  padding: 14px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.santorini-temp-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.santorini-temp-main {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.santorini-temp-main .temp-num {
+  font-size: 2.2rem;
   font-weight: 800;
   color: #FFFFFF;
   line-height: 1;
 }
 
-.beacon-big-stat span {
-  font-size: 1.5rem;
+.santorini-temp-main .temp-deg {
+  font-size: 1.1rem;
   color: var(--accent-lime);
+  font-weight: 600;
 }
 
-.beacon-delta {
-  font-size: 0.76rem;
-  color: var(--accent-cyan);
+.santorini-temp-main .temp-lbl {
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin-left: 4px;
+}
+
+.santorini-temp-pred {
+  text-align: right;
+}
+
+.santorini-temp-pred .pred-val {
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.santorini-temp-pred .pred-lbl {
+  font-size: 0.6rem;
   font-family: var(--font-mono);
-  margin-top: 5px;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  margin-top: 2px;
 }
 
-/* Center Map Bottom Floating Telemetry Strip */
-.map-bottom-strip {
-  position: relative;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.radar-zoom-controls {
+.santorini-chips-row {
   display: flex;
   gap: 6px;
 }
 
-.zoom-btn {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid var(--glass-border);
-  color: var(--text-pure);
+.santorini-chip {
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  font-size: 0.68rem;
+  font-weight: 600;
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 5px;
+}
+
+.santorini-chip.primary {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #FFFFFF;
+}
+
+.santorini-chip.safe {
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  color: #34d399;
+}
+
+.santorini-chip.danger {
+  background: rgba(239, 68, 68, 0.18);
+  border: 1px solid rgba(239, 68, 68, 0.45);
+  color: #f87171;
+}
+
+.santorini-metrics-quad {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+}
+
+.quad-item {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.quad-lbl {
+  font-size: 0.58rem;
+  color: rgba(255, 255, 255, 0.45);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+}
+
+.quad-val {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-top: 2px;
+}
+
+.santorini-desc-narrative {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.4;
+  margin: 0;
+}
+
+.santorini-action-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #FFFFFF;
+  padding: 9px 16px;
+  border-radius: var(--radius-pill);
+  font-size: 0.76rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all var(--trans-fast);
+  margin-top: 4px;
+}
+
+.santorini-action-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: var(--accent-lime);
+  color: var(--accent-lime);
+}
+
+/* ==========================================================================
+   Bottom Strip: Compass Rose, Scale Bar, Thermal Spectrum & Zoom Dock
+   ========================================================================== */
+.tactical-bottom-strip {
+  position: absolute;
+  bottom: 18px;
+  left: 36px;
+  right: 36px;
+  z-index: 500;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  pointer-events: none;
+  gap: 16px;
+}
+
+/* Compass Rose & Distance Scale (Image 1 replica) */
+.tactical-compass-scale-box {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(10, 16, 13, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.geometric-compass-rose {
+  width: 36px;
+  height: 36px;
+}
+
+.compass-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.tactical-scale-bar-unit {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.scale-ticks-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.6rem;
+  font-family: var(--font-mono);
+  color: rgba(255, 255, 255, 0.6);
+  width: 80px;
+}
+
+.scale-bar-line {
+  display: flex;
+  height: 3px;
+  width: 80px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.scale-segment.active {
+  width: 50%;
+  background: var(--accent-lime);
+}
+
+.scale-segment {
+  width: 50%;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+/* Thermal Heatmap Spectrum Scale (Image 3 replica) */
+.tactical-thermal-scale-card {
+  pointer-events: auto;
+  background: rgba(10, 16, 13, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 250px;
+}
+
+.thermal-scale-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.thermal-scale-title {
+  font-size: 0.62rem;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.06em;
+}
+
+.unit-toggle-pills {
+  display: flex;
+  background: rgba(0, 0, 0, 0.45);
+  border-radius: var(--radius-pill);
+  padding: 2px;
+  gap: 2px;
+}
+
+.unit-pill {
+  padding: 2px 7px;
+  border-radius: var(--radius-pill);
+  font-size: 0.62rem;
+  font-weight: 700;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.6);
   cursor: pointer;
   transition: all var(--trans-fast);
 }
 
-.zoom-btn:hover {
+.unit-pill.active {
+  background: rgba(255, 255, 255, 0.22);
+  color: #FFFFFF;
+}
+
+.thermal-gradient-ribbon {
+  height: 6px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #0284c7 0%, #06b6d4 20%, #10b981 40%, #fbbf24 60%, #f97316 80%, #ef4444 100%);
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.4);
+}
+
+.thermal-ticks-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.6rem;
+  font-family: var(--font-mono);
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* Zoom Dock */
+.tactical-zoom-dock {
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: rgba(10, 16, 13, 0.85);
+  backdrop-filter: blur(20px);
+  padding: 4px;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.tactical-zoom-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  transition: all var(--trans-fast);
+}
+
+.tactical-zoom-btn:hover {
   background: var(--accent-lime);
   color: #050807;
 }
 
-.zoom-btn svg {
-  width: 14px;
-  height: 14px;
-  stroke: currentColor;
+/* ==========================================================================
+   SVG Glowing Vector River Veins & Vector Arcs (Image 2 replica)
+   ========================================================================== */
+.hydro-glow-underlay {
+  filter: blur(4px);
+  stroke-linecap: round;
+}
+
+.hydro-electric-pulse-line {
+  filter: drop-shadow(0 0 8px #38bdf8) drop-shadow(0 0 2px #e0f2fe);
+  stroke-linecap: round;
+  animation: hydroDashAnim 30s linear infinite;
+}
+
+@keyframes hydroDashAnim {
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: -1000; }
+}
+
+.agro-flow-arc {
+  filter: drop-shadow(0 0 4px rgba(210, 248, 46, 0.4));
+  animation: arcDashAnim 40s linear infinite;
+}
+
+@keyframes arcDashAnim {
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: -600; }
+}
+
+.thermal-zone-cold {
+  filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.3));
+}
+
+.thermal-zone-valley {
+  filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.25));
+}
+
+/* ==========================================================================
+   Tactical Hotspot Pins on Map (Images 1 & 3 combined)
+   ========================================================================== */
+.tactical-hotspot-pin {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: transform var(--trans-fast);
+}
+
+.tactical-hotspot-pin:hover {
+  transform: scale(1.1);
+  z-index: 999;
+}
+
+.pin-beacon-pulse {
+  position: absolute;
+  top: 50%;
+  left: 13px;
+  transform: translate(-50%, -50%);
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1.5px solid;
+  animation: pinPulseRipple 2s infinite ease-out;
+  pointer-events: none;
+}
+
+@keyframes pinPulseRipple {
+  0% { transform: translate(-50%, -50%) scale(0.6); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+}
+
+.pin-core-badge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(12px);
+}
+
+.pin-icon {
+  font-size: 0.76rem;
+}
+
+.pin-temp {
+  font-size: 0.72rem;
+  font-weight: 800;
+  font-family: var(--font-mono);
+}
+
+.pin-label-tag {
+  font-size: 0.64rem;
+  font-weight: 600;
+  color: #FFFFFF;
+  background: rgba(10, 16, 13, 0.85);
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  white-space: nowrap;
+}
+
+/* Custom Beacon Reticle */
+.tactical-custom-beacon {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.beacon-pulse-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--accent-lime);
+  box-shadow: 0 0 12px var(--accent-lime);
+  animation: pinPulseRipple 1.6s infinite ease-out;
+}
+
+.beacon-center-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  box-shadow: 0 0 8px #FFFFFF;
+}
+
+@media (max-width: 900px) {
+  .tactical-opportunities-legend {
+    display: none;
+  }
+
+  .tactical-santorini-card {
+    position: static;
+    width: 100%;
+    margin-top: 12px;
+  }
+
+  .tactical-coords-reticle {
+    display: none;
+  }
+
+  .tactical-bottom-strip {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    bottom: 12px;
+    left: 12px;
+    right: 12px;
+  }
 }
 
 /* Bottom Mission Dual Bars */

@@ -774,6 +774,33 @@ export default function MissionControlPage() {
           </div>
         </div>
 
+        {/* ======================================================================
+            PANORAMIC TACTICAL GIS MAP COCKPIT (Matching Images 1, 2 & 3)
+            - Image 1: Opportunities / Agro Metabolism Legend, Flow Arcs & Compass
+            - Image 2: Ahramat Glowing Electric Blue Hydrology Veins & Tactical Reticle
+            - Image 3: Santorini-Style Floating Location Card & Thermal Heat Spectrum
+            ====================================================================== */}
+        <div style={{ marginBottom: 20 }}>
+          <RealAgroMap
+            plots={AGRO_PLOTS}
+            selectedPlot={selectedPlot}
+            selectedModel={selectedModel}
+            displayPredictedTemp={displayPredictedTemp}
+            temp={temp}
+            humidity={humidity}
+            pressure={pressure}
+            vpd={vpd}
+            delta={delta}
+            isNight={isNight}
+            isFrostImminent={isFrostImminent}
+            onSelectPlot={handleSelectPlot}
+            onCustomLocationSelect={(loc) => {
+              setTemp(loc.temp);
+              setHumidity(loc.humidity);
+            }}
+          />
+        </div>
+
         {/* Tri-Column Cockpit Grid */}
         <div className="mission-cockpit-grid">
           {/* Left Panel */}
@@ -878,24 +905,47 @@ export default function MissionControlPage() {
 
           {/* Center Map Radar Panel */}
           <section className="center-cockpit-panel">
-            <RealAgroMap
-              plots={AGRO_PLOTS}
-              selectedPlot={selectedPlot}
-              selectedModel={selectedModel}
-              displayPredictedTemp={displayPredictedTemp}
-              temp={temp}
-              humidity={humidity}
-              pressure={pressure}
-              vpd={vpd}
-              delta={delta}
-              isNight={isNight}
-              isFrostImminent={isFrostImminent}
-              onSelectPlot={handleSelectPlot}
-              onCustomLocationSelect={(loc) => {
-                setTemp(loc.temp);
-                setHumidity(loc.humidity);
-              }}
-            />
+            {/* Holographic Target Beacon Card */}
+            <div className="telemetry-beacon-summary-card liquid-glass" style={{ padding: "20px 24px", borderRadius: "var(--radius-lg)", border: "1px solid rgba(255,255,255,0.14)" }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  <span className="dot" style={{ width: 8, height: 8, borderRadius: "50%", background: "var(--accent-lime)", display: "inline-block", boxShadow: "0 0 10px var(--accent-lime)" }}></span>
+                  <span style={{ fontSize: "0.74rem", fontWeight: 700, letterSpacing: "0.06em", color: "var(--accent-lime)", textTransform: "uppercase" }}>
+                    Selected Corridor Target // {selectedPlot.name}
+                  </span>
+                </div>
+                <span style={{ fontSize: "0.68rem", fontFamily: "var(--font-mono)", color: "var(--text-muted)" }}>
+                  ELEV {selectedPlot.elevation}M
+                </span>
+              </div>
+              <div style={{ display: "flex", alignItems: "baseline", gap: 14, margin: "10px 0" }}>
+                <div style={{ fontSize: "3.2rem", fontWeight: 800, color: "#FFFFFF", lineHeight: 1 }}>
+                  {displayPredictedTemp.toFixed(1)}<span style={{ fontSize: "1.4rem", color: "var(--accent-lime)" }}>°C</span>
+                </div>
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <span style={{ fontSize: "0.82rem", fontWeight: 600, color: "var(--text-secondary)" }}>
+                    1-Hour Lookahead Predicted Target
+                  </span>
+                  <span style={{ fontSize: "0.74rem", fontFamily: "var(--font-mono)", color: delta >= 0 ? "var(--accent-lime)" : "var(--accent-cyan)" }}>
+                    Delta: {delta >= 0 ? "+" : ""}{delta.toFixed(2)}°C | {isNight ? "Nocturnal Cooling Active" : "Solar Insolation Active"}
+                  </span>
+                </div>
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 8, marginTop: 12, paddingTop: 12, borderTop: "1px solid rgba(255,255,255,0.1)" }}>
+                <div style={{ background: "rgba(255,255,255,0.03)", padding: "6px 10px", borderRadius: 8 }}>
+                  <div style={{ fontSize: "0.62rem", color: "var(--text-muted)", textTransform: "uppercase" }}>Crop Category</div>
+                  <div style={{ fontSize: "0.78rem", fontWeight: 700, color: "#FFFFFF", marginTop: 2 }}>{selectedPlot.crop.split(" ")[0]}</div>
+                </div>
+                <div style={{ background: "rgba(255,255,255,0.03)", padding: "6px 10px", borderRadius: 8 }}>
+                  <div style={{ fontSize: "0.62rem", color: "var(--text-muted)", textTransform: "uppercase" }}>Sub-District</div>
+                  <div style={{ fontSize: "0.78rem", fontWeight: 700, color: "#FFFFFF", marginTop: 2 }}>{selectedPlot.zone.split(" ")[0]}</div>
+                </div>
+                <div style={{ background: "rgba(255,255,255,0.03)", padding: "6px 10px", borderRadius: 8 }}>
+                  <div style={{ fontSize: "0.62rem", color: "var(--text-muted)", textTransform: "uppercase" }}>Soil Moisture</div>
+                  <div style={{ fontSize: "0.78rem", fontWeight: 700, color: "var(--accent-lime)", marginTop: 2 }}>{selectedPlot.moisture}%</div>
+                </div>
+              </div>
+            </div>
 
             {/* Dedicated Mobile Forecast Glass Card (Shown below map on mobile devices) */}
             <div className="mobile-forecast-dock-card liquid-glass">
