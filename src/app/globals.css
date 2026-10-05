@@ -1,10 +1,10 @@
 /* ==========================================================================
    AERO-AGRI // MISSION CONTROL OS 26 (GSAP & VECTOR ICON ENHANCED)
    Theme: iOS 26 / visionOS Liquid Glass with Photorealistic Satellite Canvas
-   Font Family: Plus Jakarta Sans (Modern Clean Geometric Typography)
+   Font Family: Arimo (Ariom) - Crisp, modern, highly-readable geometric sans
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 :root {
   /* Core Liquid Glass Tones */
@@ -38,8 +38,8 @@
   --text-muted: #61776B;
   --text-dim: #3B4D43;
 
-  /* Typography: Helvetica Neue & JetBrains Mono */
-  --font-main: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  /* Typography: Arimo (Ariom) & JetBrains Mono */
+  --font-main: "Arimo", "Ariom", "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
   --font-mono: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
 
   /* Curvatures */
