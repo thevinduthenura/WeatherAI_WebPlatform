@@ -869,7 +869,7 @@ export default function MissionControlPage() {
               <tbody>
                 <tr className={selectedModel === "mlp" ? "highlighted" : ""}>
                   <td><strong>Deep MLP (MLP-2)</strong></td>
-                  <td><strong>Gunathilaka H.D.T.T. (IT25101540)</strong><br /><span style={{ fontSize: "0.7rem", color: "var(--accent-lime)" }}>★ Solo Platform Architect &amp; Lead Researcher</span></td>
+                  <td><strong>Gunathilaka H.D.T.T. (IT25101540)</strong></td>
                   <td style={{ color: "var(--accent-lime)", fontWeight: 700 }}>0.9151 (0.9876 w/ Lags)</td>
                   <td>2.79 (1.03)</td>
                   <td>2.01 (0.74)</td>
