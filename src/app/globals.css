@@ -1053,6 +1053,77 @@ body {
   100% { transform: scale(1.6); opacity: 0; }
 }
 
+/* ── Real Leaflet Satellite GIS Overrides & Layer Switcher ── */
+.real-map-wrapper {
+  position: relative;
+  width: 100%;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
+  border: 1px solid var(--glass-border);
+}
+
+.real-leaflet-map-host {
+  width: 100%;
+  height: 480px;
+  background: #050807;
+  z-index: 1;
+}
+
+.real-leaflet-map-host .leaflet-pane {
+  z-index: 1 !important;
+}
+
+.real-leaflet-map-host .leaflet-top,
+.real-leaflet-map-host .leaflet-bottom {
+  z-index: 5 !important;
+}
+
+.custom-leaflet-agro-pin {
+  background: transparent !important;
+  border: none !important;
+}
+
+.custom-leaflet-beacon-wrapper {
+  background: transparent !important;
+  border: none !important;
+}
+
+.map-layer-selector-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.map-layer-tab {
+  background: rgba(10, 16, 13, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: rgba(255, 255, 255, 0.75);
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--trans-fast);
+  white-space: nowrap;
+}
+
+.map-layer-tab:hover {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.map-layer-tab.active {
+  background: rgba(210, 248, 46, 0.2);
+  border-color: var(--accent-lime);
+  color: #FFFFFF;
+  box-shadow: 0 0 12px rgba(210, 248, 46, 0.35);
+}
+
 /* Unified Map Bottom Controls & Status Bar (Zero overlapping) */
 .map-bottom-strip {
   position: relative;
