@@ -571,7 +571,12 @@ export default function MissionControlPage() {
               title="Switch to Lead Deep MLP Neural Net"
             >
               <span className="typo-pill-circle">D</span>
-              <span>Deep MLP (0.988 R²) ★</span>
+              <span>
+                Deep MLP (0.988 R²)
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none" style={{ display: "inline-block", verticalAlign: "-1px", marginLeft: "4px", color: "var(--accent-lime)" }}>
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                </svg>
+              </span>
             </button>
           </div>
 
@@ -839,7 +844,13 @@ export default function MissionControlPage() {
               onClick={() => setSelectedModel("mlp")}
             >
               <div className="schematic-header">
-                <div className="schematic-name">Model MLP-2 (Deep Net) ★ Selected</div>
+                <div className="schematic-name">
+                  Model MLP-2 (Deep Net)
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none" style={{ display: "inline-block", verticalAlign: "-1px", margin: "0 4px", color: "var(--accent-lime)" }}>
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                  </svg>
+                  Selected
+                </div>
                 <div className="schematic-sub">Gunathilaka H.D.T.T. // IT25101540</div>
               </div>
               <div className="schematic-footer-metrics">

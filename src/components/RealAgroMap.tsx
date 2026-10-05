@@ -49,6 +49,109 @@ interface MapCorridorNode {
   desc: string;
 }
 
+// SVG string generator for Leaflet map markers
+function getNodeIconSvg(iconKey: string, size = 12, strokeColor = "currentColor"): string {
+  switch (iconKey) {
+    case "leaf":
+      return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${strokeColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>`;
+    case "frost":
+      return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${strokeColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/><line x1="19.07" y1="4.93" x2="4.93" y2="19.07"/><circle cx="12" cy="12" r="2.5"/></svg>`;
+    case "flower":
+      return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${strokeColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 16.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 1 1 12 7.5a4.5 4.5 0 1 1 4.5 4.5 4.5 4.5 0 1 1-4.5 4.5"/></svg>`;
+    case "water":
+      return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${strokeColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>`;
+    case "power":
+      return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${strokeColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`;
+    case "wave":
+      return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${strokeColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12c.6 0 1.2-.2 1.7-.6 1.1-.8 2.6-.8 3.7 0 1.1.8 2.6.8 3.7 0 1.1-.8 2.6-.8 3.7 0 .5.4 1.1.6 1.7.6"/><path d="M2 17c.6 0 1.2-.2 1.7-.6 1.1-.8 2.6-.8 3.7 0 1.1.8 2.6.8 3.7 0 1.1-.8 2.6-.8 3.7 0 .5.4 1.1.6 1.7.6"/></svg>`;
+    case "tree":
+      return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${strokeColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 19 12 15 12 20 18 4 18 9 12 5 12 12 2"/><rect x="11" y="18" width="2" height="4"/></svg>`;
+    case "sprout":
+      return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${strokeColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4-.1 5.5.8z"/><path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4.3.7-4.9 2z"/></svg>`;
+    case "carrot":
+      return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${strokeColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.27 21.7s9.87-3.5 12.73-6.36a4.5 4.5 0 0 0-6.36-6.37C5.77 11.84 2.27 21.7 2.27 21.7z"/><path d="M22 2l-2.5 2.5M16 2.5L18.5 5M21.5 8L19 5.5"/></svg>`;
+    case "grain":
+      return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${strokeColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 22l10-10"/><path d="M16 8l-2 2"/><path d="M18 6a3 3 0 0 0-4.24 0l-1.42 1.42a3 3 0 0 0 0 4.24l.71.71a3 3 0 0 0 4.24 0L18.7 11a3 3 0 0 0 0-4.24z"/></svg>`;
+    case "target":
+    default:
+      return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${strokeColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="22" y1="12" x2="18" y2="12"/><line x1="6" y1="12" x2="2" y2="12"/><line x1="12" y1="6" x2="12" y2="2"/><line x1="12" y1="22" x2="12" y2="18"/></svg>`;
+  }
+}
+
+// React SVG UI icon renderer for UI panels and cards
+function RenderNodeIcon({ name, size = 13, className = "" }: { name: string; size?: number; className?: string }) {
+  switch (name) {
+    case "leaf":
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+          <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+          <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+        </svg>
+      );
+    case "frost":
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+          <line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/><line x1="19.07" y1="4.93" x2="4.93" y2="19.07"/><circle cx="12" cy="12" r="2.5"/>
+        </svg>
+      );
+    case "flower":
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+          <circle cx="12" cy="12" r="3"/><path d="M12 16.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 1 1 12 7.5a4.5 4.5 0 1 1 4.5 4.5 4.5 4.5 0 1 1-4.5 4.5"/>
+        </svg>
+      );
+    case "water":
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+          <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+        </svg>
+      );
+    case "power":
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+        </svg>
+      );
+    case "wave":
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+          <path d="M2 12c.6 0 1.2-.2 1.7-.6 1.1-.8 2.6-.8 3.7 0 1.1.8 2.6.8 3.7 0 1.1-.8 2.6-.8 3.7 0 .5.4 1.1.6 1.7.6"/><path d="M2 17c.6 0 1.2-.2 1.7-.6 1.1-.8 2.6-.8 3.7 0 1.1.8 2.6.8 3.7 0 1.1-.8 2.6-.8 3.7 0 .5.4 1.1.6 1.7.6"/>
+        </svg>
+      );
+    case "tree":
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+          <polygon points="12 2 19 12 15 12 20 18 4 18 9 12 5 12 12 2"/><rect x="11" y="18" width="2" height="4"/>
+        </svg>
+      );
+    case "sprout":
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+          <path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4-.1 5.5.8z"/><path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4.3.7-4.9 2z"/>
+        </svg>
+      );
+    case "carrot":
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+          <path d="M2.27 21.7s9.87-3.5 12.73-6.36a4.5 4.5 0 0 0-6.36-6.37C5.77 11.84 2.27 21.7 2.27 21.7z"/><path d="M22 2l-2.5 2.5M16 2.5L18.5 5M21.5 8L19 5.5"/>
+        </svg>
+      );
+    case "grain":
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+          <path d="M2 22l10-10"/><path d="M16 8l-2 2"/><path d="M18 6a3 3 0 0 0-4.24 0l-1.42 1.42a3 3 0 0 0 0 4.24l.71.71a3 3 0 0 0 4.24 0L18.7 11a3 3 0 0 0 0-4.24z"/>
+        </svg>
+      );
+    case "target":
+    default:
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+          <circle cx="12" cy="12" r="10"/><line x1="22" y1="12" x2="18" y2="12"/><line x1="6" y1="12" x2="2" y2="12"/><line x1="12" y1="6" x2="12" y2="2"/><line x1="12" y1="22" x2="12" y2="18"/>
+        </svg>
+      );
+  }
+}
+
 // Comprehensive GIS corridors inspired by Image 1 (Opportunities / Agro Metabolism)
 const GIS_CORRIDOR_NODES: MapCorridorNode[] = [
   // Category 1: Cold Sinks (Highland Tea & Frost Zones - Purple/Magenta)
@@ -58,7 +161,7 @@ const GIS_CORRIDOR_NODES: MapCorridorNode[] = [
     category: "cold",
     categoryLabel: "Highland Cold Sinks",
     color: "#d946ef",
-    icon: "🍃",
+    icon: "leaf",
     lat: 6.9780,
     lng: 80.7850,
     elevation: 1940,
@@ -75,7 +178,7 @@ const GIS_CORRIDOR_NODES: MapCorridorNode[] = [
     category: "cold",
     categoryLabel: "Highland Cold Sinks",
     color: "#c084fc",
-    icon: "❄️",
+    icon: "frost",
     lat: 6.8028,
     lng: 80.8065,
     elevation: 2134,
@@ -92,7 +195,7 @@ const GIS_CORRIDOR_NODES: MapCorridorNode[] = [
     category: "cold",
     categoryLabel: "Highland Cold Sinks",
     color: "#f472b6",
-    icon: "🌸",
+    icon: "flower",
     lat: 6.9280,
     lng: 80.8200,
     elevation: 1745,
@@ -111,7 +214,7 @@ const GIS_CORRIDOR_NODES: MapCorridorNode[] = [
     category: "hydro",
     categoryLabel: "Hydrological Basins",
     color: "#38bdf8",
-    icon: "💧",
+    icon: "water",
     lat: 6.9530,
     lng: 80.7820,
     elevation: 1875,
@@ -128,7 +231,7 @@ const GIS_CORRIDOR_NODES: MapCorridorNode[] = [
     category: "hydro",
     categoryLabel: "Hydrological Basins",
     color: "#06b6d4",
-    icon: "⚡",
+    icon: "power",
     lat: 7.0350,
     lng: 80.6400,
     elevation: 700,
@@ -145,7 +248,7 @@ const GIS_CORRIDOR_NODES: MapCorridorNode[] = [
     category: "hydro",
     categoryLabel: "Hydrological Basins",
     color: "#0284c7",
-    icon: "🌊",
+    icon: "wave",
     lat: 6.8650,
     lng: 80.6300,
     elevation: 1080,
@@ -164,7 +267,7 @@ const GIS_CORRIDOR_NODES: MapCorridorNode[] = [
     category: "bio",
     categoryLabel: "Protected Biosphere",
     color: "#10b981",
-    icon: "🌲",
+    icon: "tree",
     lat: 7.0006,
     lng: 80.7725,
     elevation: 2524,
@@ -181,7 +284,7 @@ const GIS_CORRIDOR_NODES: MapCorridorNode[] = [
     category: "bio",
     categoryLabel: "Protected Biosphere",
     color: "#34d399",
-    icon: "🌿",
+    icon: "sprout",
     lat: 7.4400,
     lng: 80.7800,
     elevation: 1860,
@@ -200,7 +303,7 @@ const GIS_CORRIDOR_NODES: MapCorridorNode[] = [
     category: "agro",
     categoryLabel: "Agro Food Corridors",
     color: "#fbbf24",
-    icon: "🥕",
+    icon: "carrot",
     lat: 6.9030,
     lng: 80.9000,
     elevation: 1060,
@@ -217,7 +320,7 @@ const GIS_CORRIDOR_NODES: MapCorridorNode[] = [
     category: "agro",
     categoryLabel: "Agro Food Corridors",
     color: "#f59e0b",
-    icon: "🌾",
+    icon: "grain",
     lat: 8.3114,
     lng: 80.4037,
     elevation: 115,
@@ -471,7 +574,7 @@ export default function RealAgroMap({
         <div class="tactical-hotspot-pin ${node.category} ${isSelected ? "selected" : ""}">
           <div class="pin-beacon-pulse" style="border-color: ${node.color}; box-shadow: 0 0 14px ${node.color};"></div>
           <div class="pin-core-badge" style="border-color: ${node.color}; background: rgba(10, 16, 13, 0.92);">
-            <span class="pin-icon">${node.icon}</span>
+            <span class="pin-icon">${getNodeIconSvg(node.icon, 12, node.color)}</span>
             <span class="pin-temp" style="color: ${node.color};">${node.baseTemp.toFixed(1)}°</span>
           </div>
           <div class="pin-label-tag">
@@ -516,7 +619,7 @@ export default function RealAgroMap({
         category: computedElevation > 1500 ? "cold" : computedElevation > 800 ? "bio" : "agro",
         categoryLabel: "Custom Geolocation Telemetry",
         color: "var(--accent-lime)",
-        icon: "⌖",
+        icon: "target",
         lat,
         lng,
         elevation: computedElevation,
@@ -648,21 +751,30 @@ export default function RealAgroMap({
             className={`layer-switch-btn ${activeLayer === "satellite" ? "active" : ""}`}
             title="High-Resolution Real Earth Observation Satellite Imagery"
           >
-            🛰 Satellite
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M13 7 9 3 5 7l4 4"/><path d="m17 11 4 4-4 4-4-4"/><path d="m8 12 4 4 6-6-4-4Z"/><path d="m16 8 3-3"/><path d="M9 21a6 6 0 0 0-6-6"/>
+            </svg>
+            <span>Satellite</span>
           </button>
           <button
             onClick={() => switchLayer("dark")}
             className={`layer-switch-btn ${activeLayer === "dark" ? "active" : ""}`}
             title="CartoDB Dark Matter Tactical GIS Vector"
           >
-            🌑 Dark GIS
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+            </svg>
+            <span>Dark GIS</span>
           </button>
           <button
             onClick={() => switchLayer("osm")}
             className={`layer-switch-btn ${activeLayer === "osm" ? "active" : ""}`}
             title="OpenStreetMap Topographic Contour Map"
           >
-            🗺 Topo
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/>
+            </svg>
+            <span>Topo</span>
           </button>
         </div>
       </div>
@@ -681,7 +793,15 @@ export default function RealAgroMap({
             onClick={() => setIsLegendOpen(!isLegendOpen)}
             title={isLegendOpen ? "Collapse Legend" : "Expand Legend"}
           >
-            {isLegendOpen ? "◀" : "▶"}
+            {isLegendOpen ? (
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+            ) : (
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            )}
           </button>
         </div>
 
@@ -702,7 +822,7 @@ export default function RealAgroMap({
                     onClick={() => focusOnNode(node)}
                   >
                     <span className="node-icon-bubble" style={{ background: "rgba(217, 70, 239, 0.15)", color: "#d946ef" }}>
-                      {node.icon}
+                      <RenderNodeIcon name={node.icon} size={13} />
                     </span>
                     <div className="node-info-text">
                       <div className="node-name">{node.name}</div>
@@ -728,7 +848,7 @@ export default function RealAgroMap({
                     onClick={() => focusOnNode(node)}
                   >
                     <span className="node-icon-bubble" style={{ background: "rgba(56, 189, 248, 0.15)", color: "#38bdf8" }}>
-                      {node.icon}
+                      <RenderNodeIcon name={node.icon} size={13} />
                     </span>
                     <div className="node-info-text">
                       <div className="node-name">{node.name}</div>
@@ -754,7 +874,7 @@ export default function RealAgroMap({
                     onClick={() => focusOnNode(node)}
                   >
                     <span className="node-icon-bubble" style={{ background: "rgba(16, 185, 129, 0.15)", color: "#10b981" }}>
-                      {node.icon}
+                      <RenderNodeIcon name={node.icon} size={13} />
                     </span>
                     <div className="node-info-text">
                       <div className="node-name">{node.name}</div>
@@ -780,7 +900,7 @@ export default function RealAgroMap({
                     onClick={() => focusOnNode(node)}
                   >
                     <span className="node-icon-bubble" style={{ background: "rgba(245, 158, 11, 0.15)", color: "#f59e0b" }}>
-                      {node.icon}
+                      <RenderNodeIcon name={node.icon} size={13} />
                     </span>
                     <div className="node-info-text">
                       <div className="node-name">{node.name}</div>
@@ -814,7 +934,10 @@ export default function RealAgroMap({
                 onClick={() => setPopupOpen(false)}
                 title="Close"
               >
-                ✕
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
               </button>
             </div>
             <div className="banner-title-text">{activeNode.name}</div>
@@ -844,11 +967,25 @@ export default function RealAgroMap({
             {/* Quick Status Chips */}
             <div className="santorini-chips-row">
               <div className="santorini-chip primary">
-                <span>{activeNode.icon}</span>
+                <RenderNodeIcon name={activeNode.icon} size={13} />
                 <span>{activeNode.crop.split(" ")[0]} {activeNode.crop.split(" ")[1] || "Plot"}</span>
               </div>
               <div className={`santorini-chip ${isFrostImminent ? "danger" : "safe"}`}>
-                <span>{isFrostImminent ? "❄️ FROST RISK" : "✓ OPTIMAL BIOSPHERE"}</span>
+                {isFrostImminent ? (
+                  <>
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/><line x1="19.07" y1="4.93" x2="4.93" y2="19.07"/><circle cx="12" cy="12" r="2.5"/>
+                    </svg>
+                    <span>FROST RISK</span>
+                  </>
+                ) : (
+                  <>
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <span>OPTIMAL BIOSPHERE</span>
+                  </>
+                )}
               </div>
             </div>
 

@@ -2542,6 +2542,9 @@ body {
 }
 
 .layer-switch-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   padding: 5px 12px;
   border-radius: var(--radius-pill);
   font-size: 0.72rem;
@@ -2552,6 +2555,12 @@ body {
   cursor: pointer;
   transition: all var(--trans-fast);
   white-space: nowrap;
+}
+
+.layer-switch-btn svg {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
 }
 
 .layer-switch-btn:hover {
@@ -2726,6 +2735,12 @@ body {
   flex-shrink: 0;
 }
 
+.node-icon-bubble svg {
+  width: 12px;
+  height: 12px;
+  display: block;
+}
+
 .node-info-text {
   display: flex;
   flex-direction: column;
@@ -2818,8 +2833,13 @@ body {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 0.7rem;
   transition: all var(--trans-fast);
+}
+
+.banner-close-btn svg {
+  width: 11px;
+  height: 11px;
+  display: block;
 }
 
 .banner-close-btn:hover {
@@ -2913,6 +2933,12 @@ body {
   display: flex;
   align-items: center;
   gap: 5px;
+}
+
+.santorini-chip svg {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
 }
 
 .santorini-chip.primary {
@@ -3253,7 +3279,16 @@ body {
 }
 
 .pin-icon {
-  font-size: 0.76rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.pin-icon svg {
+  width: 12px;
+  height: 12px;
+  display: block;
 }
 
 .pin-temp {
