@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AERO-AGRI // AI - Weather Temperature Forecasting & Microclimate Intelligence</title>
+  <meta name="description" content="Precision Next-Hour Weather Air Temperature Forecasting for Smart Protected Agriculture. Benchmarking 6 Algorithmic Paradigms on 11 Years of Continuous Weather Observations.">
+  <meta name="keywords" content="Machine Learning, Weather Forecasting, Smart Agriculture, MLP, Random Forest, Gradient Boosting, SVR, Decision Trees, SLIIT AI/ML">
+  <meta name="author" content="Group 2026-Y2-S1-MLB-B9G2-01 | SLIIT">
+  
+  <!-- Favicon & Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+<body>
+
+  <!-- ========================================================================
+       Top Navigation Bar
+       ======================================================================== -->
+  <nav class="navbar" id="main-nav">
+    <div class="container nav-content">
+      <a href="#hero" class="nav-brand" id="nav-brand-logo">
+        <div class="brand-icon">⚡</div>
+        <div class="brand-title">
+          <div class="brand-name">AERO-AGRI <span>// AI</span></div>
+          <div class="brand-subtitle">Smart Greenhouse Microclimate Intelligence</div>
+        </div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#hero" class="nav-link active">Telemetry</a></li>
+        <li><a href="#simulator" class="nav-link">Live Predictor</a></li>
+        <li><a href="#forecast-chart" class="nav-link">24H Curve</a></li>
+        <li><a href="#leaderboard" class="nav-link">Models Benchmark</a></li>
+        <li><a href="#pipeline" class="nav-link">Data Pipeline</a></li>
+        <li><a href="#ethics" class="nav-link">Safety Safeguards</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <div class="badge-telemetry">
+          <div class="pulse-dot"></div>
+          <span>Szeged Observatory: 46.25°N</span>
+        </div>
+        <a href="#simulator" class="btn-primary" id="btn-quick-simulate">
+          <span>⚡ Run Model</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========================================================================
+       Hero Section & Live Telemetry
+       ======================================================================== -->
+  <section class="hero-section" id="hero">
+    <div class="container">
+      <div class="hero-grid">
+        
+        <!-- Left Hero Overview Card -->
+        <div class="hero-main-card">
+          <div>
+            <div class="hero-meta-badge">
+              <span>🛰️ 11-Year Continuous Atmospheric Dataset (96,453 Hourly Records)</span>
+            </div>
+            <h1 class="hero-title">
+              Weather-Based Air Temperature <span class="highlight">Forecasting</span> for Smart Agriculture
+            </h1>
+            <p class="hero-description">
+              Formulated as an operational next-hour regression task (t+1). Benchmarking six rigorous machine learning paradigms across deep neural networks, tree ensembles, and kernel methods to protect high-value horticulture against lethal nocturnal frost events.
+            </p>
+          </div>
+
+          <!-- Key Metrics Strip -->
+          <div class="metrics-strip">
+            <div class="metric-box">
+              <div class="metric-label">Best Fit (R²)</div>
+              <div class="metric-value lime mono-stat">0.9331</div>
+              <div class="metric-sub">RF-1 Default (0.9876 w/ lags)</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-label">Lowest RMSE</div>
+              <div class="metric-value cyan mono-stat">2.48°C</div>
+              <div class="metric-sub">Diyes Random Forest</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-label">Clean Points</div>
+              <div class="metric-value mono-stat">92,029</div>
+              <div class="metric-sub">4,400 sensor stalls purged</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-label">Safety Offset</div>
+              <div class="metric-value mono-stat">+1.5°C</div>
+              <div class="metric-sub">Frost recall protection</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Hero: Weather Station & Smart Actuation Card (Inspired by GolfX & Transit UI) -->
+        <div class="hero-side-column">
+          
+          <!-- Station Telemetry -->
+          <div class="station-card">
+            <div class="station-header">
+              <div class="station-location">
+                <div class="station-icon">📍</div>
+                <div>
+                  <div class="station-name">Szeged Meteorological Station</div>
+                  <div class="station-coords">Station ID: HU-6725 // Altitude 82m</div>
+                </div>
+              </div>
+              <div class="status-indicator">
+                <div class="indicator-light"></div>
+                <span style="font-size: 0.76rem; color: var(--accent-lime); font-family: var(--font-mono); font-weight: 600;">ACTIVE FEED</span>
+              </div>
+            </div>
+
+            <!-- Big Temperature Card -->
+            <div class="station-temp-display">
+              <div>
+                <div class="big-temp">14.2<span>°C</span></div>
+                <div style="font-size: 0.74rem; color: var(--text-muted); margin-top: 4px;">Current Air Temperature (T_t)</div>
+              </div>
+              <div class="temp-meta">
+                <div class="temp-condition">⛅ Partly Cloudy</div>
+                <div class="temp-target-pred">Next-Hour Pred: <strong>13.5°C</strong></div>
+              </div>
+            </div>
+
+            <!-- Sensors Grid -->
+            <div class="sensor-pills-grid">
+              <div class="sensor-pill">
+                <div class="s-val">73.5%</div>
+                <div class="s-lbl">Humidity</div>
+              </div>
+              <div class="sensor-pill">
+                <div class="s-val">1013.2</div>
+                <div class="s-lbl">Pressure (mbar)</div>
+              </div>
+              <div class="sensor-pill">
+                <div class="s-val">11.8 km/h</div>
+                <div class="s-lbl">Wind Speed</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Smart Greenhouse Actuation Tip Card (Inspired directly by the GolfX AI tip) -->
+          <div class="actuation-advisor-card">
+            <div class="advisor-header">
+              <div class="advisor-badge">
+                <span>✨ AI Actuation Tip</span>
+              </div>
+              <div class="advisor-time">Updated 2m ago</div>
+            </div>
+            <div class="advisor-text">
+              Diurnal cooling projection shows night temperature descending to <strong>3.2°C at 04:00</strong>. Asymmetric Frost Safety Offset <strong>(+1.5°C)</strong> is currently active: automated greenhouse thermal screens primed to prevent blossom tissue frost necrosis.
+            </div>
+            <div class="advisor-meta-bar">
+              <div class="status-indicator">
+                <div class="indicator-light"></div>
+                <span>Thermal Actuators: <strong>STANDBY READY</strong></span>
+              </div>
+              <span style="font-family: var(--font-mono); color: var(--accent-lime);">Safety Margin: +1.5°C</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       Interactive Live Predictor / Inference Simulator
+       ======================================================================== -->
+  <section class="section-wrapper" id="simulator">
+    <div class="container">
+      
+      <div class="section-head">
+        <div>
+          <div class="section-tag">Interactive Inference Engine</div>
+          <h2 class="section-title">Real-Time Microclimate Simulation</h2>
+        </div>
+        <p class="section-desc">
+          Adjust physical atmospheric predictors or select a weather scenario preset to simulate next-hour temperature predictions across all six group models in real-time.
+        </p>
+      </div>
+
+      <div class="simulator-layout">
+        
+        <!-- Controls Column -->
+        <div class="simulator-controls">
+          <div>
+            <span style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.05em; display: block; margin-bottom: 8px;">
+              Scenario Presets:
+            </span>
+            <div class="presets-row">
+              <button class="preset-pill active" data-preset="spring_frost">🌸 Spring Frost Alert</button>
+              <button class="preset-pill" data-preset="summer_noon">☀️ Summer Heatwave</button>
+              <button class="preset-pill" data-preset="autumn_storm">🌧️ Autumn Rain Low</button>
+              <button class="preset-pill" data-preset="winter_dawn">❄️ Sub-Zero Freeze</button>
+            </div>
+          </div>
+
+          <!-- Slider 1: Current Temperature -->
+          <div class="slider-group">
+            <div class="slider-label-row">
+              <span class="slider-name">🌡️ Current Temperature (T_t)</span>
+              <span class="slider-value-badge" id="val-temp">3.2°C</span>
+            </div>
+            <input type="range" id="slider-temp" min="-10" max="40" step="0.1" value="3.2">
+          </div>
+
+          <!-- Slider 2: Relative Humidity -->
+          <div class="slider-group">
+            <div class="slider-label-row">
+              <span class="slider-name">💧 Relative Humidity (%)</span>
+              <span class="slider-value-badge" id="val-humidity">89%</span>
+            </div>
+            <input type="range" id="slider-humidity" min="10" max="100" step="1" value="89">
+          </div>
+
+          <!-- Slider 3: Barometric Pressure -->
+          <div class="slider-group">
+            <div class="slider-label-row">
+              <span class="slider-name">🧭 Barometric Pressure (mbar)</span>
+              <span class="slider-value-badge" id="val-pressure">1024 mbar</span>
+            </div>
+            <input type="range" id="slider-pressure" min="970" max="1050" step="1" value="1024">
+          </div>
+
+          <!-- Slider 4: Wind Speed -->
+          <div class="slider-group">
+            <div class="slider-label-row">
+              <span class="slider-name">💨 Wind Speed (km/h)</span>
+              <span class="slider-value-badge" id="val-wind">6 km/h</span>
+            </div>
+            <input type="range" id="slider-wind" min="0" max="50" step="1" value="6">
+          </div>
+
+          <!-- Slider 5: Diurnal Hour of Day -->
+          <div class="slider-group">
+            <div class="slider-label-row">
+              <span class="slider-name">🕒 Diurnal Hour of Day (24H)</span>
+              <span class="slider-value-badge" id="val-hour">04:00</span>
+            </div>
+            <input type="range" id="slider-hour" min="0" max="23" step="1" value="4">
+          </div>
+        </div>
+
+        <!-- Output Results Column -->
+        <div class="simulator-results">
+          <div>
+            <div class="results-header">
+              <div class="results-title">Projected Thermal Output</div>
+              <div class="target-formula-badge">Next-Hour Target: T_{t+1}</div>
+            </div>
+
+            <!-- Primary Big Output -->
+            <div class="primary-prediction-box">
+              <div class="pred-lead-model">MLP / Ensemble Consensus Projection</div>
+              <div class="pred-temperature" id="pred-big-temp">2.4<span>°C</span></div>
+              <div class="pred-delta fall" id="pred-delta-text">Expected Delta: -0.80°C from current observation</div>
+            </div>
+
+            <!-- Multi-Model Consensus Breakdown -->
+            <div class="model-predictions-list">
+              <div class="model-row-item">
+                <div class="m-name">
+                  <span>MLP Regressor</span>
+                  <span class="m-family-badge">Deep Net</span>
+                </div>
+                <div class="m-temp mono-stat" id="sim-mlp-val">2.42°C</div>
+              </div>
+
+              <div class="model-row-item">
+                <div class="m-name">
+                  <span>Random Forest</span>
+                  <span class="m-family-badge">Diyes C.L.</span>
+                </div>
+                <div class="m-temp mono-stat" id="sim-rf-val">2.51°C</div>
+              </div>
+
+              <div class="model-row-item">
+                <div class="m-name">
+                  <span>Gradient Boosting</span>
+                  <span class="m-family-badge">Zeen A.C.</span>
+                </div>
+                <div class="m-temp mono-stat" id="sim-gb-val">2.38°C</div>
+              </div>
+
+              <div class="model-row-item">
+                <div class="m-name">
+                  <span>Support Vector Regressor</span>
+                  <span class="m-family-badge">Dissanayake</span>
+                </div>
+                <div class="m-temp mono-stat" id="sim-svr-val">2.35°C</div>
+              </div>
+
+              <div class="model-row-item">
+                <div class="m-name">
+                  <span>Decision Tree</span>
+                  <span class="m-family-badge">Gayathmi</span>
+                </div>
+                <div class="m-temp mono-stat" id="sim-dt-val">2.25°C</div>
+              </div>
+
+              <div class="model-row-item">
+                <div class="m-name">
+                  <span>Linear Regression</span>
+                  <span class="m-family-badge">Anaf M.K.</span>
+                </div>
+                <div class="m-temp mono-stat" id="sim-lr-val">2.65°C</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Agricultural Advisory Status Alert -->
+          <div class="agri-alert-card danger" id="agri-alert-box">
+            <div style="font-size: 1.4rem;">⚠️</div>
+            <div>
+              <div style="font-weight: 700; margin-bottom: 2px;" id="agri-status-title">FROST HAZARD DETECTED</div>
+              <div id="agri-alert-text" style="font-size: 0.8rem; line-height: 1.4;">
+                Predicted next-hour temperature is dropping to 2.4°C. Automated heating actuators engaged.
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       24-Hour Diurnal Forecast Interactive Curve
+       ======================================================================== -->
+  <section class="section-wrapper" id="forecast-chart">
+    <div class="container">
+      
+      <div class="section-head">
+        <div>
+          <div class="section-tag">Continuous Thermal Tracking</div>
+          <h2 class="section-title">24-Hour Diurnal Cycle Simulation</h2>
+        </div>
+        <p class="section-desc">
+          Compare actual recorded meteorological temperature against algorithmic predictions over a full diurnal cycle. Hover over any point to inspect residuals.
+        </p>
+      </div>
+
+      <div class="chart-container-card">
+        <div class="chart-header-actions">
+          <div style="font-size: 0.95rem; font-weight: 700; display: flex; align-items: center; gap: 8px;">
+            <span style="color: var(--accent-lime);">● Predicted Curve</span>
+            <span style="color: var(--text-muted);">--- Actual Sensor Trace</span>
+          </div>
+
+          <div class="model-toggle-pills">
+            <button class="toggle-pill active" data-model="mlp">Multi-Layer Perceptron (Smooth)</button>
+            <button class="toggle-pill" data-model="rf">Random Forest (Ensemble)</button>
+            <button class="toggle-pill" data-model="dt">Decision Tree (Piecewise)</button>
+            <button class="toggle-pill" data-model="svr">SVR (RBF Margin)</button>
+          </div>
+        </div>
+
+        <div class="chart-wrapper">
+          <svg class="chart-svg" id="diurnal-svg" viewBox="0 0 1100 360" preserveAspectRatio="none"></svg>
+          <div class="chart-tooltip" id="chart-tooltip"></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       Master Group Benchmark Leaderboard
+       ======================================================================== -->
+  <section class="section-wrapper" id="leaderboard">
+    <div class="container">
+      
+      <div class="section-head">
+        <div>
+          <div class="section-tag">SLIIT IT2011 Final Assessment Benchmark</div>
+          <h2 class="section-title">Master Group Model Evaluation</h2>
+        </div>
+        <p class="section-desc">
+          Rigorous performance ranking across all six individual student models and algorithmic varieties evaluated on the untouched 13,804 sequential test observations.
+        </p>
+      </div>
+
+      <div class="leaderboard-grid" id="leaderboard-container">
+        <!-- Rendered via app.js with exact audited values -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       6-Stage Preprocessing Pipeline Visualizer
+       ======================================================================== -->
+  <section class="section-wrapper" id="pipeline">
+    <div class="container">
+      
+      <div class="section-head">
+        <div>
+          <div class="section-tag">Methodological Rigor</div>
+          <h2 class="section-title">6-Stage Data Preprocessing Pipeline</h2>
+        </div>
+        <p class="section-desc">
+          Each member executed a dedicated, non-overlapping engineering phase to remediate sensor faults and eliminate temporal leakage.
+        </p>
+      </div>
+
+      <div class="pipeline-flow">
+        
+        <div class="pipeline-node">
+          <div class="node-step-badge">STAGE 01</div>
+          <div class="node-title">Data Cleaning</div>
+          <div class="node-member">Zeen A.C.</div>
+          <div class="node-detail">
+            Screened sequential timestamps across the 11-year record; removed 24 exact duplicate rows and corrected wind-sensor stall artifacts.
+          </div>
+          <span class="node-impact-tag">96,429 Valid Points</span>
+        </div>
+
+        <div class="pipeline-node">
+          <div class="node-step-badge">STAGE 02</div>
+          <div class="node-title">Missing Data</div>
+          <div class="node-member">Dissanayake S.A.S.D.</div>
+          <div class="node-detail">
+            Quantified missingness across all 12 attributes; imputed 517 missing values (0.54%) in Precip Type with 'none' label.
+          </div>
+          <span class="node-impact-tag">Zero Null Values</span>
+        </div>
+
+        <div class="pipeline-node">
+          <div class="node-step-badge">STAGE 03</div>
+          <div class="node-title">Outlier Removal</div>
+          <div class="node-member">Diyes C.L.</div>
+          <div class="node-detail">
+            Detected and purged 4,400 physically impossible sensor stalls where atmospheric pressure froze at 0.00 mbar via IQR filtering.
+          </div>
+          <span class="node-impact-tag">4,400 Stalls Purged</span>
+        </div>
+
+        <div class="pipeline-node">
+          <div class="node-step-badge">STAGE 04</div>
+          <div class="node-title">Feature Engineering</div>
+          <div class="node-member">Anaf M.K.A.S.</div>
+          <div class="node-detail">
+            Eliminated target leakage by dropping Apparent Temperature (>0.99 correlation), removed zero-variance Loud Cover, and extracted time features.
+          </div>
+          <span class="node-impact-tag">Leakage Eliminated</span>
+        </div>
+
+        <div class="pipeline-node">
+          <div class="node-step-badge">STAGE 05</div>
+          <div class="node-title">Categorical Encoding</div>
+          <div class="node-member">Gayathmi P.G.R.</div>
+          <div class="node-detail">
+            Handled class imbalance in Precip Type (~89% rain vs ~11% snow); encoded weather summary categories via one-hot vectors.
+          </div>
+          <span class="node-impact-tag">Class Imbalance Preserved</span>
+        </div>
+
+        <div class="pipeline-node">
+          <div class="node-step-badge">STAGE 06</div>
+          <div class="node-title">Feature Scaling</div>
+          <div class="node-member">Gunathilaka H.D.T.T.</div>
+          <div class="node-detail">
+            StandardScaler fitted strictly on training partition (z = (x - mu) / sigma). Symmetrized gradient loss surface for neural convergence.
+          </div>
+          <span class="node-impact-tag">R²: 0.1968 → 0.9876</span>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       Ethical Safeguards & Smart Agriculture
+       ======================================================================== -->
+  <section class="section-wrapper" id="ethics">
+    <div class="container">
+      
+      <div class="section-head">
+        <div>
+          <div class="section-tag">Operational Integrity</div>
+          <h2 class="section-title">Ethical Safeguards & Autonomous Actuation</h2>
+        </div>
+        <p class="section-desc">
+          Translating theoretical machine learning models into risk-aware greenhouse physical automation.
+        </p>
+      </div>
+
+      <div class="ethics-grid">
+        
+        <div class="ethics-card">
+          <div class="ethics-icon">⚖️</div>
+          <h3>Asymmetric Loss Function</h3>
+          <p>
+            An unpredicted frost event (false negative) causes blossom necrosis and total seasonal crop destruction, whereas a false warning incurs minor heating fuel cost. Controllers enforce a +1.5°C safety margin prioritizing frost recall over raw precision.
+          </p>
+        </div>
+
+        <div class="ethics-card">
+          <div class="ethics-icon">🌐</div>
+          <h3>Geographic Domain Shift</h3>
+          <p>
+            Models trained on the continental climate of Szeged, Hungary cannot be deployed directly to tropical microclimates (such as Sri Lanka) without fine-tuning, as monsoonal humidity dynamics alter latent thermodynamic transfer rates.
+          </p>
+        </div>
+
+        <div class="ethics-card">
+          <div class="ethics-icon">🛡️</div>
+          <h3>Sensor Fault Tolerance</h3>
+          <p>
+            An automated validation gateway monitors real-time sensor streams. If barometric pressure drops to 0.00 mbar or values freeze, the controller switches to a fail-safe persistence model to prevent physical hardware catastrophe.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       Footer & Team Credits
+       ======================================================================== -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="footer-credits">
+        <strong>AERO-AGRI // AI Platform</strong> — SLIIT IT2011 Artificial Intelligence & Machine Learning.<br>
+        Group ID: <strong>2026-Y2-S1-MLB-B9G2-01</strong> | Final Evaluation Project.
+      </div>
+
+      <div class="footer-team-pills">
+        <span class="team-pill">Gunathilaka H.D.T.T. (IT25101540)</span>
+        <span class="team-pill">Anaf M.K.A.S. (IT25102345)</span>
+        <span class="team-pill">Zeen A.C. (IT25103342)</span>
+        <span class="team-pill">Dissanayake S.A.S.D. (IT25101062)</span>
+        <span class="team-pill">Gayathmi P.G.R. (IT25103013)</span>
+        <span class="team-pill">Diyes C.L. (IT25100263)</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
