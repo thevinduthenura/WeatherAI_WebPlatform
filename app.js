@@ -1,5 +1,5 @@
 /* ==========================================================================
-   AERO-AGRI // MISSION CONTROL OS 26 - Real-time Cockpit Controller
+   AERO-AGRI // MISSION CONTROL OS 26 - GSAP-Powered Cockpit Controller
    Font Family: Helvetica Neue | Architecture: iOS 26 Liquid Glass
    ========================================================================== */
 
@@ -31,8 +31,61 @@ document.addEventListener("DOMContentLoaded", () => {
   const currentHourStat = document.getElementById("current-hour-stat");
   const histogramContainer = document.getElementById("diurnal-histogram");
   const btnActuate = document.getElementById("btn-trigger-actuator");
+  const mainBeaconCard = document.getElementById("main-beacon-card");
+  const radarSweepBeam = document.getElementById("radar-sweep-beam");
 
-  // Render Volume Histogram
+  // ========================================================================
+  // GSAP 1: Staggered Entrance Animations
+  // ========================================================================
+  if (typeof gsap !== "undefined") {
+    // Header slide down
+    gsap.from(".cockpit-header", {
+      y: -50,
+      opacity: 0,
+      duration: 0.9,
+      ease: "power3.out"
+    });
+
+    // Glass cards staggered lift
+    gsap.from(".liquid-glass", {
+      opacity: 0,
+      y: 40,
+      duration: 1.0,
+      stagger: 0.08,
+      ease: "power3.out",
+      delay: 0.2
+    });
+
+    // ========================================================================
+    // GSAP 2: Continuous Radar 360 Sweep Beam
+    // ========================================================================
+    if (radarSweepBeam) {
+      gsap.to(radarSweepBeam, {
+        rotation: 360,
+        transformOrigin: "410px 240px",
+        repeat: -1,
+        duration: 7,
+        ease: "none"
+      });
+    }
+
+    // ========================================================================
+    // GSAP 3: Floating Physics Levitation on Center Beacon Card
+    // ========================================================================
+    if (mainBeaconCard) {
+      gsap.to(mainBeaconCard, {
+        y: "-=10",
+        duration: 3.2,
+        yoyo: true,
+        repeat: -1,
+        ease: "sine.inOut"
+      });
+    }
+  }
+
+  // ========================================================================
+  // Render Diurnal Volume Histogram
+  // ========================================================================
   function renderHistogram(selectedHour = 14) {
     if (!histogramContainer) return;
     histogramContainer.innerHTML = "";
@@ -45,6 +98,18 @@ document.addEventListener("DOMContentLoaded", () => {
       bar.style.height = `${heightPercent}%`;
       bar.title = `${item.h}:00 — ${item.temp}°C`;
 
+      // GSAP bar hover micro-animation
+      bar.addEventListener("mouseenter", () => {
+        if (typeof gsap !== "undefined") {
+          gsap.to(bar, { scaleY: 1.15, transformOrigin: "bottom", duration: 0.2 });
+        }
+      });
+      bar.addEventListener("mouseleave", () => {
+        if (typeof gsap !== "undefined") {
+          gsap.to(bar, { scaleY: 1.0, duration: 0.2 });
+        }
+      });
+
       bar.addEventListener("click", () => {
         sliderHour.value = idx;
         updateSimulation();
@@ -54,7 +119,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Real-time Thermodynamic Prediction
+  // ========================================================================
+  // Real-time Thermodynamic Prediction & GSAP Number Tweening
+  // ========================================================================
+  let currentDisplayTemp = 13.5;
+
   function updateSimulation() {
     const temp = parseFloat(sliderTemp.value);
     const hum = parseFloat(sliderHum.value);
@@ -73,10 +142,25 @@ document.addEventListener("DOMContentLoaded", () => {
     const coolingDelta = isNight ? -0.75 * (1 - (hum / 220)) : +0.95 * (1 - (hum / 320));
     const pressDelta = (press - 1013.25) * 0.004;
 
-    const nextTemp = temp + coolingDelta + pressDelta;
-    const delta = nextTemp - temp;
+    const targetNextTemp = temp + coolingDelta + pressDelta;
+    const delta = targetNextTemp - temp;
 
-    centerPredTemp.innerHTML = `${nextTemp.toFixed(1)}<span>°C</span>`;
+    // GSAP Smooth Number Counter
+    if (typeof gsap !== "undefined") {
+      const tempObj = { val: currentDisplayTemp };
+      gsap.to(tempObj, {
+        val: targetNextTemp,
+        duration: 0.45,
+        ease: "power2.out",
+        onUpdate: () => {
+          centerPredTemp.innerHTML = `${tempObj.val.toFixed(1)}<span>°C</span>`;
+        }
+      });
+      currentDisplayTemp = targetNextTemp;
+    } else {
+      centerPredTemp.innerHTML = `${targetNextTemp.toFixed(1)}<span>°C</span>`;
+    }
+
     const sign = delta >= 0 ? "+" : "";
     centerPredDelta.textContent = `Expected Delta: ${sign}${delta.toFixed(2)}°C (${isNight ? 'Radiative Cooling' : 'Solar Heating Phase'})`;
 
@@ -88,25 +172,51 @@ document.addEventListener("DOMContentLoaded", () => {
     slider.addEventListener("input", updateSimulation);
   });
 
-  // Actuation Trigger Button
+  // ========================================================================
+  // GSAP 4: Actuation Button Shockwave Pulse
+  // ========================================================================
   if (btnActuate) {
     btnActuate.addEventListener("click", () => {
-      const originalText = btnActuate.textContent;
-      btnActuate.textContent = "⚡ ACTUATORS ENGAGED (Thermal Screens Deployed)";
+      if (typeof gsap !== "undefined") {
+        gsap.timeline()
+          .to(btnActuate, { scale: 0.96, duration: 0.1 })
+          .to(btnActuate, { scale: 1.04, duration: 0.18 })
+          .to(btnActuate, { scale: 1.0, duration: 0.15 });
+
+        // Cockpit aura shockwave flash
+        gsap.to(".satellite-map-card", {
+          borderColor: "#D2F82E",
+          boxShadow: "0 0 60px rgba(210, 248, 46, 0.4)",
+          duration: 0.35,
+          yoyo: true,
+          repeat: 1
+        });
+      }
+
+      const originalHtml = btnActuate.innerHTML;
+      btnActuate.innerHTML = `
+        <svg class="ui-icon sm" viewBox="0 0 24 24" style="stroke: #050807;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        <span>Thermal Screens Deployed (+1.5°C Offset Active)</span>
+      `;
       btnActuate.style.background = "#10B981";
+
       setTimeout(() => {
-        btnActuate.textContent = originalText;
+        btnActuate.innerHTML = originalHtml;
         btnActuate.style.background = "";
-      }, 3000);
+      }, 3500);
     });
   }
 
-  // Model card click highlights
+  // Model card click highlights with spring motion
   const modelCards = document.querySelectorAll(".model-schematic-card");
   modelCards.forEach(card => {
     card.addEventListener("click", () => {
       modelCards.forEach(c => c.classList.remove("featured"));
       card.classList.add("featured");
+
+      if (typeof gsap !== "undefined") {
+        gsap.fromTo(card, { scale: 0.98 }, { scale: 1.0, duration: 0.3, ease: "back.out(2)" });
+      }
     });
   });
 
@@ -116,10 +226,14 @@ document.addEventListener("DOMContentLoaded", () => {
     tab.addEventListener("click", () => {
       tabs.forEach(t => t.classList.remove("active"));
       tab.classList.add("active");
+
+      if (typeof gsap !== "undefined") {
+        gsap.fromTo(tab, { scale: 0.93 }, { scale: 1.0, duration: 0.25, ease: "back.out(2)" });
+      }
     });
   });
 
-  // Initial draw
+  // Initial render
   renderHistogram(14);
   updateSimulation();
 });

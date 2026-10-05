@@ -8,6 +8,9 @@
   <meta name="author" content="Group 2026-Y2-S1-MLB-B9G2-01 | SLIIT">
   
   <link rel="stylesheet" href="style.css">
+  
+  <!-- GSAP Animation Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 </head>
 <body>
 
@@ -18,27 +21,51 @@
          ====================================================================== -->
     <header class="cockpit-header">
       <a href="#" class="brand-unit">
-        <div class="brand-glyph">⬡</div>
+        <div class="brand-glyph">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+            <polyline points="2 17 12 22 22 17"></polyline>
+            <polyline points="2 12 12 17 22 12"></polyline>
+          </svg>
+        </div>
         <div class="brand-text-block">
           <div class="brand-title">AERO-AGRI <span>// OS 26</span></div>
           <div class="brand-meta">Mission Control // Smart Microclimate System</div>
         </div>
       </a>
 
-      <!-- Central Pill Tabs (Directly matching monitor image) -->
+      <!-- Central Pill Tabs (Vector Icons instead of Emojis) -->
       <nav class="cockpit-nav-tabs">
-        <div class="cockpit-tab active" data-tab="map">Live Map</div>
-        <div class="cockpit-tab" data-tab="fleet">Fleet (6 Models)</div>
-        <div class="cockpit-tab" data-tab="routes">Thermal Routes</div>
-        <div class="cockpit-tab" data-tab="analytics">Analytics</div>
-        <div class="cockpit-tab" data-tab="pipeline">Maintenance</div>
-        <div class="cockpit-tab" data-tab="incidents">Incidents (2)</div>
+        <div class="cockpit-tab active" data-tab="map">
+          <svg class="ui-icon sm" viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg>
+          <span>Live Map</span>
+        </div>
+        <div class="cockpit-tab" data-tab="fleet">
+          <svg class="ui-icon sm" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+          <span>Fleet (6 Models)</span>
+        </div>
+        <div class="cockpit-tab" data-tab="routes">
+          <svg class="ui-icon sm" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+          <span>Thermal Routes</span>
+        </div>
+        <div class="cockpit-tab" data-tab="analytics">
+          <svg class="ui-icon sm" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+          <span>Analytics</span>
+        </div>
+        <div class="cockpit-tab" data-tab="pipeline">
+          <svg class="ui-icon sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+          <span>Pipeline</span>
+        </div>
+        <div class="cockpit-tab" data-tab="incidents">
+          <svg class="ui-icon sm" viewBox="0 0 24 24" style="stroke: var(--accent-rose);"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+          <span>Incidents (2)</span>
+        </div>
       </nav>
 
       <!-- Actions -->
       <div class="cockpit-actions">
         <div class="search-command-input">
-          <span>🔍</span>
+          <svg class="ui-icon sm" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
           <span>Search Ctrl+K</span>
         </div>
         <div class="system-status-indicator">
@@ -94,8 +121,11 @@
         <!-- Operational Efficiency (Matching the 78.3% card in image) -->
         <div class="efficiency-card liquid-glass">
           <div class="card-label-row">
-            <span class="card-title-tiny">Operational Fit (R²)</span>
-            <span style="font-size: 0.7rem; color: var(--accent-lime); font-family: var(--font-mono);">↗ +1.2%</span>
+            <span class="card-title-tiny">
+              <svg class="ui-icon sm" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              <span>Operational Fit (R²)</span>
+            </span>
+            <span style="font-size: 0.72rem; color: var(--accent-lime); font-family: var(--font-mono); font-weight: 700;">+1.2% Gain</span>
           </div>
           <div class="efficiency-number">
             93.3<span>%</span>
@@ -112,8 +142,8 @@
                 <stop offset="100%" stop-color="#D2F82E" stop-opacity="0.0"/>
               </linearGradient>
             </defs>
-            <path d="M 0 40 Q 30 20 60 25 T 120 15 T 180 30 T 240 10 L 280 18 L 280 50 L 0 50 Z" fill="url(#sparkGradient)"/>
-            <path d="M 0 40 Q 30 20 60 25 T 120 15 T 180 30 T 240 10 L 280 18" fill="none" stroke="#D2F82E" stroke-width="2"/>
+            <path id="sparkline-area" d="M 0 40 Q 30 20 60 25 T 120 15 T 180 30 T 240 10 L 280 18 L 280 50 L 0 50 Z" fill="url(#sparkGradient)"/>
+            <path id="sparkline-path" d="M 0 40 Q 30 20 60 25 T 120 15 T 180 30 T 240 10 L 280 18" fill="none" stroke="#D2F82E" stroke-width="2"/>
             <circle cx="280" cy="18" r="3.5" fill="#D2F82E" filter="drop-shadow(0 0 6px #D2F82E)"/>
           </svg>
         </div>
@@ -185,6 +215,9 @@
       <section class="center-cockpit-panel">
         
         <div class="satellite-map-card liquid-glass">
+          <!-- Photorealistic Satellite Terrain Background Image -->
+          <img src="assets/satellite_terrain.jpg" alt="Szeged Topographic Satellite Terrain" class="satellite-bg-image">
+          <div class="satellite-vignette"></div>
           <div class="satellite-grid-overlay"></div>
 
           <!-- Radar SVG Animation Canvas -->
@@ -194,23 +227,27 @@
                 <stop offset="0%" stop-color="#D2F82E" stop-opacity="0.3"/>
                 <stop offset="100%" stop-color="#D2F82E" stop-opacity="0.0"/>
               </radialGradient>
+              <linearGradient id="radarSweep" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#D2F82E" stop-opacity="0.4"/>
+                <stop offset="100%" stop-color="#D2F82E" stop-opacity="0.0"/>
+              </linearGradient>
             </defs>
 
-            <!-- Topographic terrain contours of Szeged Basin -->
-            <path d="M 50 120 Q 200 80 400 130 T 750 90" fill="none" stroke="rgba(255, 255, 255, 0.08)" stroke-width="1.2"/>
-            <path d="M 80 220 Q 250 180 450 230 T 780 200" fill="none" stroke="rgba(255, 255, 255, 0.08)" stroke-width="1.2"/>
-            <path d="M 40 340 Q 220 300 480 360 T 740 310" fill="none" stroke="rgba(255, 255, 255, 0.08)" stroke-width="1.2"/>
+            <!-- Active Atmospheric Telemetry Vectors -->
+            <path d="M 120 400 Q 280 320 410 240 T 680 80" fill="none" stroke="#D2F82E" stroke-width="2.2" stroke-dasharray="6 4" filter="drop-shadow(0 0 8px #D2F82E)"/>
+            <path d="M 180 80 Q 320 180 410 240 T 620 420" fill="none" stroke="#38BDF8" stroke-width="1.6" stroke-dasharray="4 4" filter="drop-shadow(0 0 6px #38BDF8)"/>
 
-            <!-- Active Telemetry Routes (Glowing River / Airflow Vectors) -->
-            <path d="M 120 400 Q 280 320 410 240 T 680 80" fill="none" stroke="#D2F82E" stroke-width="2.5" stroke-dasharray="6 4" filter="drop-shadow(0 0 8px #D2F82E)"/>
-            <path d="M 180 80 Q 320 180 410 240 T 620 420" fill="none" stroke="#38BDF8" stroke-width="1.5" stroke-dasharray="4 4" filter="drop-shadow(0 0 6px #38BDF8)"/>
-
-            <!-- Station Radar Pulse Rings -->
+            <!-- Radar Pulse Rings -->
             <circle cx="410" cy="240" r="45" fill="url(#beaconGlow)"/>
-            <circle cx="410" cy="240" r="90" fill="none" stroke="rgba(210, 248, 46, 0.25)" stroke-width="1" stroke-dasharray="3 3"/>
-            <circle cx="410" cy="240" r="140" fill="none" stroke="rgba(210, 248, 46, 0.12)" stroke-width="0.8"/>
+            <circle cx="410" cy="240" r="95" fill="none" stroke="rgba(210, 248, 46, 0.28)" stroke-width="1" stroke-dasharray="4 4"/>
+            <circle cx="410" cy="240" r="150" fill="none" stroke="rgba(210, 248, 46, 0.15)" stroke-width="0.8"/>
 
-            <!-- Regional Station Nodes -->
+            <!-- Rotating Radar Sweep Beam (Targeted by GSAP) -->
+            <g id="radar-sweep-beam">
+              <path d="M 410 240 L 410 90 A 150 150 0 0 1 540 165 Z" fill="url(#radarSweep)"/>
+            </g>
+
+            <!-- Regional Meteorological Station Nodes -->
             <circle cx="410" cy="240" r="6" fill="#D2F82E" filter="drop-shadow(0 0 10px #D2F82E)"/>
             <circle cx="240" cy="180" r="4" fill="#FFFFFF"/>
             <circle cx="580" cy="160" r="4" fill="#38BDF8"/>
@@ -229,17 +266,22 @@
 
             <div class="map-controls-row">
               <div class="glass-pill active" style="padding: 6px 14px; font-size: 0.74rem; font-weight: 700;">
-                🛰️ Live Satellite Stream
+                <svg class="ui-icon sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"></circle><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"></path></svg>
+                <span>Live Stream</span>
               </div>
               <div class="glass-pill" style="padding: 6px 14px; font-size: 0.74rem;">
-                Terrain Model 2
+                <svg class="ui-icon sm" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon></svg>
+                <span>Terrain GIS</span>
               </div>
             </div>
           </div>
 
           <!-- Central Floating Telemetry Beacon (Matching "Passenger Load 87%" in image) -->
-          <div class="floating-telemetry-beacon-card liquid-glass">
-            <div class="beacon-tag">Next-Hour Predicted (T_t+1)</div>
+          <div class="floating-telemetry-beacon-card liquid-glass" id="main-beacon-card">
+            <div class="beacon-tag">
+              <svg class="ui-icon sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="3"></circle></svg>
+              <span>Next-Hour Target (T_t+1)</span>
+            </div>
             <div class="beacon-big-stat" id="center-pred-temp">13.5<span>°C</span></div>
             <div class="beacon-delta" id="center-pred-delta">Expected Delta: -0.70°C (Radiative Cooling)</div>
           </div>
@@ -247,13 +289,19 @@
           <!-- Map Bottom Controls -->
           <div class="map-bottom-strip">
             <div class="radar-zoom-controls">
-              <button class="zoom-btn" title="Zoom in">+</button>
-              <button class="zoom-btn" title="Zoom out">-</button>
-              <button class="zoom-btn" title="Recenter target">⊙</button>
+              <button class="zoom-btn" title="Zoom in">
+                <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              </button>
+              <button class="zoom-btn" title="Zoom out">
+                <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              </button>
+              <button class="zoom-btn" title="Recenter target">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="22" y1="12" x2="18" y2="12"></line><line x1="6" y1="12" x2="2" y2="12"></line><line x1="12" y1="6" x2="12" y2="2"></line><line x1="12" y1="22" x2="12" y2="18"></line></svg>
+              </button>
             </div>
             
-            <div style="font-size: 0.74rem; color: var(--text-secondary); font-family: var(--font-mono); background: rgba(0,0,0,0.5); padding: 4px 12px; border-radius: var(--radius-pill); border: 1px solid var(--glass-border);">
-              Active Predictors: Temp 14.2°C | Hum 73% | Press 1013 mbar | Wind 12 km/h
+            <div style="font-size: 0.74rem; color: var(--text-secondary); font-family: var(--font-mono); background: rgba(0,0,0,0.5); padding: 5px 14px; border-radius: var(--radius-pill); border: 1px solid var(--glass-border);">
+              Active State: Temp 14.2°C | Hum 73% | Press 1013 mbar | Wind 12 km/h
             </div>
           </div>
 
@@ -264,7 +312,10 @@
           
           <!-- Schedule Offset / Error Variance Card -->
           <div class="offset-schedule-card liquid-glass">
-            <div class="card-title-tiny" style="margin-bottom: 4px;">Ensemble Forecast Offset</div>
+            <div class="card-title-tiny" style="margin-bottom: 4px;">
+              <svg class="ui-icon sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              <span>Ensemble Forecast Offset</span>
+            </div>
             <div class="stat-head-flex">
               <div class="stat-huge mono-stat">± 0.98<span>°C</span></div>
               <div class="stat-desc">Average Generalization Variance Across Top 3 Models</div>
@@ -278,7 +329,10 @@
 
           <!-- Live 24-Hour Diurnal Thermal Volume (Histogram matching image) -->
           <div class="volume-sparkline-card liquid-glass">
-            <div class="card-title-tiny" style="margin-bottom: 4px;">24-Hour Diurnal Thermal Volume</div>
+            <div class="card-title-tiny" style="margin-bottom: 4px;">
+              <svg class="ui-icon sm" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+              <span>24-Hour Diurnal Thermal Volume</span>
+            </div>
             <div class="stat-head-flex">
               <div class="stat-huge mono-stat" id="current-hour-stat">14.2<span>°C</span></div>
               <div class="stat-desc">Diurnal cycle tracking (Hour 00:00 to 23:00)</div>
@@ -303,7 +357,8 @@
         <div class="warning-main-card liquid-glass">
           <div class="warning-header-row">
             <div class="warning-title">
-              <span>⚠️ System Warnings</span>
+              <svg class="ui-icon sm" viewBox="0 0 24 24" style="stroke: var(--accent-rose);"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+              <span>System Warnings</span>
             </div>
             <span class="warning-count-pill">2 Active</span>
           </div>
@@ -311,7 +366,8 @@
           <!-- Incident 1: Nocturnal Frost Alert -->
           <div class="incident-box">
             <div class="incident-head">
-              <span>● Frost Hazard Detected (Block A & C)</span>
+              <span class="dot" style="width: 7px; height: 7px; border-radius: 50%; background: var(--accent-rose); display: inline-block;"></span>
+              <span>Frost Hazard Detected (Block A & C)</span>
             </div>
             <div class="incident-body">
               Radiative heat loss model projects minimum temperature descending to <strong>1.8°C at 04:15</strong>.
@@ -321,20 +377,23 @@
               <strong>Safeguard:</strong> +1.5°C Asymmetric Safety Offset triggered.
             </div>
             <div class="incident-action-tag">
-              ⚡ Action: Thermal Screens Armed
+              <svg class="ui-icon sm" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+              <span>Action: Thermal Screens Armed</span>
             </div>
           </div>
 
           <!-- Incident 2: Sensor Health Gateway -->
           <div class="incident-box" style="border-color: rgba(245, 158, 11, 0.35);">
             <div class="incident-head" style="color: var(--accent-amber);">
-              <span>● Sensor Health Gateway Active</span>
+              <span class="dot" style="width: 7px; height: 7px; border-radius: 50%; background: var(--accent-amber); display: inline-block;"></span>
+              <span>Sensor Health Gateway Active</span>
             </div>
             <div class="incident-body">
               <strong>4,400 sensor freeze rows</strong> (barometric pressure 0.00 mbar) isolated from streaming inference pipeline.
             </div>
             <div class="incident-action-tag" style="color: var(--accent-amber); border-color: rgba(245, 158, 11, 0.3);">
-              🛡️ Quarantined: Zero Noise
+              <svg class="ui-icon sm" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+              <span>Quarantined: Zero Noise</span>
             </div>
           </div>
 
@@ -343,13 +402,17 @@
         <!-- Live Simulation & Actuation Drawer -->
         <div class="actuation-controls-card liquid-glass">
           <div class="card-title-tiny" style="margin-bottom: 12px; color: var(--accent-lime);">
-            ⚡ Real-Time Actuator Simulator
+            <svg class="ui-icon sm" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+            <span>Real-Time Actuator Simulator</span>
           </div>
 
           <!-- Slider 1 -->
           <div class="ctrl-slider-unit">
             <div class="ctrl-label-flex">
-              <span class="lbl">Air Temp (T_t)</span>
+              <span class="lbl">
+                <svg class="ui-icon sm" viewBox="0 0 24 24"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"></path></svg>
+                <span>Air Temp (T_t)</span>
+              </span>
               <span class="val" id="slide-val-temp">14.2°C</span>
             </div>
             <input type="range" id="ios-slider-temp" min="-10" max="40" step="0.1" value="14.2">
@@ -358,7 +421,10 @@
           <!-- Slider 2 -->
           <div class="ctrl-slider-unit">
             <div class="ctrl-label-flex">
-              <span class="lbl">Humidity (%)</span>
+              <span class="lbl">
+                <svg class="ui-icon sm" viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
+                <span>Humidity (%)</span>
+              </span>
               <span class="val" id="slide-val-hum">73%</span>
             </div>
             <input type="range" id="ios-slider-hum" min="10" max="100" step="1" value="73">
@@ -367,7 +433,10 @@
           <!-- Slider 3 -->
           <div class="ctrl-slider-unit">
             <div class="ctrl-label-flex">
-              <span class="lbl">Pressure (mbar)</span>
+              <span class="lbl">
+                <svg class="ui-icon sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M16.2 7.8l-2 5.6-5.6 2 2-5.6z"></path></svg>
+                <span>Pressure (mbar)</span>
+              </span>
               <span class="val" id="slide-val-press">1013 mbar</span>
             </div>
             <input type="range" id="ios-slider-press" min="970" max="1050" step="1" value="1013">
@@ -376,14 +445,18 @@
           <!-- Slider 4 -->
           <div class="ctrl-slider-unit">
             <div class="ctrl-label-flex">
-              <span class="lbl">Hour of Day</span>
+              <span class="lbl">
+                <svg class="ui-icon sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                <span>Hour of Day</span>
+              </span>
               <span class="val" id="slide-val-hour">14:00</span>
             </div>
             <input type="range" id="ios-slider-hour" min="0" max="23" step="1" value="14">
           </div>
 
           <button class="btn-actuate-full" id="btn-trigger-actuator">
-            🚀 Engage Physical Actuators
+            <svg class="ui-icon sm" viewBox="0 0 24 24" style="stroke: #050807;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+            <span>Engage Physical Actuators</span>
           </button>
         </div>
 
