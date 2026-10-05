@@ -742,7 +742,15 @@ export default function MissionControlPage() {
                 </div>
                 <div className="hud-hud-sub">Elevation: {selectedPlot.elevation}m • {selectedPlot.zone}</div>
                 <div className="hud-hud-big">
-                  {displayPredictedTemp.toFixed(1)}°C <span className="unit">| RH {humidity}%</span>
+                  {displayPredictedTemp.toFixed(1)}°C <span className="unit">Predicted</span>
+                </div>
+                <div className="hud-hud-delta">
+                  Delta: {delta >= 0 ? "+" : ""}{delta.toFixed(2)}°C | {isNight ? "Nocturnal Cooling" : "Solar Warming"}
+                </div>
+                <div className="hud-hud-metrics-row">
+                  <span>VPD: <strong>{vpd.toFixed(2)} kPa</strong></span>
+                  <span>RH: <strong>{humidity}%</strong></span>
+                  <span>Soil: <strong>{selectedPlot.moisture}%</strong></span>
                 </div>
                 <div className={`hud-hud-badge ${isFrostImminent ? "danger" : "normal"}`}>
                   {isFrostImminent ? "CRITICAL GROUND FROST RISK" : "OPTIMAL THERMAL RANGE"}
@@ -788,71 +796,21 @@ export default function MissionControlPage() {
                 </div>
               </div>
 
-              {/* 3D Tilted Levitating Glass Card (Desktop only, hidden on mobile to avoid obscuring radar) */}
-              <div className="card-3d-perspective-stage desktop-only-floating">
-                <div
-                  className="floating-3d-glass-card"
-                  ref={floatingCardRef}
-                  style={{
-                    transform: `translate(-50%, -50%) rotateX(${cardTiltAngle.x}deg) rotateY(${cardTiltAngle.y}deg) translateZ(30px)`,
-                    backdropFilter: `blur(${glassBlur}px) saturate(${glassSaturate}%)`,
-                    WebkitBackdropFilter: `blur(${glassBlur}px) saturate(${glassSaturate}%)`,
-                    borderColor: specularTint,
-                  }}
-                >
-                  <div className="waypoint-pin-bubble">
-                    <svg className="ui-icon sm" viewBox="0 0 24 24" style={{ stroke: "#050807", width: 18, height: 18 }}>
-                      <polygon points="12 2 19 21 12 17 5 21 12 2"></polygon>
-                    </svg>
-                  </div>
-                  <div className="beacon-tag">
-                    <svg className="ui-icon sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                    <span>{selectedPlot.name} Forecast</span>
-                  </div>
-                  <div className="beacon-big-stat" id="center-pred-temp">
-                    {displayPredictedTemp.toFixed(1)}<span>°C</span>
-                  </div>
-                  <div className="beacon-delta" id="center-pred-delta">
-                    Delta: {delta >= 0 ? "+" : ""}{delta.toFixed(2)}°C | {isNight ? "Nocturnal Cooling" : "Solar Warming"}
-                  </div>
-                  <div style={{ display: "flex", justifyContent: "space-between", marginTop: 14, paddingTop: 10, borderTop: "1px solid rgba(255,255,255,0.12)", fontSize: "0.72rem", color: "var(--text-secondary)", fontFamily: "var(--font-mono)" }}>
-                    <span>VPD: <strong>{vpd.toFixed(2)} kPa</strong></span>
-                    <span>Model: <strong>{selectedModel.toUpperCase()}</strong></span>
-                  </div>
-
-                  {/* iOS Style Mobile Telemetry Quick Tiles */}
-                  <div className="mobile-stats-row">
-                    <div className="mobile-stat-tile">
-                      <div className="num">{temp.toFixed(1)}°</div>
-                      <div className="lbl">Ambient</div>
-                    </div>
-                    <div className="mobile-stat-tile">
-                      <div className="num">{humidity}%</div>
-                      <div className="lbl">Humidity</div>
-                    </div>
-                    <div className="mobile-stat-tile">
-                      <div className="num">{vpd.toFixed(2)}</div>
-                      <div className="lbl">VPD kPa</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Floating Map Controls (Image 5 bottom-left of map) */}
-              <div className="map-floating-controls">
-                <div className="map-zoom-pill">
-                  <button className="map-zoom-btn" onClick={() => setHour((h) => Math.min(23, h + 1))} title="Forward 1 hour">+</button>
-                  <button className="map-zoom-btn" onClick={() => setHour(12)} title="Midday Reset">⌖</button>
-                  <button className="map-zoom-btn" onClick={() => setHour((h) => Math.max(0, h - 1))} title="Backward 1 hour">-</button>
-                </div>
-                <div style={{ fontSize: "0.68rem", color: "rgba(255,255,255,0.6)", background: "rgba(14,18,24,0.82)", padding: "5px 12px", borderRadius: "var(--radius-pill)", border: "1px solid rgba(255,255,255,0.14)", fontFamily: "var(--font-mono)" }}>
-                  🛰 SATELLITE RADAR // ACTIVE
-                </div>
-              </div>
-
+              {/* Unified Bottom Bar (Zoom Controls + Radar Status + Live Telemetry Meta) */}
               <div className="map-bottom-strip">
-                <div style={{ fontSize: "0.74rem", color: "var(--text-secondary)", fontFamily: "var(--font-mono)", background: "rgba(0,0,0,0.5)", padding: "5px 14px", borderRadius: "var(--radius-pill)", border: "1px solid var(--glass-border)" }}>
-                  Inference Model: {selectedModel.toUpperCase()} | Ambient: {temp.toFixed(1)}°C | RH: {humidity}% | Pres: {pressure} mbar
+                <div className="map-floating-controls-inline">
+                  <div className="map-zoom-pill">
+                    <button className="map-zoom-btn" onClick={() => setHour((h) => Math.min(23, h + 1))} title="Forward 1 hour">+</button>
+                    <button className="map-zoom-btn" onClick={() => setHour(12)} title="Midday Reset">⌖</button>
+                    <button className="map-zoom-btn" onClick={() => setHour((h) => Math.max(0, h - 1))} title="Backward 1 hour">-</button>
+                  </div>
+                  <div className="radar-status-pill">
+                    🛰 SATELLITE RADAR // ACTIVE
+                  </div>
+                </div>
+
+                <div className="map-telemetry-meta-pill">
+                  Model: <strong style={{ color: "var(--accent-lime)" }}>{selectedModel.toUpperCase()}</strong> | Ambient: <strong>{temp.toFixed(1)}°C</strong> | RH: <strong>{humidity}%</strong> | Pres: <strong>{pressure} mbar</strong>
                 </div>
               </div>
             </div>
