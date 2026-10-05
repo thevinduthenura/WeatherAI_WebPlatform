@@ -182,13 +182,15 @@ body {
    Top Cockpit Header Bar
    ========================================================================== */
 .cockpit-header {
+  position: sticky;
+  top: 12px;
   height: 64px;
   padding: 0 22px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   border-radius: var(--radius-pill);
-  background: rgba(14, 21, 18, 0.75);
+  background: rgba(14, 21, 18, 0.85);
   backdrop-filter: blur(36px) saturate(200%);
   -webkit-backdrop-filter: blur(36px) saturate(200%);
   border: 1px solid var(--glass-border);
@@ -1126,4 +1128,216 @@ input[type="range"]::-webkit-slider-thumb {
     grid-template-columns: 1fr;
   }
 }
+
+/* ==========================================================================
+   Dedicated Scrollable Content Sections
+   ========================================================================== */
+.scroll-section {
+  scroll-margin-top: 90px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.section-hero-card {
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.section-badge-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.74rem;
+  color: var(--accent-lime);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.section-title-large {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: -0.02em;
+}
+
+.section-desc-text {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  max-width: 900px;
+}
+
+/* Benchmark Comparison Table */
+.benchmark-table-container {
+  overflow-x: auto;
+  margin-top: 12px;
+}
+
+.benchmark-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+  font-family: var(--font-mono);
+}
+
+.benchmark-table th {
+  text-align: left;
+  padding: 12px 16px;
+  color: var(--text-muted);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+}
+
+.benchmark-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+}
+
+.benchmark-table tr:hover td {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.benchmark-table tr.highlighted td {
+  background: rgba(210, 248, 46, 0.08);
+  border-color: rgba(210, 248, 46, 0.2);
+}
+
+/* Team Grid */
+.team-member-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 12px;
+}
+
+@media (max-width: 900px) {
+  .team-member-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.team-card {
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.member-avatar-badge {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(210, 248, 46, 0.15);
+  border: 1px solid rgba(210, 248, 46, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-lime);
+  font-weight: 800;
+  font-size: 1rem;
+}
+
+.member-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.member-id {
+  font-size: 0.74rem;
+  color: var(--accent-lime);
+  font-family: var(--font-mono);
+}
+
+.member-role {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+.member-metrics-strip {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid var(--glass-border);
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+}
+
+/* Hazard Matrix */
+.hazard-matrix-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-top: 12px;
+}
+
+@media (max-width: 980px) {
+  .hazard-matrix-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .hazard-matrix-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.hazard-cell {
+  padding: 18px;
+  border-radius: var(--radius-md);
+  background: rgba(14, 23, 19, 0.6);
+  border: 1px solid var(--glass-border);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.hazard-cell.severe {
+  border-color: rgba(56, 189, 248, 0.5);
+  background: rgba(56, 189, 248, 0.08);
+}
+
+.hazard-cell.heat {
+  border-color: rgba(239, 68, 68, 0.5);
+  background: rgba(239, 68, 68, 0.08);
+}
+
+.hazard-cell.optimal {
+  border-color: rgba(16, 185, 129, 0.5);
+  background: rgba(16, 185, 129, 0.08);
+}
+
+.hazard-temp-range {
+  font-size: 1.25rem;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  color: #FFFFFF;
+}
+
+.hazard-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.hazard-action {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin-top: auto;
+}
+
 
