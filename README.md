@@ -1,76 +1,99 @@
-# AERO-AGRI // AI — Weather-Based Air Temperature Forecasting Web Platform
+# AERO-AGRI // MISSION CONTROL OS 26 🌦️🛰️
+### Weather-Based Air Temperature Forecasting Web Platform for Smart Agriculture
 
-An ultra-modern, luxury dark-themed web platform for **Next-Hour Air Temperature Forecasting (t+1)** in **Smart Protected Agriculture**, built for the **SLIIT IT2011 AI/ML Final Evaluation (Group 2026-Y2-S1-MLB-B9G2-01)**.
-
----
-
-## 🌟 Visual Theme & Design Language
-Inspired by modern dark luxury interfaces (GolfX, MOSS, and Nocturnal Telemetry UIs):
-- **Deep Nocturnal Organic Palette**: Rich obsidian greens (`#070B09`, `#0D1410`), dense moss surfaces (`#1A3828`), and electric neon citron/lime accents (`#D2F82E`).
-- **Atmospheric Glow & Glassmorphism**: Translucent frosted cards (`backdrop-filter: blur(28px)`), subtle glowing borders, and drop shadows.
-- **Modern Typography**: Google Fonts (*Plus Jakarta Sans*, *Space Grotesk*, and *JetBrains Mono*).
+> **SLIIT — Faculty of Computing | Department of Computer Science & Software Engineering**  
+> **Module:** IT2011 — Artificial Intelligence & Machine Learning (2026 / Y2S1)  
+> **Group:** `2026-Y2-S1-MLB-B9G2-01`  
+> **Dataset:** Szeged Meteorological Weather Archive (96,429 observations over 11 years, 2006–2016)
 
 ---
 
-## 🚀 Key Interactive Features
+## 🚀 Overview
 
-1. **Live Atmospheric Telemetry & Station Feed**:
-   - Szeged Meteorological Observatory telemetry (46.25°N, 20.14°E).
-   - Real-time current temperature ($T_t$), barometric pressure, relative humidity, and wind speed.
-   - **AI Actuation Tip Widget**: Dynamic advisory card monitoring diurnal cooling and triggering automated thermal screens with an asymmetric $+1.5^\circ\text{C}$ frost recall safety offset.
+**AERO-AGRI OS 26** is a mission-control command center web platform built with **Next.js (App Router)** and **TypeScript**, powered by **GSAP** physics and animations, and styled in an ultra-sleek **iOS 26 / visionOS Liquid Glass** aesthetic with **Helvetica Neue** typography.
 
-2. **Interactive Real-Time Inference Simulator**:
-   - 5 interactive sliders (Temperature, Humidity, Pressure, Wind Speed, Diurnal Hour).
-   - 4 pre-configured scenario presets:
-     - 🌸 *Spring Blossom Night (Frost Alert)*
-     - ☀️ *Midsummer Heatwave Peak*
-     - 🌧️ *Autumn Frontal Low Pressure*
-     - ❄️ *Sub-Zero Continental Freeze*
-   - Real-time multi-model consensus breakdown showing predicted next-hour temperature ($T_{t+1}$) for all 6 group models.
-   - Dynamic agricultural hazard advisory (Frost hazard actuation, heat stress ventilation, or nominal monitoring).
+The platform provides real-time thermodynamic simulation, 24-hour diurnal thermal volume tracking, sensor anomaly isolation telemetry, and comparative model schematics benchmarking six core algorithmic paradigms evaluated in our academic research:
 
-3. **24-Hour Diurnal Forecast Interactive Chart**:
-   - Native responsive SVG chart tracking actual vs predicted temperatures over a 24-hour cycle.
-   - Interactive hover crosshair tooltip showing exact hourly residual.
-   - Model switcher buttons to compare the continuous approximation of the **Multi-Layer Perceptron (MLP)** vs **Random Forest** vs **Decision Tree piecewise steps** vs **SVR margin**.
-
-4. **Master Group Benchmark Leaderboard**:
-   - Complete performance cards for all 6 members with exact audited metrics:
-     - **#1 Random Forest (RF-1: Default)** — Diyes C.L. ($R^2 = 0.9331$, $\text{RMSE} = 2.4836^\circ\text{C}$)
-     - **#2 Random Forest (RF-3: Tuned n=150)** — Diyes C.L. ($R^2 = 0.9324$, $\text{RMSE} = 2.4967^\circ\text{C}$)
-     - **#3 Deep MLP (MLP-2: [128, 64, 32])** — Gunathilaka H.D.T.T. ($R^2 = 0.9151$, $\text{RMSE} = 2.7970^\circ\text{C}$)
-     - **#4 Tuned MLP (MLP-3: [128, 64])** — Gunathilaka H.D.T.T. ($R^2 = 0.9133$, $\text{RMSE} = 2.8266^\circ\text{C}$ / with lags $R^2 = 0.9876$)
-     - **#5 Support Vector Regression (SVR-3: RBF)** — Dissanayake S.A.S.D. ($R^2 = 0.8913$, $\text{RMSE} = 3.1500^\circ\text{C}$)
-     - **#6 Gradient Boosting (GB-3: Cyclical)** — Zeen A.C. ($R^2 = 0.8846$, $\text{RMSE} = 3.2610^\circ\text{C}$)
-     - **#7 Decision Tree (DT-3: Pruned Optimal)** — Gayathmi P.G.R. ($R^2 = 0.8759$, $\text{RMSE} = 3.3731^\circ\text{C}$)
-     - **#8 Linear Regression (LR-1: OLS Baseline)** — Anaf M.K.A.S. ($R^2 = 0.8614$, $\text{RMSE} = 3.5750^\circ\text{C}$)
-
-5. **6-Stage Preprocessing Pipeline Interactive Flow**:
-   - Stage 01: Data Cleaning - Duplicate Removal & Wind Stall Artifacts (Zeen A.C.)
-   - Stage 02: Missing Data Handling - Precip Type Imputation (Dissanayake S.A.S.D.)
-   - Stage 03: Outlier Removal - 4,400 Pressure Stalls via IQR (Diyes C.L.)
-   - Stage 04: Feature Engineering - Leakage Removal & Time Extraction (Anaf M.K.A.S.)
-   - Stage 05: Categorical Encoding - Precip Type & Summary (Gayathmi P.G.R.)
-   - Stage 06: Feature Scaling - StandardScaler Normalization (Gunathilaka H.D.T.T.)
-
-6. **Ethical Safeguards & Autonomous Actuation**:
-   - Asymmetric Loss Function (+1.5°C margin prioritizing frost recall over precision).
-   - Domain shift analysis for tropical agriculture.
-   - Sensor fault tolerance gateway.
+1. **Random Forest Regression (RF-1)** — *Diyes C.L. (`IT25100263`)*: $R^2 = 0.9331$, $\text{RMSE} = 2.48^\circ\text{C}$ (100 Decision Trees).
+2. **Deep Multilayer Perceptron (MLP-2)** — *Gunathilaka H.D.T.T. (`IT25101540`)*: $R^2 = 0.9151$ (Baseline) / $0.9876$ (Autoregressive Lag Features), $\text{RMSE} = 2.79^\circ\text{C}$ ($[128, 64, 32]$ architecture with Adam optimizer).
+3. **Gradient Boosting Machine (GB-3)** — *Zeen A.C. (`IT25103342`)*: $R^2 = 0.8846$, $\text{RMSE} = 3.26^\circ\text{C}$ (Cyclical trigonometric temporal transforms).
+4. **Support Vector Regression (SVR-4)**: $R^2 = 0.8912$, $\text{RMSE} = 3.15^\circ\text{C}$ (Radial Basis Function Kernel).
+5. **Decision Tree Regressor (DT-5)**: $R^2 = 0.8350$, $\text{RMSE} = 3.89^\circ\text{C}$.
+6. **Multiple Linear Regression (LR-6)**: $R^2 = 0.7410$, $\text{RMSE} = 4.88^\circ\text{C}$ (Standard benchmark).
 
 ---
 
-## 🖥️ How to Run Locally
+## 🎨 Visual Design & UI System
 
-### Option 1: Direct File Open
-Simply double-click `index.html` or open it in any modern browser (Chrome, Edge, Firefox, Safari).
+- **Framework**: [Next.js](https://nextjs.org/) (App Router, Client Components, Server-Side Rendering support).
+- **Language**: TypeScript (`.tsx`, `.ts`) with strict type safety.
+- **Aesthetic**: **iOS 26 / visionOS Liquid Glass** (`backdrop-filter: blur(34px) saturate(190%)`, multi-layer specular highlights, squircle cards).
+- **Typography**: `Helvetica Neue` (`font-family: "Helvetica Neue", -apple-system, BlinkMacSystemFont, sans-serif`).
+- **Animations**: [GSAP 3](https://gsap.com/) for:
+  - 360° continuous radar sweep beam with origin transforms.
+  - Floating levitation physics on the central target beacon.
+  - Smooth numerical tweening on slider changes.
+  - Physical actuator shockwave pulse and cockpit aura flashes.
+- **Icons**: Clean, minimalist **SVG Vector Icons** (strictly zero emojis in controls).
+- **Satellite Map**: Photorealistic high-resolution topographic satellite imagery background overlaid with vector radar pulse rings and meteorological station beacons.
 
-### Option 2: Local HTTP Server (Already Running)
-Access directly at:
-```
-http://localhost:8085
-```
-Or start via terminal:
+---
+
+## 🛠️ Local Development & Quick Start
+
+### 1. Prerequisites
+- **Node.js** >= 18.17 (Verified on Node `v24.21.0`)
+- **npm** (Run commands using `npm.cmd` on Windows)
+
+### 2. Installation
 ```bash
-python -m http.server 8085
+npm install
+# Note: On Windows PowerShell if script execution is restricted, run:
+npm.cmd install
 ```
+
+### 3. Start Development Server
+```bash
+npm run dev
+# Or on Windows:
+npm.cmd run dev
+```
+Open **[http://localhost:3000](http://localhost:3000)** in your browser.
+
+### 4. Build for Production
+```bash
+npm run build
+# Or on Windows:
+npm.cmd run build
+```
+
+---
+
+## 📂 Project Structure
+
+```
+WeatherAI_WebPlatform/
+├── public/
+│   ├── assets/
+│   │   └── satellite_terrain.jpg    # High-resolution satellite terrain texture
+│   └── satellite_terrain.jpg
+├── src/
+│   └── app/
+│       ├── globals.css              # iOS 26 Liquid Glass & Helvetica Neue styling
+│       ├── layout.tsx               # Root layout & page metadata
+│       └── page.tsx                 # Interactive Next.js TypeScript Command Center
+├── next.config.ts                   # Next.js configuration
+├── tsconfig.json                    # TypeScript compiler configuration
+├── package.json                     # Dependencies (Next.js, React, GSAP, TypeScript)
+└── README.md
+```
+
+---
+
+## 👥 Research Group Members
+- **Gunathilaka H.D.T.T.** — `IT25101540` (Neural Network / MLP Modeling)
+- **Diyes C.L.** — `IT25100263` (Random Forest Ensemble)
+- **Zeen A.C.** — `IT25103342` (Gradient Boosting & Cyclical Features)
+
+---
+*Built with ❤️ for smart agriculture microclimate intelligence.*
