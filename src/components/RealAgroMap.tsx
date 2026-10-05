@@ -705,7 +705,7 @@ export default function RealAgroMap({
   };
 
   return (
-    <div className="tactical-gis-viewport liquid-glass">
+    <div className={`tactical-gis-viewport liquid-glass ${popupOpen ? "card-open" : ""}`}>
       {/* HUD Corner Tech Brackets (Image 2 replica) */}
       <div className="hud-corner-bracket top-left"></div>
       <div className="hud-corner-bracket top-right"></div>
@@ -718,8 +718,6 @@ export default function RealAgroMap({
         className="tactical-leaflet-map-canvas"
         style={{
           width: "100%",
-          height: "640px",
-          minHeight: "560px",
           background: "#060908",
           cursor: "crosshair",
         }}
@@ -924,6 +922,7 @@ export default function RealAgroMap({
             className="santorini-card-banner"
             style={{ backgroundImage: `url('${activeNode.image}')` }}
           >
+            <div className="mobile-sheet-drag-handle"></div>
             <div className="banner-overlay-gradient"></div>
             <div className="banner-top-row">
               <span className="banner-corridor-tag">
@@ -1099,9 +1098,26 @@ export default function RealAgroMap({
 
         {/* Zoom & Centering Quick Actions */}
         <div className="tactical-zoom-dock">
-          <button className="tactical-zoom-btn" onClick={handleZoomIn} title="Zoom In">+</button>
-          <button className="tactical-zoom-btn" onClick={handleResetView} title="Re-center on Agricultural Hotspot">⌖</button>
-          <button className="tactical-zoom-btn" onClick={handleZoomOut} title="Zoom Out">-</button>
+          <button className="tactical-zoom-btn" onClick={handleZoomIn} title="Zoom In" aria-label="Zoom In">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+          </button>
+          <button className="tactical-zoom-btn" onClick={handleResetView} title="Re-center on Agricultural Hotspot" aria-label="Re-center">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="7"></circle>
+              <line x1="12" y1="2" x2="12" y2="6"></line>
+              <line x1="12" y1="18" x2="12" y2="22"></line>
+              <line x1="2" y1="12" x2="6" y2="12"></line>
+              <line x1="18" y1="12" x2="22" y2="12"></line>
+            </svg>
+          </button>
+          <button className="tactical-zoom-btn" onClick={handleZoomOut} title="Zoom Out" aria-label="Zoom Out">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+          </button>
         </div>
       </div>
     </div>
