@@ -145,7 +145,7 @@ export default function MissionControlPage() {
   const [pressure, setPressure] = useState<number>(selectedPlot.basePres);
   const [hour, setHour] = useState<number>(4);
 
-  const [activeTab, setActiveTab] = useState<string>("radar-section");
+  const [activeTab, setActiveTab] = useState<string>("home-section");
   const [selectedModel, setSelectedModel] = useState<string>("mlp");
   const [actuatorEngaged, setActuatorEngaged] = useState<boolean>(false);
   const [displayPredictedTemp, setDisplayPredictedTemp] = useState<number>(selectedPlot.baseTemp);
@@ -345,6 +345,7 @@ export default function MissionControlPage() {
         {/* Central Segmented Pill Bar (Direct Scroll Triggers - Image 5 style) */}
         <nav className="cockpit-nav-segmented-bar">
           {[
+            { id: "home-section", label: "Home" },
             { id: "radar-section", label: "Live Radar" },
             { id: "fleet-section", label: "Model Fleet (6)" },
             { id: "frost-section", label: "Frost Defense" },
@@ -381,6 +382,144 @@ export default function MissionControlPage() {
           </button>
         </div>
       </header>
+
+      {/* ======================================================================
+          HOME SECTION: MINIMALIST DARK ATMOSPHERIC HERO (Dribbble/VisionOS Style)
+          ====================================================================== */}
+      <section id="home-section" className="minimalist-hero-banner">
+        {/* Cinematic Backdrop Image */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/hero_highland_dawn.jpg"
+          alt="Atmospheric Sri Lankan Highland Mist"
+          className="minimalist-hero-bg"
+        />
+        <div className="minimalist-hero-overlay"></div>
+
+        {/* Minimalist Top Micro-Navigation Bar */}
+        <div className="minimalist-hero-top">
+          <button
+            className={`minimalist-hero-breadcrumb-link ${activeTab === "home-section" ? "active" : ""}`}
+            onClick={() => scrollToSection("home-section")}
+          >
+            Home
+          </button>
+          <span className="minimalist-hero-breadcrumb-dot">•</span>
+          <button
+            className="minimalist-hero-breadcrumb-link"
+            onClick={() => scrollToSection("radar-section")}
+          >
+            Journeys
+          </button>
+          <span className="minimalist-hero-breadcrumb-dot">•</span>
+          <div className="minimalist-hero-crest" title="Agro-Meteorology Cockpit">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+              <path d="M4 18l5-7 4 5 7-10" />
+              <circle cx="18" cy="6" r="2" />
+            </svg>
+          </div>
+          <span className="minimalist-hero-breadcrumb-dot">•</span>
+          <button
+            className="minimalist-hero-breadcrumb-link"
+            onClick={() => scrollToSection("fleet-section")}
+          >
+            Stories
+          </button>
+          <span className="minimalist-hero-breadcrumb-dot">•</span>
+          <button
+            className="minimalist-hero-breadcrumb-link"
+            onClick={() => scrollToSection("frost-section")}
+          >
+            Spaces
+          </button>
+        </div>
+
+        {/* Center Headline & Pill CTA */}
+        <div className="minimalist-hero-center">
+          <h1 className="minimalist-hero-headline">
+            A Climate Beyond<br />
+            <span>the Horizon</span>
+          </h1>
+
+          <button
+            className="minimalist-hero-cta-btn"
+            onClick={() => scrollToSection("radar-section")}
+          >
+            <span>Explore Radar</span>
+          </button>
+        </div>
+
+        {/* Bottom Floating Telemetry Bar */}
+        <div className="minimalist-hero-bottom">
+          {/* Bottom Left Glass Preview Card */}
+          <div
+            className="minimalist-trip-card"
+            onClick={() => {
+              handleSelectPlot(AGRO_PLOTS[0]);
+              scrollToSection("radar-section");
+            }}
+            title="Inspect Pedro Valley Tea Station"
+          >
+            <div className="minimalist-trip-label">Latest Spot</div>
+            <div className="minimalist-trip-preview-stack">
+              <div
+                className="minimalist-trip-thumb-stacked"
+                style={{ backgroundImage: `url('/hero_highland_dawn.jpg')` }}
+              ></div>
+              <div
+                className="minimalist-trip-thumb-stacked"
+                style={{
+                  background:
+                    "linear-gradient(135deg, rgba(56, 189, 248, 0.4), rgba(210, 248, 46, 0.4))",
+                }}
+              ></div>
+              <div
+                className="minimalist-trip-thumb-stacked"
+                style={{
+                  background:
+                    "linear-gradient(135deg, rgba(16, 185, 129, 0.45), rgba(12, 18, 15, 0.8))",
+                }}
+              ></div>
+            </div>
+            <div className="minimalist-trip-title-row">
+              <span className="minimalist-trip-name">Pedro Valley, Nuwara Eliya</span>
+              <span className="minimalist-trip-arrow">↗</span>
+            </div>
+            <div className="minimalist-trip-date">Highland Elevation • 1,940m</div>
+          </div>
+
+          {/* Bottom Center Philosophical Narrative */}
+          <div className="minimalist-narrative-block">
+            <p className="minimalist-quote">
+              Imagination isn&apos;t just a starting point — it&apos;s the destination.<br />
+              Let&apos;s guide your harvest to where precision and resilience live.
+            </p>
+            <div className="minimalist-coordinates">
+              06°58&apos;24&quot;N 80°46&apos;39&quot;E • SRI LANKA CENTRAL HIGHLANDS
+            </div>
+          </div>
+
+          {/* Bottom Right Circular Scroll Down Button */}
+          <button
+            className="minimalist-scroll-down-btn"
+            onClick={() => scrollToSection("radar-section")}
+            title="Scroll to Radar"
+            aria-label="Scroll to Radar"
+          >
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <polyline points="19 12 12 19 5 12"></polyline>
+            </svg>
+          </button>
+        </div>
+      </section>
 
       {/* ======================================================================
           HERO SECTION: EXECUTIVE PLATFORM INTRODUCTION & TELEMETRY HIGHLIGHTS
