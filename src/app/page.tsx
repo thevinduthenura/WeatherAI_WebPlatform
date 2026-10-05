@@ -655,6 +655,22 @@ export default function MissionControlPage() {
                     <span>VPD: <strong>{vpd.toFixed(2)} kPa</strong></span>
                     <span>Model: <strong>{selectedModel.toUpperCase()}</strong></span>
                   </div>
+
+                  {/* iOS Style Mobile Telemetry Quick Tiles */}
+                  <div className="mobile-stats-row">
+                    <div className="mobile-stat-tile">
+                      <div className="num">{temp.toFixed(1)}°</div>
+                      <div className="lbl">Ambient</div>
+                    </div>
+                    <div className="mobile-stat-tile">
+                      <div className="num">{humidity}%</div>
+                      <div className="lbl">Humidity</div>
+                    </div>
+                    <div className="mobile-stat-tile">
+                      <div className="num">{vpd.toFixed(2)}</div>
+                      <div className="lbl">VPD kPa</div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -1183,6 +1199,47 @@ export default function MissionControlPage() {
           Faculty of Computing | Department of Computer Science &amp; Software Engineering | SLIIT
         </div>
       </footer>
+
+      {/* ======================================================================
+          iOS 26 FLOATING MOBILE BOTTOM NAVIGATION DOCK (VISIBLE ON MOBILE/TABLETS)
+          ====================================================================== */}
+      <nav className="mobile-bottom-dock" aria-label="Mobile Navigation Bar">
+        <button
+          className={`mobile-dock-btn ${activeTab === "radar-section" ? "active" : ""}`}
+          onClick={() => scrollToSection("radar-section")}
+        >
+          <svg viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon></svg>
+          <span>Radar</span>
+        </button>
+        <button
+          className={`mobile-dock-btn ${activeTab === "fleet-section" ? "active" : ""}`}
+          onClick={() => scrollToSection("fleet-section")}
+        >
+          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect></svg>
+          <span>Fleet (6)</span>
+        </button>
+        <button
+          className={`mobile-dock-btn ${activeTab === "frost-section" ? "active" : ""}`}
+          onClick={() => scrollToSection("frost-section")}
+        >
+          <svg viewBox="0 0 24 24" style={isFrostImminent ? { stroke: "var(--accent-cyan)" } : {}}><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+          <span>Frost</span>
+        </button>
+        <button
+          className={`mobile-dock-btn ${activeTab === "water-section" ? "active" : ""}`}
+          onClick={() => scrollToSection("water-section")}
+        >
+          <svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
+          <span>Water</span>
+        </button>
+        <button
+          className={`mobile-dock-btn ${activeTab === "about-section" ? "active" : ""}`}
+          onClick={() => scrollToSection("about-section")}
+        >
+          <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          <span>About</span>
+        </button>
+      </nav>
 
       {/* ======================================================================
           PLAYGROUND MODAL

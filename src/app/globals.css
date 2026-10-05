@@ -1460,5 +1460,235 @@ input[type="range"]::-webkit-slider-thumb {
   color: var(--text-muted);
 }
 
+/* ==========================================================================
+   Mobile-First & iOS Experience Optimization (iPhone / Tablet Form Factors)
+   ========================================================================== */
+
+/* Mobile Bottom Navigation Dock (Visible on Mobile / Tablet <= 900px) */
+.mobile-bottom-dock {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  /* Adjust command viewport padding for mobile bottom bar */
+  .command-viewport {
+    padding: 12px 14px 100px 14px;
+  }
+
+  /* Header adjustments */
+  .cockpit-header {
+    padding: 10px 14px;
+    border-radius: var(--radius-md);
+  }
+
+  .cockpit-nav-tabs {
+    display: none; /* Hidden from header on mobile, displayed in bottom dock */
+  }
+
+  .cockpit-actions .glass-pill span {
+    display: none; /* Icon only on mobile */
+  }
+
+  /* Tri-column cockpit collapses into single column */
+  .mission-cockpit-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* Order: Center Map Radar First for immediate engagement */
+  .center-cockpit-panel {
+    order: 1;
+  }
+
+  .telemetry-left-panel {
+    order: 2;
+  }
+
+  .telemetry-right-panel {
+    order: 3;
+  }
+
+  /* Satellite Map Mobile Optimization */
+  .satellite-map-card {
+    min-height: 480px;
+    padding: 16px;
+    border-radius: var(--radius-lg);
+  }
+
+  /* Floating Telemetry Beacon as iOS Bottom Sheet Drawer */
+  .floating-telemetry-beacon-card {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    margin-top: 120px;
+    width: 100%;
+    min-width: unset;
+    padding: 14px 18px;
+    border-radius: var(--radius-md);
+    background: rgba(10, 16, 13, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  /* Map Header Bar */
+  .map-header-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .map-controls-row {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  /* Mobile Bottom Dock (iOS Bar) */
+  .mobile-bottom-dock {
+    display: flex;
+    position: fixed;
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
+    z-index: 999;
+    padding: 8px 12px;
+    background: rgba(12, 20, 16, 0.92);
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 9999px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75), inset 0 1px 1.5px rgba(255, 255, 255, 0.3);
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .mobile-dock-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 0.65rem;
+    font-family: var(--font-main);
+    font-weight: 600;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 9999px;
+    transition: all 0.2s ease;
+  }
+
+  .mobile-dock-btn.active {
+    color: #FFFFFF;
+    background: rgba(210, 248, 46, 0.18);
+    border: 1px solid rgba(210, 248, 46, 0.4);
+    box-shadow: 0 0 12px rgba(210, 248, 46, 0.25);
+  }
+
+  .mobile-dock-btn.active svg {
+    stroke: var(--accent-lime);
+  }
+
+  .mobile-dock-btn svg {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+    stroke-width: 2;
+    fill: none;
+  }
+
+  /* Stat Tiles on Mobile (Matching Reference Screen 3) */
+  .mobile-stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .mobile-stat-tile {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    padding: 10px 8px;
+    text-align: center;
+  }
+
+  .mobile-stat-tile .num {
+    font-size: 1.1rem;
+    font-weight: 800;
+    font-family: var(--font-mono);
+    color: #FFFFFF;
+  }
+
+  .mobile-stat-tile .lbl {
+    font-size: 0.62rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  /* Sliders touch accessibility */
+  input[type="range"] {
+    height: 10px;
+    margin: 8px 0;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    width: 26px;
+    height: 26px;
+  }
+
+  .btn-actuate-full {
+    padding: 14px;
+    font-size: 0.88rem;
+    border-radius: 9999px; /* Pill button like iOS */
+  }
+
+  /* Benchmark table responsive scrolling indicator */
+  .benchmark-table-container {
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--glass-border);
+    padding-bottom: 8px;
+  }
+
+  .section-title-large {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .command-viewport {
+    padding: 8px 10px 100px 10px;
+  }
+
+  .brand-title {
+    font-size: 0.95rem;
+  }
+
+  .brand-meta {
+    font-size: 0.62rem;
+  }
+
+  .satellite-map-card {
+    min-height: 440px;
+  }
+
+  .floating-telemetry-beacon-card {
+    margin-top: 90px;
+    padding: 12px 14px;
+  }
+
+  .beacon-big-stat .big-num {
+    font-size: 2.2rem;
+  }
+
+  .mobile-stats-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+
 
 
