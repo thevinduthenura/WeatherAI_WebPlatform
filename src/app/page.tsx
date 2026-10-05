@@ -294,7 +294,7 @@ export default function MissionControlPage() {
               AERO-AGRI <span>// OS 26</span>
             </div>
             <div className="brand-meta">
-              Solo Project // Conceived &amp; Developed by Gunathilaka H.D.T.T. (IT25101540)
+              Platform Engineering &amp; Design // Gunathilaka H.D.T.T. (IT25101540)
             </div>
           </div>
         </a>
@@ -431,7 +431,7 @@ export default function MissionControlPage() {
                   <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                   <circle cx="12" cy="7" r="4"></circle>
                 </svg>
-                <span>Solo Architecture // Gunathilaka H.D.T.T. (IT25101540)</span>
+                <span>System Architecture // Gunathilaka H.D.T.T. (IT25101540)</span>
               </div>
               <div className="fleet-pills-row">
                 <div className="fleet-pill-item">
@@ -1012,11 +1012,11 @@ export default function MissionControlPage() {
         <div className="section-hero-card liquid-glass">
           <div className="section-badge-tag" style={{ color: "var(--accent-lime)" }}>
             <svg className="ui-icon sm" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-            <span>Individual Innovation &amp; Solo System Architecture // IT2011</span>
+            <span>Applied AI System Architecture &amp; Platform Engineering // IT2011</span>
           </div>
           <h2 className="section-title-large">About AERO-AGRI OS 26 // Conceived &amp; Engineered by Gunathilaka H.D.T.T.</h2>
           <p className="section-desc-text">
-            While the underlying academic machine learning investigation for SLIIT IT2011 was conducted as part of Group <strong>2026-Y2-S1-MLB-B9G2-01</strong> (a 6-member team where each member trained an empirical model on the Szeged weather dataset), <strong>this web application, visionOS liquid glass cockpit, interactive agro radar, and real-world microclimate decision support platform is the sole personal innovation, original concept, and individual engineering achievement of Gunathilaka H.D.T.T. (IT25101540).</strong>
+            While the underlying academic machine learning investigation for SLIIT IT2011 was conducted as part of Group <strong>2026-Y2-S1-MLB-B9G2-01</strong> (a 6-member team where each member trained an empirical model on the Szeged weather dataset), <strong>this web application, visionOS liquid glass cockpit, interactive agro radar, and real-world microclimate decision support platform was designed, engineered, and implemented by Gunathilaka H.D.T.T. (IT25101540) as an interactive operational platform for agro-meteorological forecasting.</strong>
           </p>
 
           {/* Featured Solo Creator Showcase Card */}
@@ -1029,7 +1029,7 @@ export default function MissionControlPage() {
                 <div>
                   <div className="solo-badge">
                     <svg className="ui-icon sm" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                    <span>Sole Platform Architect &amp; Originator</span>
+                    <span>Lead System Architect &amp; Developer</span>
                   </div>
                   <div style={{ fontSize: "1.4rem", fontWeight: 800, color: "#FFFFFF", marginTop: 4 }}>
                     Gunathilaka H.D.T.T.
@@ -1041,14 +1041,14 @@ export default function MissionControlPage() {
               </div>
 
               <div className="solo-pill-tags">
-                <span className="glass-pill active" style={{ fontSize: "0.72rem" }}>Individual Concept &amp; Code</span>
+                <span className="glass-pill active" style={{ fontSize: "0.72rem" }}>Platform Engineering &amp; Development</span>
                 <span className="glass-pill active" style={{ fontSize: "0.72rem" }}>Lead Deep Learning Model</span>
                 <span className="glass-pill active" style={{ fontSize: "0.72rem" }}>visionOS Liquid Glass UI</span>
               </div>
             </div>
 
             <p style={{ fontSize: "0.86rem", color: "var(--text-secondary)", lineHeight: 1.6 }}>
-              Gunathilaka independently conceived the idea to evolve static, offline regression equations into an operational, automated agro-meteorological command platform. He single-handedly designed the visionOS-inspired liquid glass aesthetic, implemented the interactive GSAP 3 animation engine, designed the spatial GIS agro-radar for Sri Lanka&apos;s agricultural microclimates (Pedro Valley Tea, Polyhouse Floriculture, and Mahaweli Paddy), and deployed the state-of-the-art Deep Multilayer Perceptron (MLP-2) neural network.
+              Gunathilaka designed and engineered this platform to evolve static, offline regression equations into an operational, automated agro-meteorological command system. He implemented the visionOS-inspired liquid glass aesthetic, developed the interactive GSAP 3 animation engine, designed the spatial GIS agro-radar for Sri Lanka&apos;s agricultural microclimates (Pedro Valley Tea, Polyhouse Floriculture, and Mahaweli Paddy), and deployed the state-of-the-art Deep Multilayer Perceptron (MLP-2) neural network.
             </p>
 
             {/* 4 Architectural Innovation Pillars */}
@@ -1056,10 +1056,10 @@ export default function MissionControlPage() {
               <div className="solo-pillar-item">
                 <div className="solo-pillar-title">
                   <svg className="ui-icon sm" viewBox="0 0 24 24" style={{ stroke: "var(--accent-lime)" }}><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-                  <span>1. Platform Innovation</span>
+                  <span>1. Platform Architecture</span>
                 </div>
                 <div className="solo-pillar-desc">
-                  Solo concept and full-stack Next.js + TypeScript + GSAP 3 development bridging ML modeling with real-world agro operations.
+                  Full-stack Next.js + TypeScript + GSAP 3 development bridging ML modeling with real-world agro operations.
                 </div>
               </div>
 
@@ -1225,7 +1225,7 @@ export default function MissionControlPage() {
       {/* Cockpit Footer */}
       <footer className="cockpit-footer">
         <div>
-          <strong style={{ color: "#FFFFFF" }}>AERO-AGRI OS 26</strong> // Individual Innovation &amp; Solo Platform Architecture by{" "}
+          <strong style={{ color: "#FFFFFF" }}>AERO-AGRI OS 26</strong> // Platform Architecture &amp; System Engineering by{" "}
           <span style={{ color: "var(--accent-lime)", fontWeight: 700 }}>Gunathilaka H.D.T.T. (IT25101540)</span>
         </div>
         <div>
