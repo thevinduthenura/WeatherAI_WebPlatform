@@ -729,8 +729,8 @@ export default function MissionControlPage() {
           SECTION 1: LIVE AGRO RADAR & TELEMETRY SIMULATOR
           ====================================================================== */}
       <section id="radar-section" className="scroll-section">
-        {/* Section 1 Header Card */}
-        <div className="section-hero-card liquid-glass" style={{ marginBottom: 16 }}>
+        {/* Section 1 Header */}
+        <div className="section-hero-card" style={{ marginBottom: 16 }}>
           <div className="section-badge-tag" style={{ color: "var(--accent-lime)" }}>
             <svg className="ui-icon sm" viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon></svg>
             <span>Real-Time Geospatial GIS &amp; Microclimate Cockpit</span>
@@ -1146,7 +1146,7 @@ export default function MissionControlPage() {
           SECTION 2: MODEL FLEET & COMPARATIVE BENCHMARK MATRIX
           ====================================================================== */}
       <section id="fleet-section" className="scroll-section">
-        <div className="section-hero-card liquid-glass">
+        <div className="section-hero-card">
           <div className="section-badge-tag">
             <svg className="ui-icon sm" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect></svg>
             <span>Model Fleet Architecture & Scientific Benchmarking</span>
@@ -1241,7 +1241,7 @@ export default function MissionControlPage() {
           SECTION 3: GROUND FROST & SRI LANKA AGRO HAZARDS
           ====================================================================== */}
       <section id="frost-section" className="scroll-section">
-        <div className="section-hero-card liquid-glass">
+        <div className="section-hero-card">
           <div className="section-badge-tag" style={{ color: "var(--accent-cyan)" }}>
             <svg className="ui-icon sm" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
             <span>Sri Lanka Microclimatic Hazards & Ground Frost ('Maha Pini') Protection</span>
@@ -1283,7 +1283,7 @@ export default function MissionControlPage() {
           SECTION 4: WATER & RESOURCE SAVINGS
           ====================================================================== */}
       <section id="water-section" className="scroll-section">
-        <div className="section-hero-card liquid-glass">
+        <div className="section-hero-card">
           <div className="section-badge-tag" style={{ color: "var(--accent-lime)" }}>
             <svg className="ui-icon sm" viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
             <span>Precision Irrigation & Yala Season Water Conservation</span>
@@ -1319,7 +1319,7 @@ export default function MissionControlPage() {
           SECTION 5: ABOUT THE PROJECT, SOLO CREATOR & PEER BENCHMARK
           ====================================================================== */}
       <section id="about-section" className="scroll-section" style={{ marginBottom: 40 }}>
-        <div className="section-hero-card liquid-glass">
+        <div className="section-hero-card">
           <div className="section-badge-tag" style={{ color: "var(--accent-lime)" }}>
             <svg className="ui-icon sm" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
             <span>Applied AI System Architecture &amp; Platform Engineering // IT2011</span>

@@ -233,17 +233,194 @@ body {
 }
 
 /* ==========================================================================
-   Mission Control Layout (Command Center Container)
+   Mission Control Layout (Command Center Container - Full Viewport Width)
    ========================================================================== */
 .command-viewport {
   width: 100%;
-  max-width: 1540px;
-  margin: 0 auto;
+  max-width: 100%;
+  margin: 0;
   min-height: 100vh;
-  padding: 18px 24px 44px;
+  padding: 16px clamp(24px, 4vw, 68px) 70px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 36px;
+  box-sizing: border-box;
+}
+
+/* ==========================================================================
+   Full-Screen Seamless Section Architecture (Edge-to-Edge Design)
+   Eliminates cramped nested box/card clutter in favor of expansive fluid sections
+   ========================================================================== */
+.scroll-section {
+  width: 100%;
+  position: relative;
+  padding: 40px 0 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.section-hero-card {
+  width: 100%;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.section-badge-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.74rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-lime);
+  margin-bottom: 8px;
+}
+
+.section-title-large {
+  font-size: clamp(2rem, 3.2vw, 2.8rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #FFFFFF;
+  margin-bottom: 12px;
+  line-height: 1.15;
+}
+
+.section-desc-text {
+  font-size: 0.98rem;
+  color: rgba(255, 255, 255, 0.68);
+  line-height: 1.65;
+  max-width: 1250px;
+  margin-bottom: 28px;
+}
+
+/* Benchmark Table Styling (Full Width & Clean Row Hierarchy) */
+.benchmark-table-container {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: var(--radius-lg);
+  background: rgba(10, 15, 12, 0.7);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+  margin: 18px 0;
+}
+
+.benchmark-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  text-align: left;
+}
+
+.benchmark-table th {
+  padding: 16px 20px;
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.5);
+  background: rgba(0, 0, 0, 0.35);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  white-space: nowrap;
+}
+
+.benchmark-table td {
+  padding: 18px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.85);
+  vertical-align: middle;
+}
+
+.benchmark-table tr:hover td {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.benchmark-table tr.highlighted td {
+  background: rgba(210, 248, 46, 0.08);
+  border-color: rgba(210, 248, 46, 0.2);
+  color: #FFFFFF;
+}
+
+/* Hazard Matrix Grid Full-Width Modern Telemetry */
+.hazard-matrix-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-top: 18px;
+  width: 100%;
+}
+
+.hazard-cell {
+  padding: 24px;
+  border-radius: var(--radius-md);
+  background: rgba(12, 18, 15, 0.65);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: all var(--trans-fast);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+}
+
+.hazard-cell:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.28);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
+}
+
+.hazard-cell.severe {
+  border-color: rgba(56, 189, 248, 0.4);
+  background: linear-gradient(145deg, rgba(56, 189, 248, 0.1) 0%, rgba(12, 18, 15, 0.7) 100%);
+}
+
+.hazard-cell.heat {
+  border-color: rgba(239, 68, 68, 0.4);
+  background: linear-gradient(145deg, rgba(239, 68, 68, 0.1) 0%, rgba(12, 18, 15, 0.7) 100%);
+}
+
+.hazard-cell.optimal {
+  border-color: rgba(16, 185, 129, 0.4);
+  background: linear-gradient(145deg, rgba(16, 185, 129, 0.1) 0%, rgba(12, 18, 15, 0.7) 100%);
+}
+
+.hazard-temp-range {
+  font-size: 2rem;
+  font-weight: 800;
+  font-family: var(--font-main);
+  color: #FFFFFF;
+  line-height: 1;
+}
+
+.hazard-label {
+  font-size: 0.74rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hazard-action {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* Water Savings Grid */
+.water-savings-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 18px;
+  width: 100%;
 }
 
 /* ==========================================================================
