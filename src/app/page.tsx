@@ -294,7 +294,7 @@ export default function MissionControlPage() {
               AERO-AGRI <span>// OS 26</span>
             </div>
             <div className="brand-meta">
-              Mission Control // Group 2026-Y2-S1-MLB-B9G2-01
+              Solo Project // Conceived &amp; Developed by Gunathilaka H.D.T.T. (IT25101540)
             </div>
           </div>
         </a>
@@ -438,10 +438,10 @@ export default function MissionControlPage() {
             <div className="fleet-counts-card liquid-glass">
               <div className="card-title-tiny" style={{ marginBottom: 10, color: "var(--accent-lime)" }}>
                 <svg className="ui-icon sm" viewBox="0 0 24 24">
-                  <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
-                  <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
                 </svg>
-                <span>SLIIT IT2011 // Group B9G2-01</span>
+                <span>Solo Architecture // Gunathilaka H.D.T.T. (IT25101540)</span>
               </div>
               <div className="fleet-pills-row">
                 <div className="fleet-pill-item">
@@ -817,7 +817,7 @@ export default function MissionControlPage() {
               <tbody>
                 <tr className={selectedModel === "mlp" ? "highlighted" : ""}>
                   <td><strong>Deep MLP (MLP-2)</strong></td>
-                  <td>Gunathilaka H.D.T.T. (IT25101540)</td>
+                  <td><strong>Gunathilaka H.D.T.T. (IT25101540)</strong><br /><span style={{ fontSize: "0.7rem", color: "var(--accent-lime)" }}>★ Solo Platform Architect &amp; Lead Researcher</span></td>
                   <td style={{ color: "var(--accent-lime)", fontWeight: 700 }}>0.9151 (0.9876 w/ Lags)</td>
                   <td>2.79 (1.03)</td>
                   <td>2.01 (0.74)</td>
@@ -826,7 +826,7 @@ export default function MissionControlPage() {
                 </tr>
                 <tr className={selectedModel === "rf" ? "highlighted" : ""}>
                   <td><strong>Random Forest (RF-1)</strong></td>
-                  <td>Diyes C.L. (IT25100263)</td>
+                  <td>Diyes C.L. (IT25100263)<br /><span style={{ fontSize: "0.7rem", color: "var(--text-muted)" }}>Peer Contributor</span></td>
                   <td style={{ color: "var(--accent-lime)", fontWeight: 700 }}>0.9331</td>
                   <td>2.48</td>
                   <td>1.82</td>
@@ -835,7 +835,7 @@ export default function MissionControlPage() {
                 </tr>
                 <tr className={selectedModel === "gb" ? "highlighted" : ""}>
                   <td><strong>Gradient Boosting (GB-3)</strong></td>
-                  <td>Zeen A.C. (IT25103342)</td>
+                  <td>Zeen A.C. (IT25103342)<br /><span style={{ fontSize: "0.7rem", color: "var(--text-muted)" }}>Peer Contributor</span></td>
                   <td style={{ color: "var(--accent-lime)", fontWeight: 700 }}>0.8846</td>
                   <td>3.26</td>
                   <td>2.45</td>
@@ -844,7 +844,7 @@ export default function MissionControlPage() {
                 </tr>
                 <tr>
                   <td><strong>Support Vector Regression (SVR-4)</strong></td>
-                  <td>Benchmark Fleet</td>
+                  <td>Dissanayake S.A.S.D. (IT25101062)<br /><span style={{ fontSize: "0.7rem", color: "var(--text-muted)" }}>Peer Contributor</span></td>
                   <td>0.8912</td>
                   <td>3.15</td>
                   <td>2.31</td>
@@ -853,7 +853,7 @@ export default function MissionControlPage() {
                 </tr>
                 <tr>
                   <td><strong>Decision Tree Regressor (DT-5)</strong></td>
-                  <td>Benchmark Fleet</td>
+                  <td>Gayathmi P.G.R. (IT25103013)<br /><span style={{ fontSize: "0.7rem", color: "var(--text-muted)" }}>Peer Contributor</span></td>
                   <td>0.8350</td>
                   <td>3.89</td>
                   <td>2.92</td>
@@ -862,7 +862,7 @@ export default function MissionControlPage() {
                 </tr>
                 <tr>
                   <td><strong>Multiple Linear Regression (LR-6)</strong></td>
-                  <td>Benchmark Fleet</td>
+                  <td>Anaf M.K.A.S. (IT25102345)<br /><span style={{ fontSize: "0.7rem", color: "var(--text-muted)" }}>Peer Contributor</span></td>
                   <td>0.7410</td>
                   <td>4.88</td>
                   <td>3.84</td>
@@ -954,75 +954,186 @@ export default function MissionControlPage() {
       </section>
 
       {/* ======================================================================
-          SECTION 5: ABOUT THE PROJECT, TEAM & RESEARCH REFERENCES
+          SECTION 5: ABOUT THE PROJECT, SOLO CREATOR & PEER BENCHMARK
           ====================================================================== */}
       <section id="about-section" className="scroll-section" style={{ marginBottom: 40 }}>
         <div className="section-hero-card liquid-glass">
           <div className="section-badge-tag" style={{ color: "var(--accent-lime)" }}>
-            <svg className="ui-icon sm" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
-            <span>SLIIT Department of Computer Science &amp; Software Engineering // IT2011</span>
+            <svg className="ui-icon sm" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <span>Individual Innovation &amp; Solo System Architecture // IT2011</span>
           </div>
-          <h2 className="section-title-large">About AERO-AGRI // Project Group 2026-Y2-S1-MLB-B9G2-01</h2>
+          <h2 className="section-title-large">About AERO-AGRI OS 26 // Conceived &amp; Engineered by Gunathilaka H.D.T.T.</h2>
           <p className="section-desc-text">
-            This web platform represents the operational synthesis of our final year evaluation for IT2011 (Artificial Intelligence &amp; Machine Learning). It bridges the divide between offline empirical modeling and real-world agricultural automation, turning mathematical machine learning models into an actionable decision support tool.
+            While the underlying academic machine learning investigation for SLIIT IT2011 was conducted as part of Group <strong>2026-Y2-S1-MLB-B9G2-01</strong> (a 6-member team where each member trained an empirical model on the Szeged weather dataset), <strong>this web application, visionOS liquid glass cockpit, interactive agro radar, and real-world microclimate decision support platform is the sole personal innovation, original concept, and individual engineering achievement of Gunathilaka H.D.T.T. (IT25101540).</strong>
           </p>
 
-          {/* Team Member Cards */}
-          <div className="team-member-grid">
-            <div className="team-card liquid-glass">
-              <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                <div className="member-avatar-badge">TG</div>
+          {/* Featured Solo Creator Showcase Card */}
+          <div className="solo-architect-card">
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 14 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+                <div className="member-avatar-badge" style={{ width: 56, height: 56, fontSize: "1.3rem", background: "rgba(210, 248, 46, 0.2)", borderColor: "var(--accent-lime)" }}>
+                  TG
+                </div>
                 <div>
-                  <div className="member-name">Gunathilaka H.D.T.T.</div>
-                  <div className="member-id">IT25101540</div>
+                  <div className="solo-badge">
+                    <svg className="ui-icon sm" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    <span>Sole Platform Architect &amp; Originator</span>
+                  </div>
+                  <div style={{ fontSize: "1.4rem", fontWeight: 800, color: "#FFFFFF", marginTop: 4 }}>
+                    Gunathilaka H.D.T.T.
+                  </div>
+                  <div style={{ fontSize: "0.82rem", color: "var(--accent-lime)", fontFamily: "var(--font-mono)" }}>
+                    Registration No: IT25101540 // SLIIT Department of Computer Science &amp; Software Engineering
+                  </div>
                 </div>
               </div>
-              <p className="member-role">
-                <strong>Lead Modeling: Deep Multilayer Perceptron (MLP)</strong><br />
-                Constructed the 3-layer dense architecture [128, 64, 32] with Adam optimization, learning rate tuning, and engineered autoregressive lag features achieving an exceptional R² = 0.9876 and RMSE = 1.03°C.
-              </p>
-              <div className="member-metrics-strip">
-                <span>Model: <strong>MLP-2</strong></span>
-                <span>R²: <strong>0.9876</strong></span>
-                <span>RMSE: <strong>1.03°C</strong></span>
+
+              <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                <span className="glass-pill active" style={{ fontSize: "0.72rem" }}>Individual Concept &amp; Code</span>
+                <span className="glass-pill active" style={{ fontSize: "0.72rem" }}>Lead Deep Learning Model</span>
+                <span className="glass-pill active" style={{ fontSize: "0.72rem" }}>visionOS Liquid Glass UI</span>
               </div>
             </div>
 
-            <div className="team-card liquid-glass">
-              <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                <div className="member-avatar-badge" style={{ background: "rgba(56, 189, 248, 0.15)", borderColor: "rgba(56, 189, 248, 0.35)", color: "var(--accent-cyan)" }}>CD</div>
-                <div>
-                  <div className="member-name">Diyes C.L.</div>
-                  <div className="member-id">IT25100263</div>
+            <p style={{ fontSize: "0.86rem", color: "var(--text-secondary)", lineHeight: 1.6 }}>
+              Gunathilaka independently conceived the idea to evolve static, offline regression equations into an operational, automated agro-meteorological command platform. He single-handedly designed the visionOS-inspired liquid glass aesthetic, implemented the interactive GSAP 3 animation engine, designed the spatial GIS agro-radar for Sri Lanka&apos;s agricultural microclimates (Pedro Valley Tea, Polyhouse Floriculture, and Mahaweli Paddy), and deployed the state-of-the-art Deep Multilayer Perceptron (MLP-2) neural network.
+            </p>
+
+            {/* 4 Architectural Innovation Pillars */}
+            <div className="solo-grid-pillars">
+              <div className="solo-pillar-item">
+                <div className="solo-pillar-title">
+                  <svg className="ui-icon sm" viewBox="0 0 24 24" style={{ stroke: "var(--accent-lime)" }}><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                  <span>1. Platform Innovation</span>
+                </div>
+                <div className="solo-pillar-desc">
+                  Solo concept and full-stack Next.js + TypeScript + GSAP 3 development bridging ML modeling with real-world agro operations.
                 </div>
               </div>
-              <p className="member-role">
-                <strong>Lead Modeling: Random Forest Regressor (RF)</strong><br />
-                Engineered the 100-tree ensemble pipeline, hyperparameter tuning via randomized grid search, out-of-bag validation, and non-linear feature ranking achieving an operational R² = 0.9331 and RMSE = 2.48°C.
-              </p>
-              <div className="member-metrics-strip">
-                <span>Model: <strong>RF-1</strong></span>
-                <span>R²: <strong>0.9331</strong></span>
-                <span>RMSE: <strong>2.48°C</strong></span>
+
+              <div className="solo-pillar-item">
+                <div className="solo-pillar-title">
+                  <svg className="ui-icon sm" viewBox="0 0 24 24" style={{ stroke: "var(--accent-cyan)" }}><circle cx="12" cy="12" r="10"></circle><polygon points="12 2 15 8 22 9 17 14 18 21 12 17 6 21 7 14 2 9 9 8 12 2"></polygon></svg>
+                  <span>2. Interactive Radar</span>
+                </div>
+                <div className="solo-pillar-desc">
+                  Real-time multi-plot spatial geolocation selector with 3D tilted liquid glass card and simulated diurnal solar cycles.
+                </div>
+              </div>
+
+              <div className="solo-pillar-item">
+                <div className="solo-pillar-title">
+                  <svg className="ui-icon sm" viewBox="0 0 24 24" style={{ stroke: "#38BDF8" }}><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                  <span>3. Agro-Defense Suite</span>
+                </div>
+                <div className="solo-pillar-desc">
+                  Automated ground frost (&apos;Maha Pini&apos;) detection algorithms, FAO Vapor Pressure Deficit (VPD), and actuator triggers.
+                </div>
+              </div>
+
+              <div className="solo-pillar-item">
+                <div className="solo-pillar-title">
+                  <svg className="ui-icon sm" viewBox="0 0 24 24" style={{ stroke: "var(--accent-amber)" }}><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect></svg>
+                  <span>4. Deep MLP Modeling</span>
+                </div>
+                <div className="solo-pillar-desc">
+                  Constructed 3-layer architecture [128, 64, 32] with Adam optimization, achieving top fleet accuracy: R² = 0.9876, RMSE = 1.03°C.
+                </div>
               </div>
             </div>
+          </div>
 
-            <div className="team-card liquid-glass">
-              <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                <div className="member-avatar-badge" style={{ background: "rgba(245, 158, 11, 0.15)", borderColor: "rgba(245, 158, 11, 0.35)", color: "var(--accent-amber)" }}>AZ</div>
-                <div>
-                  <div className="member-name">Zeen A.C.</div>
-                  <div className="member-id">IT25103342</div>
+          {/* Academic Peer Contributors Sub-Section */}
+          <div style={{ marginTop: 28, paddingTop: 20, borderTop: "1px solid var(--glass-border)" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
+              <svg className="ui-icon sm" viewBox="0 0 24 24" style={{ stroke: "var(--accent-cyan)" }}>
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+              <h3 style={{ fontSize: "1.05rem", fontWeight: 700, color: "#FFFFFF" }}>
+                SLIIT Academic Group 2026-Y2-S1-MLB-B9G2-01 // Peer Model Contributors
+              </h3>
+            </div>
+            <p style={{ fontSize: "0.8rem", color: "var(--text-secondary)", marginBottom: 12 }}>
+              To provide a comprehensive comparative benchmark within Gunathilaka&apos;s platform, the 5 models trained by academic group peers are integrated into the decision fleet:
+            </p>
+
+            <div className="peer-contributors-grid">
+              <div className="peer-card">
+                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                  <div className="member-avatar-badge" style={{ width: 34, height: 34, fontSize: "0.8rem", background: "rgba(56, 189, 248, 0.15)", borderColor: "rgba(56, 189, 248, 0.35)", color: "var(--accent-cyan)" }}>CD</div>
+                  <div>
+                    <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "#FFFFFF" }}>Diyes C.L.</div>
+                    <div style={{ fontSize: "0.7rem", color: "var(--accent-cyan)", fontFamily: "var(--font-mono)" }}>IT25100263</div>
+                  </div>
+                </div>
+                <div style={{ fontSize: "0.74rem", color: "var(--text-secondary)" }}>
+                  <strong>Random Forest (RF-1)</strong><br />
+                  100 Trees, Bootstrap Aggregation<br />
+                  R²: <strong>0.9331</strong> | RMSE: <strong>2.48°C</strong>
                 </div>
               </div>
-              <p className="member-role">
-                <strong>Lead Modeling: Gradient Boosting Regressor (GB)</strong><br />
-                Implemented sequential residual boosting with 300 estimators, shrinkage rate validation, and trigonometric circular encoding (sin/cos) for diurnal solar cycles, achieving R² = 0.8846 and RMSE = 3.26°C.
-              </p>
-              <div className="member-metrics-strip">
-                <span>Model: <strong>GB-3</strong></span>
-                <span>R²: <strong>0.8846</strong></span>
-                <span>RMSE: <strong>3.26°C</strong></span>
+
+              <div className="peer-card">
+                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                  <div className="member-avatar-badge" style={{ width: 34, height: 34, fontSize: "0.8rem", background: "rgba(245, 158, 11, 0.15)", borderColor: "rgba(245, 158, 11, 0.35)", color: "var(--accent-amber)" }}>AZ</div>
+                  <div>
+                    <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "#FFFFFF" }}>Zeen A.C.</div>
+                    <div style={{ fontSize: "0.7rem", color: "var(--accent-amber)", fontFamily: "var(--font-mono)" }}>IT25103342</div>
+                  </div>
+                </div>
+                <div style={{ fontSize: "0.74rem", color: "var(--text-secondary)" }}>
+                  <strong>Gradient Boosting (GB-3)</strong><br />
+                  300 Estimators, Cyclical Sin/Cos<br />
+                  R²: <strong>0.8846</strong> | RMSE: <strong>3.26°C</strong>
+                </div>
+              </div>
+
+              <div className="peer-card">
+                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                  <div className="member-avatar-badge" style={{ width: 34, height: 34, fontSize: "0.8rem", background: "rgba(168, 85, 247, 0.15)", borderColor: "rgba(168, 85, 247, 0.35)", color: "#C084FC" }}>SD</div>
+                  <div>
+                    <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "#FFFFFF" }}>Dissanayake S.A.</div>
+                    <div style={{ fontSize: "0.7rem", color: "#C084FC", fontFamily: "var(--font-mono)" }}>IT25101062</div>
+                  </div>
+                </div>
+                <div style={{ fontSize: "0.74rem", color: "var(--text-secondary)" }}>
+                  <strong>Support Vector Regressor (SVR-4)</strong><br />
+                  RBF Kernel, C=10.0, Epsilon=0.1<br />
+                  R²: <strong>0.8912</strong> | RMSE: <strong>3.15°C</strong>
+                </div>
+              </div>
+
+              <div className="peer-card">
+                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                  <div className="member-avatar-badge" style={{ width: 34, height: 34, fontSize: "0.8rem", background: "rgba(16, 185, 129, 0.15)", borderColor: "rgba(16, 185, 129, 0.35)", color: "var(--accent-emerald)" }}>RG</div>
+                  <div>
+                    <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "#FFFFFF" }}>Gayathmi P.G.R.</div>
+                    <div style={{ fontSize: "0.7rem", color: "var(--accent-emerald)", fontFamily: "var(--font-mono)" }}>IT25103313</div>
+                  </div>
+                </div>
+                <div style={{ fontSize: "0.74rem", color: "var(--text-secondary)" }}>
+                  <strong>Decision Tree (DT-5)</strong><br />
+                  Single CART Tree, Split=5<br />
+                  R²: <strong>0.8350</strong> | RMSE: <strong>3.89°C</strong>
+                </div>
+              </div>
+
+              <div className="peer-card">
+                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                  <div className="member-avatar-badge" style={{ width: 34, height: 34, fontSize: "0.8rem", background: "rgba(239, 68, 68, 0.15)", borderColor: "rgba(239, 68, 68, 0.35)", color: "#F87171" }}>SA</div>
+                  <div>
+                    <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "#FFFFFF" }}>Anaf M.K.A.S.</div>
+                    <div style={{ fontSize: "0.7rem", color: "#F87171", fontFamily: "var(--font-mono)" }}>IT25102345</div>
+                  </div>
+                </div>
+                <div style={{ fontSize: "0.74rem", color: "var(--text-secondary)" }}>
+                  <strong>Linear Regression (LR-6)</strong><br />
+                  OLS Closed-Form Solution<br />
+                  R²: <strong>0.7410</strong> | RMSE: <strong>4.88°C</strong>
+                </div>
               </div>
             </div>
           </div>
@@ -1030,7 +1141,7 @@ export default function MissionControlPage() {
           {/* Academic References */}
           <div style={{ marginTop: 24, paddingTop: 16, borderTop: "1px solid var(--glass-border)" }}>
             <h3 style={{ fontSize: "1.05rem", fontWeight: 700, color: "#FFFFFF", marginBottom: 10 }}>
-              Academic & Dataset References
+              Academic &amp; Dataset References
             </h3>
             <div style={{ display: "flex", flexDirection: "column", gap: 8, fontSize: "0.8rem", color: "var(--text-secondary)" }}>
               <div>
@@ -1058,6 +1169,20 @@ export default function MissionControlPage() {
           </div>
         </div>
       </section>
+
+      {/* Cockpit Footer */}
+      <footer className="cockpit-footer">
+        <div>
+          <strong style={{ color: "#FFFFFF" }}>AERO-AGRI OS 26</strong> // Individual Innovation &amp; Solo Platform Architecture by{" "}
+          <span style={{ color: "var(--accent-lime)", fontWeight: 700 }}>Gunathilaka H.D.T.T. (IT25101540)</span>
+        </div>
+        <div>
+          Benchmarking Models from SLIIT Academic Group <strong>2026-Y2-S1-MLB-B9G2-01</strong>
+        </div>
+        <div style={{ color: "var(--text-muted)" }}>
+          Faculty of Computing | Department of Computer Science &amp; Software Engineering | SLIIT
+        </div>
+      </footer>
 
       {/* ======================================================================
           PLAYGROUND MODAL
