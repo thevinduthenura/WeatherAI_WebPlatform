@@ -890,6 +890,206 @@ body {
 }
 
 /* ==========================================================================
+   Top Cockpit Header Bar (Image 5 Executive Design - Perfectly Aligned)
+   ========================================================================== */
+.cockpit-header {
+  position: sticky;
+  top: 12px;
+  height: 60px;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: var(--radius-pill);
+  background: rgba(12, 16, 22, 0.88);
+  backdrop-filter: blur(34px) saturate(200%);
+  -webkit-backdrop-filter: blur(34px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  z-index: 100;
+  gap: 16px;
+}
+
+.brand-unit {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  text-decoration: none;
+  color: inherit;
+  flex-shrink: 0;
+}
+
+.brand-glyph {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-lime) 0%, #10B981 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #050807;
+  box-shadow: 0 0 16px var(--accent-lime-glow);
+}
+
+.brand-glyph svg {
+  width: 18px;
+  height: 18px;
+  stroke: #050807;
+  stroke-width: 2.2;
+}
+
+.brand-text-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-title {
+  font-weight: 700;
+  font-size: 0.96rem;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.brand-title span {
+  color: var(--accent-lime);
+  font-weight: 800;
+}
+
+.brand-meta {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-family: var(--font-mono);
+}
+
+/* Central Segmented Pill Container (Image 5 Replica) */
+.cockpit-nav-segmented-bar {
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-pill);
+  padding: 4px;
+  gap: 4px;
+}
+
+.cockpit-segmented-tab {
+  padding: 6px 15px;
+  border-radius: var(--radius-pill);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.65);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  transition: all var(--trans-fast);
+  white-space: nowrap;
+  font-family: var(--font-main);
+}
+
+.cockpit-segmented-tab:hover {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.cockpit-segmented-tab.active {
+  background: rgba(255, 255, 255, 0.14);
+  color: #FFFFFF;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Header Right Actions */
+.cockpit-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.status-chip-live {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #34D399;
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  font-weight: 700;
+}
+
+.status-chip-live .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 6px #10B981;
+}
+
+.header-action-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all var(--trans-fast);
+  font-family: var(--font-main);
+}
+
+.header-action-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+/* Interactive Phone Card States */
+.device-asset-card.interactive-tap {
+  cursor: pointer;
+  transition: all var(--trans-fast);
+}
+
+.device-asset-card.interactive-tap:hover {
+  border-color: var(--accent-lime);
+  background: linear-gradient(145deg, rgba(30, 42, 54, 0.75) 0%, rgba(15, 20, 28, 0.9) 100%);
+  transform: translateY(-1px);
+}
+
+.device-efficiency-card.interactive-tap {
+  cursor: pointer;
+  transition: all var(--trans-fast);
+}
+
+.device-efficiency-card.interactive-tap:hover {
+  border-color: rgba(210, 248, 46, 0.35);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.device-dock-btn {
+  cursor: pointer;
+  transition: all var(--trans-fast);
+}
+
+.device-dock-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+  transform: scale(1.1);
+}
+
+/* ==========================================================================
    Editorial Breakout Section (Image 3 & Image 4 Replica)
    ========================================================================== */
 .editorial-breakout-section {
@@ -2348,16 +2548,21 @@ input[type="range"]::-webkit-slider-thumb {
     text-overflow: ellipsis;
   }
 
-  .cockpit-nav-tabs {
-    display: none; /* moved to bottom dock */
+  .cockpit-nav-tabs,
+  .cockpit-nav-segmented-bar {
+    display: none; /* on mobile/tablet, bottom dock handles smooth navigation */
   }
 
-  /* Playground button: icon only on mobile */
-  .cockpit-actions .glass-pill span {
+  .status-chip-live {
     display: none;
   }
 
-  .cockpit-actions .glass-pill {
+  /* Playground button: icon only on mobile */
+  .header-action-btn span {
+    display: none;
+  }
+
+  .header-action-btn {
     padding: 7px 10px;
   }
 

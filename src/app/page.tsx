@@ -279,13 +279,35 @@ export default function MissionControlPage() {
     });
   };
 
+  const cyclePlot = () => {
+    const currentIndex = AGRO_PLOTS.findIndex((p) => p.id === selectedPlot.id);
+    const nextPlot = AGRO_PLOTS[(currentIndex + 1) % AGRO_PLOTS.length];
+    handleSelectPlot(nextPlot);
+  };
+
+  const cycleModel = () => {
+    const models: ("ridge" | "rf" | "mlp")[] = ["ridge", "rf", "mlp"];
+    const currIdx = models.indexOf(selectedModel as "ridge" | "rf" | "mlp");
+    const nextModel = models[currIdx === -1 ? 0 : (currIdx + 1) % models.length];
+    setSelectedModel(nextModel);
+  };
+
+  const currentModelMetrics = {
+    ridge: { r2: "78.20", rmse: "3.66°C", name: "Linear Ridge", path: "M 0 42 Q 50 38 100 36 T 200 32" },
+    rf: { r2: "93.31", rmse: "2.48°C", name: "Random Forest", path: "M 0 40 Q 50 28 100 22 T 200 14" },
+    mlp: { r2: "98.76", rmse: "1.03°C", name: "Deep MLP Net", path: "M 0 38 Q 40 32 80 20 T 140 16 T 200 8" },
+    gb: { r2: "88.46", rmse: "3.26°C", name: "Gradient Boost", path: "M 0 41 Q 50 32 100 26 T 200 18" },
+    dt: { r2: "87.10", rmse: "3.45°C", name: "Decision Tree", path: "M 0 41 Q 50 34 100 28 T 200 20" },
+    lr: { r2: "74.10", rmse: "3.98°C", name: "Linear Regress", path: "M 0 44 Q 50 40 100 38 T 200 34" },
+  }[selectedModel] || { r2: "98.76", rmse: "1.03°C", name: "Deep MLP Net", path: "M 0 38 Q 40 32 80 20 T 140 16 T 200 8" };
+
   return (
     <div className="command-viewport">
       {/* ======================================================================
-          Sticky Cockpit Navigation Header
+          Sticky Cockpit Navigation Header (Image 5 Executive Design)
           ====================================================================== */}
       <header className="cockpit-header">
-        <a href="#" className="brand-unit">
+        <a href="#radar-section" className="brand-unit">
           <div className="brand-glyph">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
               <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
@@ -295,72 +317,28 @@ export default function MissionControlPage() {
           </div>
           <div className="brand-text-block">
             <div className="brand-title">
-              AERO-AGRI <span>// OS 26</span>
+              WEATHER<span>.AI</span>
             </div>
             <div className="brand-meta">
-              Platform Engineering &amp; Design // Gunathilaka H.D.T.T. (IT25101540)
+              AGRO-METEOROLOGY COCKPIT
             </div>
           </div>
         </a>
 
-        {/* Central Pill Tabs (Direct Scroll Triggers) */}
-        <nav className="cockpit-nav-tabs">
+        {/* Central Segmented Pill Bar (Direct Scroll Triggers - Image 5 style) */}
+        <nav className="cockpit-nav-segmented-bar">
           {[
-            {
-              id: "radar-section",
-              label: "Live Agro Radar",
-              icon: <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon>,
-            },
-            {
-              id: "fleet-section",
-              label: "Model Fleet (6)",
-              icon: (
-                <>
-                  <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
-                  <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
-                  <line x1="6" y1="6" x2="6.01" y2="6"></line>
-                  <line x1="6" y1="18" x2="6.01" y2="18"></line>
-                </>
-              ),
-            },
-            {
-              id: "frost-section",
-              label: "Ground Frost ('Maha Pini')",
-              icon: <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>,
-              color: isFrostImminent ? "var(--accent-cyan)" : undefined,
-            },
-            {
-              id: "water-section",
-              label: "Water Savings",
-              icon: <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>,
-              color: "var(--accent-lime)",
-            },
-            {
-              id: "about-section",
-              label: "About & Team",
-              icon: (
-                <>
-                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                  <circle cx="9" cy="7" r="4"></circle>
-                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                </>
-              ),
-            },
+            { id: "radar-section", label: "Live Radar" },
+            { id: "fleet-section", label: "Model Fleet (6)" },
+            { id: "frost-section", label: "Frost Defense" },
+            { id: "water-section", label: "Water ET0" },
+            { id: "about-section", label: "Architecture" },
           ].map((tab) => (
             <button
               key={tab.id}
-              className={`cockpit-tab ${activeTab === tab.id ? "active" : ""}`}
+              className={`cockpit-segmented-tab ${activeTab === tab.id ? "active" : ""}`}
               onClick={() => scrollToSection(tab.id)}
-              style={{ background: "none", border: "none", cursor: "pointer", font: "inherit" }}
             >
-              <svg
-                className="ui-icon sm"
-                viewBox="0 0 24 24"
-                style={tab.color ? { stroke: tab.color } : {}}
-              >
-                {tab.icon}
-              </svg>
               <span>{tab.label}</span>
             </button>
           ))}
@@ -368,22 +346,21 @@ export default function MissionControlPage() {
 
         {/* Action Controls */}
         <div className="cockpit-actions">
+          <div className="status-chip-live">
+            <span className="dot"></span>
+            <span>3 Active Plots</span>
+          </div>
+
           <button
             onClick={() => setIsPlaygroundOpen(!isPlaygroundOpen)}
-            className="glass-pill active"
-            style={{
-              cursor: "pointer",
-              padding: "6px 14px",
-              fontSize: "0.75rem",
-              fontWeight: 700,
-              border: "1px solid var(--accent-lime)",
-            }}
+            className="header-action-btn"
+            title="Open Liquid Glass Playground"
           >
             <svg className="ui-icon sm" viewBox="0 0 24 24">
               <circle cx="12" cy="12" r="3"></circle>
               <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
             </svg>
-            <span>Liquid Glass Playground</span>
+            <span>Playground</span>
           </button>
         </div>
       </header>
@@ -414,18 +391,20 @@ export default function MissionControlPage() {
             Mobile dashboards and empirical machine learning models provide an instant overview of microclimatic hazards and frost exposure across Sri Lanka&apos;s high-elevation agricultural corridors, helping managers <strong>eliminate harvest loss and optimize precision irrigation</strong>.
           </p>
 
-          {/* Typographic Model Weight / Inference Selectors (Image 1 replica) */}
+          {/* Interactive Model Selector Pills (Image 1 replica) */}
           <div className="hero-typo-pills-row">
             <button
               className={`typo-pill-btn ${selectedModel === "ridge" ? "active" : ""}`}
               onClick={() => setSelectedModel("ridge")}
+              title="Switch to Linear Ridge Baseline"
             >
               <span className="typo-pill-circle">L</span>
-              <span>Light Ridge (Linear)</span>
+              <span>Light Ridge (0.782 R²)</span>
             </button>
             <button
               className={`typo-pill-btn ${selectedModel === "rf" ? "active" : ""}`}
               onClick={() => setSelectedModel("rf")}
+              title="Switch to Random Forest Ensemble"
             >
               <span className="typo-pill-circle">M</span>
               <span>Random Forest (0.933 R²)</span>
@@ -433,20 +412,26 @@ export default function MissionControlPage() {
             <button
               className={`typo-pill-btn ${selectedModel === "mlp" ? "active" : ""}`}
               onClick={() => setSelectedModel("mlp")}
+              title="Switch to Lead Deep MLP Neural Net"
             >
               <span className="typo-pill-circle">D</span>
-              <span>Deep MLP (0.988 R²)</span>
+              <span>Deep MLP (0.988 R²) ★</span>
             </button>
           </div>
 
-          {/* Floating Glass Functional Badge (Image 1 top right replica) */}
-          <div className="functional-telemetry-badge">
+          {/* Floating Glass Functional Badge (Clickable link to Model Fleet) */}
+          <div
+            className="functional-telemetry-badge interactive-tap"
+            onClick={() => scrollToSection("fleet-section")}
+            style={{ cursor: "pointer" }}
+            title="Inspect 6 Algorithmic Model Architectures"
+          >
             <div className="functional-badge-header">
-              <span>Functional Telemetry Architecture</span>
+              <span>Active Model Architecture: {currentModelMetrics.name}</span>
               <span className="arrow">↗</span>
             </div>
             <div className="functional-badge-sub">
-              Autoregressive lag tensors engineered from 92,029 historical hourly observations (2006–2016) deliver 0.9876 R² accuracy for 1-hour lookahead microclimate decisions.
+              Autoregressive lag tensors engineered from 92,029 historical hourly observations (2006–2016) deliver {currentModelMetrics.r2} R² accuracy (RMSE: {currentModelMetrics.rmse}). Click to view benchmark comparison.
             </div>
           </div>
 
@@ -463,7 +448,7 @@ export default function MissionControlPage() {
           </div>
         </div>
 
-        {/* Hero Right Column: High-End Dark Mode Mobile Device Mockup (Image 2 replica) */}
+        {/* Hero Right Column: Interactive Dark Mode Mobile Remote Control (Image 2 replica) */}
         <div className="hero-device-showcase-col">
           <div className="device-phone-chassis">
             <div className="device-screen">
@@ -473,44 +458,68 @@ export default function MissionControlPage() {
                 <span>5G LTE 100%</span>
               </div>
 
-              <div className="device-efficiency-card">
+              {/* Tap to cycle model */}
+              <div
+                className="device-efficiency-card interactive-tap"
+                onClick={cycleModel}
+                title="Click to switch machine learning model"
+              >
                 <div className="device-card-label">
-                  <span>Operational Accuracy</span>
-                  <span style={{ color: "var(--accent-lime)" }}>Target &gt; 95%</span>
+                  <span>Model: {currentModelMetrics.name}</span>
+                  <span style={{ color: "var(--accent-lime)" }}>TAP TO SWITCH ↻</span>
                 </div>
                 <div className="device-big-number">
-                  98.76<span>% R²</span>
+                  {currentModelMetrics.r2}<span>% R²</span>
+                </div>
+                <div style={{ fontSize: "0.68rem", color: "rgba(255,255,255,0.5)", fontFamily: "var(--font-mono)" }}>
+                  RMSE Error: {currentModelMetrics.rmse}
                 </div>
                 <svg className="device-sparkline-svg" viewBox="0 0 200 48" preserveAspectRatio="none">
                   <line x1="0" y1="12" x2="200" y2="12" stroke="rgba(255,255,255,0.15)" strokeDasharray="3 3" />
-                  <path d="M 0 38 Q 40 32 80 20 T 140 16 T 200 8" fill="none" stroke="#D2F82E" strokeWidth="2" />
-                  <circle cx="80" cy="20" r="3" fill="#D2F82E" />
-                  <circle cx="140" cy="16" r="3" fill="#D2F82E" />
+                  <path d={currentModelMetrics.path} fill="none" stroke="#D2F82E" strokeWidth="2" />
+                  <circle cx="100" cy="24" r="3" fill="#D2F82E" />
                   <circle cx="200" cy="8" r="4" fill="#FFFFFF" />
                 </svg>
               </div>
 
               <div className="device-pills-row">
-                <div className="device-status-pill">
+                <div
+                  className="device-status-pill interactive-tap"
+                  onClick={cyclePlot}
+                  style={{ cursor: "pointer" }}
+                  title="Click to cycle agro sector"
+                >
                   <span className="dot" style={{ background: "var(--accent-emerald)" }}></span>
                   <div className="info">
                     <div className="val">3 Active</div>
-                    <div className="lbl">Agro Sectors</div>
+                    <div className="lbl">Plots (Tap)</div>
                   </div>
                 </div>
-                <div className="device-status-pill">
+                <div
+                  className="device-status-pill interactive-tap"
+                  onClick={() => scrollToSection("frost-section")}
+                  style={{ cursor: "pointer" }}
+                  title="Click to view frost defense"
+                >
                   <span className="dot" style={{ background: isFrostImminent ? "var(--accent-rose)" : "var(--accent-lime)" }}></span>
                   <div className="info">
-                    <div className="val">{isFrostImminent ? "1 Hazard" : "0 Alerts"}</div>
-                    <div className="lbl">Telemetry Status</div>
+                    <div className="val">{isFrostImminent ? "Frost Risk" : "Safe"}</div>
+                    <div className="lbl">Defense Status</div>
                   </div>
                 </div>
               </div>
 
-              <div className="device-asset-card">
+              {/* Tap to cycle plots */}
+              <div
+                className="device-asset-card interactive-tap"
+                onClick={cyclePlot}
+                title="Click to switch active agricultural hotspot"
+              >
                 <div className="device-asset-header">
                   <span className="device-asset-tag">L {selectedPlot.elevation}m</span>
-                  <span style={{ fontSize: "0.68rem", color: "var(--accent-lime)", fontFamily: "var(--font-mono)" }}>● TELEMETRY ACTIVE</span>
+                  <span style={{ fontSize: "0.66rem", color: "var(--accent-lime)", fontFamily: "var(--font-mono)" }}>
+                    ● TAP TO SWITCH PLOT ↻
+                  </span>
                 </div>
                 <div className="device-asset-title">{selectedPlot.name}</div>
                 <div className="device-asset-telemetry">
@@ -520,11 +529,40 @@ export default function MissionControlPage() {
                 </div>
               </div>
 
+              {/* Functional Phone Dock: Smoothly scrolls to corresponding section */}
               <div className="device-bottom-dock">
-                <div className="device-dock-btn active" title="Cockpit"><svg className="ui-icon sm" viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon></svg></div>
-                <div className="device-dock-btn" title="Radar"><svg className="ui-icon sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="12 2 15 8 22 9 17 14 18 21 12 17 6 21 7 14 2 9 9 8 12 2"></polygon></svg></div>
-                <div className="device-dock-btn" title="Frost Shield"><svg className="ui-icon sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
-                <div className="device-dock-btn" title="Irrigation"><svg className="ui-icon sm" viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg></div>
+                <button
+                  className={`device-dock-btn ${activeTab === "radar-section" ? "active" : ""}`}
+                  onClick={() => scrollToSection("radar-section")}
+                  title="Cockpit Radar"
+                  style={{ background: "none", border: "none" }}
+                >
+                  <svg className="ui-icon sm" viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon></svg>
+                </button>
+                <button
+                  className={`device-dock-btn ${activeTab === "fleet-section" ? "active" : ""}`}
+                  onClick={() => scrollToSection("fleet-section")}
+                  title="Model Fleet"
+                  style={{ background: "none", border: "none" }}
+                >
+                  <svg className="ui-icon sm" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect></svg>
+                </button>
+                <button
+                  className={`device-dock-btn ${activeTab === "frost-section" ? "active" : ""}`}
+                  onClick={() => scrollToSection("frost-section")}
+                  title="Frost Shield"
+                  style={{ background: "none", border: "none" }}
+                >
+                  <svg className="ui-icon sm" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                </button>
+                <button
+                  className={`device-dock-btn ${activeTab === "water-section" ? "active" : ""}`}
+                  onClick={() => scrollToSection("water-section")}
+                  title="Irrigation Savings"
+                  style={{ background: "none", border: "none" }}
+                >
+                  <svg className="ui-icon sm" viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
+                </button>
               </div>
             </div>
           </div>
