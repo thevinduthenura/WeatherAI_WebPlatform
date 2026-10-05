@@ -64,54 +64,55 @@ export default function MissionControlPage() {
   const targetNextTemp = temp + coolingDelta + pressDelta;
   const delta = targetNextTemp - temp;
 
-  // Mount GSAP animations
+  // Mount GSAP animations safely with gsap.context for React StrictMode
   useEffect(() => {
-    // Header slide down
-    gsap.from(".cockpit-header", {
-      y: -40,
-      opacity: 0,
-      duration: 0.9,
-      ease: "power3.out",
+    const ctx = gsap.context(() => {
+      // Header slide down
+      gsap.fromTo(
+        ".cockpit-header",
+        { y: -30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.7, ease: "power3.out" }
+      );
+
+      // Glass cards staggered lift with explicit fromTo and clearProps
+      gsap.fromTo(
+        ".liquid-glass",
+        { y: 25, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.6,
+          stagger: 0.04,
+          ease: "power3.out",
+          delay: 0.05,
+          clearProps: "opacity,transform",
+        }
+      );
+
+      // Radar Sweep continuous 360 degree rotation
+      if (radarSweepBeamRef.current) {
+        gsap.to(radarSweepBeamRef.current, {
+          rotation: 360,
+          transformOrigin: "410px 240px",
+          repeat: -1,
+          duration: 7,
+          ease: "none",
+        });
+      }
+
+      // Floating Levitation Physics on Center Beacon Card
+      if (beaconCardRef.current) {
+        gsap.to(beaconCardRef.current, {
+          y: -10,
+          duration: 3.2,
+          yoyo: true,
+          repeat: -1,
+          ease: "sine.inOut",
+        });
+      }
     });
 
-    // Glass cards staggered lift
-    gsap.from(".liquid-glass", {
-      opacity: 0,
-      y: 35,
-      duration: 0.9,
-      stagger: 0.07,
-      ease: "power3.out",
-      delay: 0.15,
-    });
-
-    // Radar Sweep continuous 360 degree rotation
-    let radarTween: gsap.core.Tween | null = null;
-    if (radarSweepBeamRef.current) {
-      radarTween = gsap.to(radarSweepBeamRef.current, {
-        rotation: 360,
-        transformOrigin: "410px 240px",
-        repeat: -1,
-        duration: 7,
-        ease: "none",
-      });
-    }
-
-    // Floating Levitation Physics on Center Beacon Card
-    let beaconTween: gsap.core.Tween | null = null;
-    if (beaconCardRef.current) {
-      beaconTween = gsap.to(beaconCardRef.current, {
-        y: -10,
-        duration: 3.2,
-        yoyo: true,
-        repeat: -1,
-        ease: "sine.inOut",
-      });
-    }
-
-    return () => {
-      radarTween?.kill();
-      beaconTween?.kill();
-    };
+    return () => ctx.revert();
   }, []);
 
   // Animate temperature number smoothly with GSAP
