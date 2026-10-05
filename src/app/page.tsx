@@ -19,6 +19,7 @@ interface AgroPlot {
   solar: number;
   crop: string;
   zone: string;
+  elevation: number;
   soilStatus: string;
   baseTemp: number;
   baseHum: number;
@@ -37,6 +38,7 @@ const AGRO_PLOTS: AgroPlot[] = [
     solar: 73,
     crop: "Ceylon Tea (Camellia sinensis)",
     zone: "Nuwara Eliya Highlands",
+    elevation: 1868,
     soilStatus: "Optimal Moisture | Acidic Loam",
     baseTemp: 6.8,
     baseHum: 84,
@@ -53,6 +55,7 @@ const AGRO_PLOTS: AgroPlot[] = [
     solar: 54,
     crop: "Export Strawberries & Roses",
     zone: "Bandarawela Valleys",
+    elevation: 1250,
     soilStatus: "Substrate Coir | Drip Monitored",
     baseTemp: 21.4,
     baseHum: 76,
@@ -69,6 +72,7 @@ const AGRO_PLOTS: AgroPlot[] = [
     solar: 91,
     crop: "Maha Season Paddy (Bg 352)",
     zone: "Anuradhapura Plains",
+    elevation: 115,
     soilStatus: "Inundated Clay | High Thermal Cap",
     baseTemp: 32.8,
     baseHum: 58,
@@ -385,9 +389,87 @@ export default function MissionControlPage() {
       </header>
 
       {/* ======================================================================
+          HERO SECTION: EXECUTIVE PLATFORM INTRODUCTION & TELEMETRY HIGHLIGHTS
+          ====================================================================== */}
+      <section className="platform-hero-section liquid-glass">
+        <div className="hero-content-col">
+          <div className="hero-status-row">
+            <span className="hero-live-badge">
+              <span className="live-pulsing-dot"></span>
+              LIVE TELEMETRY ACTIVE
+            </span>
+            <span className="hero-sub-badge">
+              SLIIT IT2011 // Applied AI &amp; Machine Learning
+            </span>
+          </div>
+
+          <h1 className="hero-headline">
+            Autonomous Agro-Meteorological <br />
+            <span className="hero-gradient-text">Microclimate Intelligence</span> Platform
+          </h1>
+
+          <p className="hero-subtext">
+            Engineered to bridge empirical machine learning modeling with operational agricultural defense in Sri Lanka. Predicts microclimatic air temperature, simulates ground frost (&apos;Maha Pini&apos;) mitigation, and calculates AI-driven irrigation conservation in real time.
+          </p>
+
+          <div className="hero-cta-row">
+            <button onClick={() => scrollToSection("radar-section")} className="hero-btn-primary">
+              <svg className="ui-icon sm" viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon></svg>
+              <span>Launch Live Agro-Radar</span>
+            </button>
+
+            <button onClick={() => scrollToSection("fleet-section")} className="hero-btn-secondary">
+              <svg className="ui-icon sm" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect></svg>
+              <span>Model Fleet Benchmarks</span>
+            </button>
+
+            <button onClick={() => setIsPlaygroundOpen(true)} className="hero-btn-secondary">
+              <svg className="ui-icon sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+              <span>Liquid Glass Playground</span>
+            </button>
+          </div>
+        </div>
+
+        <div className="hero-metrics-grid">
+          <div className="hero-metric-card">
+            <div className="metric-tag">LEAD MODEL ACCURACY</div>
+            <div className="metric-huge">0.9876 <span className="unit">R²</span></div>
+            <div className="metric-desc">Deep MLP (128-64-32) w/ Autoregressive Lag Features</div>
+          </div>
+          <div className="hero-metric-card">
+            <div className="metric-tag">HISTORICAL DATA ARCHIVE</div>
+            <div className="metric-huge">92,029 <span className="unit">Records</span></div>
+            <div className="metric-desc">11 Years continuous hourly observations (2006–2016)</div>
+          </div>
+          <div className="hero-metric-card">
+            <div className="metric-tag">ACTIVE MICROCLIMATE</div>
+            <div className="metric-huge">{selectedPlot.name.split(" ")[0]} <span className="unit">{selectedPlot.elevation}m</span></div>
+            <div className="metric-desc">{selectedPlot.crop} • {selectedPlot.zone}</div>
+          </div>
+          <div className="hero-metric-card">
+            <div className="metric-tag">IRRIGATION SAVINGS</div>
+            <div className="metric-huge">{waterSavedLiters.toLocaleString()} <span className="unit">L</span></div>
+            <div className="metric-desc">Automated ET0 evapotranspiration irrigation hold</div>
+          </div>
+        </div>
+      </section>
+
+      {/* ======================================================================
           SECTION 1: LIVE AGRO RADAR & TELEMETRY SIMULATOR
           ====================================================================== */}
       <section id="radar-section" className="scroll-section">
+        {/* Section 1 Header Card */}
+        <div className="section-hero-card liquid-glass" style={{ marginBottom: 16 }}>
+          <div className="section-badge-tag" style={{ color: "var(--accent-lime)" }}>
+            <svg className="ui-icon sm" viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon></svg>
+            <span>Real-Time Geospatial GIS &amp; Microclimate Cockpit</span>
+          </div>
+          <h2 className="section-title-large">Live Agro-Radar &amp; Thermal Decision Cockpit</h2>
+          <p className="section-desc-text">
+            Interactive mission control interface integrating real-time GIS elevation maps, holographic microclimatic sensors, automated frost alarm thresholds, and 1-hour lookahead thermodynamic temperature prediction. Select an agricultural hotspot below to initiate telemetry analysis:
+          </p>
+        </div>
+
         {/* Plot Selector Bar */}
         <div className="liquid-glass plot-selector-bar">
           <div className="plot-selector-label">
